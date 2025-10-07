@@ -2,7 +2,6 @@ import useComicData from './ComicApi';
 
 export default function App() {
   const { data } = useComicData();
-  console.log(data);
 
   return (
     <div>
