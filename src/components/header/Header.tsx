@@ -14,10 +14,13 @@ export default function Header() {
       <div
         className={`${
           dark ? 'text-white bg-gray-700' : 'bg-gray-200 text-black'
-        } flex justify-between p-4`}
+        } flex justify-between p-4 h-[4rem]`}
       >
-        <h1>Vault101</h1>
-        <button onClick={() => toggleSideBar()}>
+        <h1 className={`text-2xl font-bold tracking-widest`}>VAULT33</h1>
+        <button
+          className='absolute right-3 md:hidden'
+          onClick={() => toggleSideBar()}
+        >
           {!isOpen ? (
             <img
               className='w-8'
