@@ -1,7 +1,7 @@
-import useGame from './UseGameHook';
+import useGameData from './GameData';
 
 export default function App() {
-  const { data } = useGame();
+  const { data } = useGameData({ title: 'skyrim' });
 
   console.log(data);
 
