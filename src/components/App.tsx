@@ -1,7 +1,7 @@
 import useGameData from './GameData';
 
 export default function App() {
-  const { data } = useGameData({ title: 'skyrim' });
+  const { data } = useGameData({ title: 'elder scrolls morrowind' });
 
   console.log(data);
 
