@@ -9,7 +9,7 @@ interface GameValue {
   rating: number;
   platforms: string[];
   screenshots: string[];
-  releaseData: string;
+  releaseDate: string;
 }
 
 interface Genre {
@@ -19,14 +19,14 @@ interface Genre {
   image?: string;
 }
 
+// gets GameVAlue data based on user input game title
 export default function useGameData({ title }: { title: string }) {
   const [data, setData] = useState<GameValue[]>([]);
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     setLoading(true);
-    setError(false);
 
     const url = `https://api.rawg.io/api/games?search=${title}&key=${
       import.meta.env.VITE_RAWG
@@ -38,36 +38,37 @@ export default function useGameData({ title }: { title: string }) {
         return res.json();
       })
       .then((response) => {
-        // console.log(response);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         response.results.forEach((res: any) => {
-          const gameData = {
+          // for each response data create new gameData obj
+          const gameData: GameValue = {
             title: res.name,
             id: res.id,
-            bgImg: res.background_image ?? '',
+            bgImg: res.background_image ?? 'No bg img',
             ageRating: res.esrb_rating?.name_en ?? 'Not rated',
-            genres: extractData(res.genres) ?? 'No genre',
+            genres: res.genres.map((genre: Genre) => genre.name),
             rating: res.metacritic ?? 'No rating',
             platforms:
               res.platforms.map(
                 (p: { platform: { name: string } }) => p.platform.name
               ) ?? 'Unknown platform',
-            screenShots: extractData(res.short_screenshots, true),
-            releaseData: res.released,
+            screenshots:
+              res.short_screenshots.map((shots: Genre) => shots.image) ??
+              'No screenshots',
+            releaseDate: res.released ?? 'No date provided',
           };
           // condition for gameData obj not to be empty
-          if (gameData.bgImg !== '') {
+          if (gameData.bgImg !== 'No bg img') {
             setData((prev) => [...prev, gameData]);
           }
         });
       })
-      .catch(() => setError(true))
+      .catch((error: unknown) => {
+        if (error instanceof Error) setError(error.message);
+        else setError('Unknown Error');
+      })
       .finally(() => setLoading(false));
   }, [title]);
 
   return { data, error, loading };
-}
-
-// extracts each value individually from array of objects
-function extractData(arr: Genre[], isScreenshot: boolean = false) {
-  return arr.map((g: Genre) => (!isScreenshot ? g.name : g.image)); // if isScreenshot extract img urls else genre type
 }
