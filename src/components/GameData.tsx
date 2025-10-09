@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+// interface to hold values extracted from api return
 interface GameValue {
   title: string;
   id: number;
@@ -47,7 +48,7 @@ export default function useGameData({ title }: { title: string }) {
             bgImg: res.background_image ?? 'No bg img',
             ageRating: res.esrb_rating?.name_en ?? 'Not rated',
             genres: res.genres.map((genre: Genre) => genre.name),
-            rating: res.metacritic ?? 'No rating',
+            rating: res.metacritic ?? 0,
             platforms:
               res.platforms.map(
                 (p: { platform: { name: string } }) => p.platform.name

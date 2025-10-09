@@ -1,35 +1,39 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { ThemeContext } from '../App';
 import svg from '../../utils/svg';
+import SideBar from './SideBar';
 
 export default function Header() {
-  const { dark, toggleDark } = useContext(ThemeContext);
+  const { dark } = useContext(ThemeContext);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const toggleSideBar = () => setIsOpen(!isOpen);
 
   return (
-    <header
-      className={`${
-        dark ? 'text-white bg-gray-700' : 'bg-gray-200 text-black'
-      } flex justify-between p-4`}
-    >
-      <h1>header</h1>
-      <button
-        onClick={() => toggleDark()}
-        className={`bg-white border-1 w-[4rem] h-[2rem] rounded-2xl flex align-middle`}
+    <header>
+      <div
+        className={`${
+          dark ? 'text-white bg-gray-700' : 'bg-gray-200 text-black'
+        } flex justify-between p-4`}
       >
-        {dark ? (
-          <img
-            width='30px'
-            className='rotate-180 translate-x-[31px] duration-200'
-            src={svg.sun}
-          />
-        ) : (
-          <img
-            className='-translate-x-[0px] duration-200'
-            width='30px'
-            src={svg.moon}
-          />
-        )}
-      </button>
+        <h1>Vault101</h1>
+        <button onClick={() => toggleSideBar()}>
+          {!isOpen ? (
+            <img
+              className='w-8'
+              src={dark ? svg.lightBtn : svg.darkBtn}
+              alt=''
+            />
+          ) : (
+            <img
+              className='w-8'
+              src={dark ? svg.lightCross : svg.darkCross}
+              alt=''
+            />
+          )}
+        </button>
+      </div>
+      <SideBar isOpen={isOpen} />
     </header>
   );
 }
