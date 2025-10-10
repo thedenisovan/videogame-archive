@@ -1,7 +1,7 @@
 export default function Discover() {
   return (
-    <>
-      <h1 className='text-center'>discover page</h1>
-    </>
+    <main className='flex-1 flex justify-center items-center'>
+      <h1>discover page</h1>
+    </main>
   );
 }

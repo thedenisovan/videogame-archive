@@ -26,19 +26,19 @@ export default function SideBar({
   };
 
   return (
-    <nav
-      aria-hidden={!isOpen ? 'true' : 'false'} // if sidebar is open remove aria hidden else leave it
+    <aside
+      aria-hidden={!isOpen} // if sidebar is open remove aria hidden else leave it
       className={`absolute top-0 h-[100vh] w-[100vw] transition-transform duration-200 ease-in md:hidden flex ${
-        !isOpen && '-translate-x-120' // if sidebar is open slide it in view
+        !isOpen && '-translate-x-[100%]' // if sidebar is open slide it in view
       }`}
     >
       <div
-        className={`w-4/5 h-[100vh] text-white bg-gray-800 flex flex-col gap-5 items-start p-4 ${
+        className={`w-4/5 h-[100vh] text-white bg-gray-800 flex flex-col gap-2 items-start p-4 ${
           !dark && '!text-black !bg-gray-200'
         }`}
       >
         <h2 className={`text-3xl font-bold tracking-widest`}>VAULT33</h2>
-        <Link to='/'>
+        <Link to='/' className='!no-underline'>
           <NavButton
             removeFocus={removeFocus}
             dark={dark}
@@ -47,7 +47,7 @@ export default function SideBar({
             children='Discover'
           />
         </Link>
-        <Link to='fav'>
+        <Link to='fav' className='!no-underline'>
           <NavButton
             removeFocus={removeFocus}
             dark={dark}
@@ -59,29 +59,30 @@ export default function SideBar({
 
         <hr className='border-b-1 w-[100%]' />
 
+        {/*button to toggle dark theme*/}
         <button onClick={() => toggleDark()}>
           {dark ? (
             <div className='flex'>
               <img width={30} src={svg.moon} alt='current dark mode' />
-              <p className='ml-2 mt-1'>Dark theme</p>
+              <p className='!ml-2 mt-3'>Dark theme</p>
             </div>
           ) : (
             <div className='flex'>
               <img width={30} src={svg.sun} alt='current light mode' />
-              <p className='ml-2 mt-1'>Light theme</p>
+              <p className='!ml-2 mt-3'>Light theme</p>
             </div>
           )}
         </button>
-        <Link to='auth'>
-          <button onClick={(e) => removeFocus(e)}>
-            <div className='flex'>
-              {dark ? (
-                <img width={30} src={svg.lightSignIn} alt='current dark mode' />
-              ) : (
-                <img width={30} src={svg.darkSignIn} alt='current light mode' />
-              )}
-              <p className='ml-2 mt-1'>{value ? `Sign in` : 'Sign out'}</p>
-            </div>
+        <Link to='auth' className='!no-underline'>
+          <button onClick={(e) => removeFocus(e)} className='flex'>
+            {dark ? (
+              <img width={30} src={svg.lightSignIn} alt='current dark mode' />
+            ) : (
+              <img width={30} src={svg.darkSignIn} alt='current light mode' />
+            )}
+            <p className={`!ml-2 mt-3 ${dark ? 'text-white' : 'text-black'}`}>
+              {value ? `Sign in` : 'Sign out'}
+            </p>
           </button>
         </Link>
       </div>
@@ -91,13 +92,13 @@ export default function SideBar({
       >
         <button onClick={(e) => removeFocus(e)}>
           <img
-            className='w-9 ml-3 mt-4'
+            className='w-9 !ml-3 mt-4'
             src={dark ? svg.lightCross : svg.darkCross}
             alt='Close side bar button'
           />
         </button>
       </div>
-    </nav>
+    </aside>
   );
 }
 
@@ -126,7 +127,9 @@ function NavButton({
       ) : (
         <img width={30} src={darkSvg} />
       )}
-      <p className='ml-2 mt-1'>{children}</p>
+      <p className={`!ml-2 mt-3  ${dark ? 'text-white' : 'text-black'}`}>
+        {children}
+      </p>
     </button>
   );
 }

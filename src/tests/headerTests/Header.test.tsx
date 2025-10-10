@@ -2,10 +2,15 @@ import { describe, it, expect } from 'vitest';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Header from '../../components/header/Header';
+import { MemoryRouter } from 'react-router';
 
 describe('Header component tests', () => {
   it('Components should be in the document', () => {
-    const { getByRole } = render(<Header role='header' />);
+    const { getByRole } = render(
+      <MemoryRouter>
+        <Header role='header' />
+      </MemoryRouter>
+    );
 
     const header = getByRole('header');
     const h1 = getByRole('heading', { level: 1 });
@@ -15,9 +20,13 @@ describe('Header component tests', () => {
   });
 
   it('Side bar component and it`s elements should be hidden initially', () => {
-    const { queryByRole, getByRole } = render(<Header role='header' />);
+    const { queryByRole, getByRole } = render(
+      <MemoryRouter>
+        <Header role='header' />
+      </MemoryRouter>
+    );
 
-    const nav = getByRole('navigation', { hidden: true });
+    const nav = getByRole('complementary', { hidden: true });
     const h2 = queryByRole('heading', { level: 2 });
     const expandBtn = getByRole('expand-button');
 
@@ -27,10 +36,14 @@ describe('Header component tests', () => {
   });
 
   it('After hamburger button is clicked side bar should expand', async () => {
-    const { getByRole } = render(<Header role='header' />);
+    const { getByRole } = render(
+      <MemoryRouter>
+        <Header role='header' />
+      </MemoryRouter>
+    );
 
     const expandBtn = getByRole('expand-button');
-    const nav = getByRole('navigation', { hidden: true });
+    const nav = getByRole('complementary', { hidden: true });
 
     await fireEvent.click(expandBtn);
 

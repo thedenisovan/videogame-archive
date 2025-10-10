@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { ThemeContext } from '../App';
 import svg from '../../utils/svg';
 import SideBar from './SideBar';
+// import DesktopHeader from './DesktopHeader';
 
 export default function Header({ role }: { role: string }) {
   const { dark } = useContext(ThemeContext);
@@ -13,8 +14,8 @@ export default function Header({ role }: { role: string }) {
     <header role={role}>
       <div
         className={`${
-          dark ? 'text-white bg-gray-700' : 'bg-gray-400 text-black'
-        } flex justify-between p-4 h-[4rem]`}
+          dark ? 'text-white bg-gray-800' : 'bg-gray-500 text-gray-900'
+        } flex justify-between p-3 h-[4rem]`}
       >
         <h1 className={`text-2xl font-bold tracking-widest`}>VAULT33</h1>
         <button
@@ -32,6 +33,7 @@ export default function Header({ role }: { role: string }) {
         </button>
       </div>
       <SideBar toggleSideBar={toggleSideBar} isOpen={isOpen} />
+      {/* <DesktopHeader className='md:flex' /> */}
     </header>
   );
 }
