@@ -21,22 +21,16 @@ export default function Header() {
           className='absolute right-3 md:hidden'
           onClick={() => toggleSideBar()}
         >
-          {!isOpen ? (
+          {
             <img
               className='w-8'
               src={dark ? svg.lightBtn : svg.darkBtn}
               alt=''
             />
-          ) : (
-            <img
-              className='w-8'
-              src={dark ? svg.lightCross : svg.darkCross}
-              alt=''
-            />
-          )}
+          }
         </button>
       </div>
-      <SideBar isOpen={isOpen} />
+      <SideBar toggleSideBar={toggleSideBar} isOpen={isOpen} />
     </header>
   );
 }
