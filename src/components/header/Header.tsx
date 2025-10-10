@@ -13,7 +13,7 @@ export default function Header({ role }: { role: string }) {
     <header aria-hidden={isOpen ? 'true' : 'false'} role={role}>
       <div
         className={`${
-          dark ? 'text-white bg-gray-700' : 'bg-gray-200 text-black'
+          dark ? 'text-white bg-gray-700' : 'bg-gray-400 text-black'
         } flex justify-between p-4 h-[4rem]`}
       >
         <h1 className={`text-2xl font-bold tracking-widest`}>VAULT33</h1>

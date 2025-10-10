@@ -11,32 +11,65 @@ export default function SideBar({
 }) {
   const { dark, toggleDark } = useContext(ThemeContext);
 
+  const value: boolean = true;
+
   return (
     <nav
       aria-hidden={!isOpen ? 'true' : 'false'}
       className={`absolute top-0 h-[100vh] w-[100%] transition-transform duration-200 ease-in md:hidden flex ${
-        !isOpen && '-translate-x-120'
+        isOpen && '-translate-x-120'
       }`}
     >
       <div
-        className={`w-[80%] h-[100vh] text-white bg-gray-800 flex flex-col p-3${
-          !dark && '!text-black !bg-gray-400'
+        className={`w-[80%] h-[100vh] text-white bg-gray-800 flex flex-col items-start p-4 ${
+          !dark && '!text-black !bg-gray-200'
         }`}
       >
-        <h2 className={`text-2xl font-bold tracking-widest`}>VAULT33</h2>
-        <button>Discover</button>
-        <button>My Library</button>
+        <h2 className={`text-3xl font-bold tracking-widest`}>VAULT33</h2>
+        <button className='flex'>
+          {dark ? (
+            <img width={30} src={svg.lightMag} />
+          ) : (
+            <img width={30} src={svg.darkMag} />
+          )}
+          <p>Discover</p>
+        </button>
+        <button className='flex'>
+          {dark ? (
+            <img width={30} src={svg.lightLib} />
+          ) : (
+            <img width={30} src={svg.darkLib} />
+          )}
+          <p>My Library</p>
+        </button>
+        <hr className='border-b-1 w-100 my-2' />
         <button onClick={() => toggleDark()}>
           {dark ? (
-            <img width={30} src={svg.moon} />
+            <div className='flex'>
+              <img width={30} src={svg.moon} alt='current dark mode' />
+              <p>Dark theme</p>
+            </div>
           ) : (
-            <img width={30} src={svg.sun} />
+            <div className='flex'>
+              <img width={30} src={svg.sun} alt='current light mode' />
+              <p>Light theme</p>
+            </div>
           )}
+        </button>
+        <button>
+          <div className='flex'>
+            {dark ? (
+              <img width={30} src={svg.lightSignIn} alt='current dark mode' />
+            ) : (
+              <img width={30} src={svg.darkSignIn} alt='current light mode' />
+            )}
+            <p>{value ? 'Sign In' : 'Sign out'}</p>
+          </div>
         </button>
       </div>
       <div
         onClick={() => toggleSideBar()}
-        className={`w-[20%] h-[100vh] bg-gray-200 ${dark && 'bg-gray-700'}`}
+        className={`w-[20%] h-[100vh] bg-gray-400 ${dark && 'bg-gray-700'}`}
       >
         <button>
           <img
