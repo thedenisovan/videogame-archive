@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { ThemeContext } from '../App';
+import { Link } from 'react-router';
 import svg from '../../utils/svg';
 
 export default function SideBar({
@@ -11,74 +12,121 @@ export default function SideBar({
 }) {
   const { dark, toggleDark } = useContext(ThemeContext);
 
+  // !todo: temp value which need to be replaced with state which will check is user signed in
   const value: boolean = true;
+
+  // removes focus from button and closes side bar after btn is being clicked
+  const removeFocus = (
+    e:
+      | React.MouseEvent<HTMLDivElement, MouseEvent>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    toggleSideBar();
+    e.currentTarget.blur();
+  };
 
   return (
     <nav
-      aria-hidden={!isOpen ? 'true' : 'false'}
-      className={`absolute top-0 h-[100vh] w-[100%] transition-transform duration-200 ease-in md:hidden flex ${
-        isOpen && '-translate-x-120'
+      aria-hidden={!isOpen ? 'true' : 'false'} // if sidebar is open remove aria hidden else leave it
+      className={`absolute top-0 h-[100vh] w-[100vw] transition-transform duration-200 ease-in md:hidden flex ${
+        !isOpen && '-translate-x-120' // if sidebar is open slide it in view
       }`}
     >
       <div
-        className={`w-[80%] h-[100vh] text-white bg-gray-800 flex flex-col items-start p-4 ${
+        className={`w-4/5 h-[100vh] text-white bg-gray-800 flex flex-col gap-5 items-start p-4 ${
           !dark && '!text-black !bg-gray-200'
         }`}
       >
         <h2 className={`text-3xl font-bold tracking-widest`}>VAULT33</h2>
-        <button className='flex'>
-          {dark ? (
-            <img width={30} src={svg.lightMag} />
-          ) : (
-            <img width={30} src={svg.darkMag} />
-          )}
-          <p>Discover</p>
-        </button>
-        <button className='flex'>
-          {dark ? (
-            <img width={30} src={svg.lightLib} />
-          ) : (
-            <img width={30} src={svg.darkLib} />
-          )}
-          <p>My Library</p>
-        </button>
-        <hr className='border-b-1 w-100 my-2' />
+        <Link to='/'>
+          <NavButton
+            removeFocus={removeFocus}
+            dark={dark}
+            lightSvg={svg.lightMag}
+            darkSvg={svg.darkMag}
+            children='Discover'
+          />
+        </Link>
+        <Link to='fav'>
+          <NavButton
+            removeFocus={removeFocus}
+            dark={dark}
+            lightSvg={svg.lightLib}
+            darkSvg={svg.darkLib}
+            children='My Library'
+          />
+        </Link>
+
+        <hr className='border-b-1 w-[100%]' />
+
         <button onClick={() => toggleDark()}>
           {dark ? (
             <div className='flex'>
               <img width={30} src={svg.moon} alt='current dark mode' />
-              <p>Dark theme</p>
+              <p className='ml-2 mt-1'>Dark theme</p>
             </div>
           ) : (
             <div className='flex'>
               <img width={30} src={svg.sun} alt='current light mode' />
-              <p>Light theme</p>
+              <p className='ml-2 mt-1'>Light theme</p>
             </div>
           )}
         </button>
-        <button>
-          <div className='flex'>
-            {dark ? (
-              <img width={30} src={svg.lightSignIn} alt='current dark mode' />
-            ) : (
-              <img width={30} src={svg.darkSignIn} alt='current light mode' />
-            )}
-            <p>{value ? 'Sign In' : 'Sign out'}</p>
-          </div>
-        </button>
+        <Link to='auth'>
+          <button onClick={(e) => removeFocus(e)}>
+            <div className='flex'>
+              {dark ? (
+                <img width={30} src={svg.lightSignIn} alt='current dark mode' />
+              ) : (
+                <img width={30} src={svg.darkSignIn} alt='current light mode' />
+              )}
+              <p className='ml-2 mt-1'>{value ? `Sign in` : 'Sign out'}</p>
+            </div>
+          </button>
+        </Link>
       </div>
       <div
-        onClick={() => toggleSideBar()}
-        className={`w-[20%] h-[100vh] bg-gray-400 ${dark && 'bg-gray-700'}`}
+        onClick={(e) => removeFocus(e)}
+        className={`w-1/5 h-[100vh] bg-gray-400 ${dark && 'bg-gray-700'}`}
       >
-        <button>
+        <button onClick={(e) => removeFocus(e)}>
           <img
-            className='w-8 absolute'
+            className='w-9 ml-3 mt-4'
             src={dark ? svg.lightCross : svg.darkCross}
             alt='Close side bar button'
           />
         </button>
       </div>
     </nav>
+  );
+}
+
+// Component for discover and library nav buttons
+function NavButton({
+  removeFocus,
+  dark,
+  lightSvg,
+  darkSvg,
+  children,
+}: {
+  removeFocus: (
+    e:
+      | React.MouseEvent<HTMLDivElement, MouseEvent>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+  dark: boolean;
+  lightSvg: string;
+  darkSvg: string;
+  children: string;
+}) {
+  return (
+    <button className='flex' onClick={(e) => removeFocus(e)}>
+      {dark ? (
+        <img width={30} src={lightSvg} />
+      ) : (
+        <img width={30} src={darkSvg} />
+      )}
+      <p className='ml-2 mt-1'>{children}</p>
+    </button>
   );
 }

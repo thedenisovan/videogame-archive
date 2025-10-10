@@ -13,9 +13,7 @@ export default function FooterComp() {
   return (
     <Footer
       container
-      className={` min-h-[4rem] ${
-        !dark ? 'bg-gray-400' : 'bg-gray-700 text-white'
-      }`}
+      className={`p-4 ${!dark ? 'bg-gray-400' : 'bg-gray-700 text-white'}`}
     >
       <FooterCopyright by=' VAULT33™' year={2025} />
       <FooterLinkGroup className='flex justify-around'>

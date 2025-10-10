@@ -10,7 +10,7 @@ export default function Header({ role }: { role: string }) {
   const toggleSideBar = () => setIsOpen(!isOpen);
 
   return (
-    <header aria-hidden={isOpen ? 'true' : 'false'} role={role}>
+    <header role={role}>
       <div
         className={`${
           dark ? 'text-white bg-gray-700' : 'bg-gray-400 text-black'

@@ -2,6 +2,7 @@ import { useState, createContext } from 'react';
 // import useGameData from './GameData';
 import Header from './header/Header';
 import FooterComp from './footer/FooterComp';
+import { Outlet } from 'react-router';
 
 const ThemeContext = createContext({
   dark: false,
@@ -18,6 +19,7 @@ export default function App() {
     <>
       <ThemeContext value={{ dark, toggleDark }}>
         <Header role='header' />
+        <Outlet />
         <main className='flex-1'></main>
         <FooterComp />
       </ThemeContext>
