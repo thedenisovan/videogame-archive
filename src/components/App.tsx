@@ -16,7 +16,7 @@ export default function App() {
   return (
     <>
       <ThemeContext value={{ dark, toggleDark }}>
-        <Header />
+        <Header role='header' />
       </ThemeContext>
     </>
   );

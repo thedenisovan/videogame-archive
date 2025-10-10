@@ -3,14 +3,14 @@ import { ThemeContext } from '../App';
 import svg from '../../utils/svg';
 import SideBar from './SideBar';
 
-export default function Header() {
+export default function Header({ role }: { role: string }) {
   const { dark } = useContext(ThemeContext);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleSideBar = () => setIsOpen(!isOpen);
 
   return (
-    <header>
+    <header aria-hidden={isOpen ? 'true' : 'false'} role={role}>
       <div
         className={`${
           dark ? 'text-white bg-gray-700' : 'bg-gray-200 text-black'
@@ -18,6 +18,7 @@ export default function Header() {
       >
         <h1 className={`text-2xl font-bold tracking-widest`}>VAULT33</h1>
         <button
+          role='expand-button'
           className='absolute right-3 md:hidden'
           onClick={() => toggleSideBar()}
         >
@@ -25,7 +26,7 @@ export default function Header() {
             <img
               className='w-8'
               src={dark ? svg.lightBtn : svg.darkBtn}
-              alt=''
+              alt='Open side bar button'
             />
           }
         </button>
