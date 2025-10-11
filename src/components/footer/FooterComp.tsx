@@ -9,7 +9,7 @@ export default function FooterComp() {
     <Footer
       container
       className={`p-4 ${
-        !dark ? '!bg-gray-400' : 'bg-gray-700 text-white'
+        !dark ? '!bg-gray-200' : '!bg-gray-800 text-white'
       } rounded-0`}
     >
       <FooterCopyright

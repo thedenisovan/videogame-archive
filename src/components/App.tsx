@@ -5,8 +5,10 @@ import FooterComp from './footer/FooterComp';
 import { Outlet } from 'react-router';
 
 const ThemeContext = createContext({
-  dark: false,
+  dark: true,
   toggleDark: () => {},
+  themeBg: () => {},
+  themeText: () => {},
 });
 
 const AuthorizationContext = createContext({
@@ -15,25 +17,26 @@ const AuthorizationContext = createContext({
 
 export default function App() {
   // const { data } = useGameData({ title: 'elder scrolls skyrim' });
-  const [dark, setDark] = useState<boolean>(false);
+  const [dark, setDark] = useState<boolean>(true);
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
 
+  const themeBg = () => (dark ? 'bg-gray-700' : 'bg-white');
+  const themeText = () => (dark ? '!text-white' : '!text-black');
+  const toggleDark = () => setDark(!dark);
   useEffect(() => {
     setLoggedIn(false);
-  }, []); //!TODO : change to appropriate logic
-
-  const toggleDark = () => setDark(!dark);
+  }, []); //!TODO : change to appropriate authorization logic
 
   return (
-    <>
+    <div className={`${themeText()} ${themeBg()} flex flex-col h-[100%]`}>
       <AuthorizationContext value={{ isLoggedIn }}>
-        <ThemeContext value={{ dark, toggleDark }}>
+        <ThemeContext value={{ dark, toggleDark, themeBg, themeText }}>
           <Header role='header' />
           <Outlet />
           <FooterComp />
         </ThemeContext>
       </AuthorizationContext>
-    </>
+    </div>
   );
 }
 

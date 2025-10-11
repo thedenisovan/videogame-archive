@@ -2,11 +2,13 @@ import App from '../components/App';
 import Authorization from '../components/main/auth/Authorization';
 import Discover from '../components/main/discoverPage/Discover';
 import Favorites from '../components/main/favoritesPage/Favorites';
+import ErrorElement from '../components/ErroElement';
 
 const routes = [
   {
     path: '/',
     element: <App />,
+    errorElement: <ErrorElement />,
     children: [
       {
         index: true,

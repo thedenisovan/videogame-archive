@@ -14,7 +14,7 @@ export default function Header({ role }: { role: string }) {
     <header role={role}>
       <div
         className={`${
-          dark ? 'text-white bg-gray-800' : 'bg-gray-400 text-gray-900'
+          dark ? 'text-white bg-gray-800' : 'bg-gray-200 text-black'
         } flex justify-between p-3 h-[4rem] md:h-[5rem]`}
       >
         <h1 className={`text-2xl font-bold tracking-widest`}>VAULT33</h1>
