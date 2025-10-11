@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect } from 'react';
+import { useState, createContext } from 'react';
 // import useGameData from '../components/apiHooks/GameData';
 import Header from './header/Header';
 import FooterComp from './footer/FooterComp';
@@ -18,14 +18,11 @@ const AuthorizationContext = createContext({
 export default function App() {
   // const { data } = useGameData({ title: 'elder scrolls skyrim' });
   const [dark, setDark] = useState<boolean>(true);
-  const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
+  const [isLoggedIn /*setLoggedIn*/] = useState<boolean>(false);
 
   const themeBg = () => (dark ? 'bg-gray-700' : 'bg-white');
   const themeText = () => (dark ? '!text-white' : '!text-black');
   const toggleDark = () => setDark(!dark);
-  useEffect(() => {
-    setLoggedIn(false);
-  }, []); //!TODO : change to appropriate authorization logic
 
   return (
     <div className={`${themeText()} ${themeBg()} flex flex-col h-[100%]`}>

@@ -7,7 +7,7 @@ export default function Favorites() {
 
   return (
     <main className={`flex-1 flex justify-center items-center`}>
-      {isLoggedIn ? <h1>Favorites page</h1> : <NoUser />}
+      {isLoggedIn ? <h2>Favorites page</h2> : <NoUser />}
     </main>
   );
 }
@@ -17,12 +17,12 @@ function NoUser() {
     <div>
       <h2 className='text-center'>No user is signed in</h2>
       You can go back to{' '}
-      <Link className=' !text-blue-200' to='/'>
+      <Link className=' !text-blue-500' to='/'>
         {' '}
         main page
       </Link>{' '}
       or
-      <Link className=' !text-blue-200' to='/auth'>
+      <Link className=' !text-blue-600' to='/auth'>
         {' '}
         register
       </Link>

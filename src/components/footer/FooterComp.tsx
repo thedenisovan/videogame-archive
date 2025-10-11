@@ -48,14 +48,16 @@ function FooterLink({
   dark: boolean;
 }) {
   return (
-    <a
-      className={`!no-underline md:text-[1.2rem] ${
-        dark ? 'text-white' : 'text-black'
-      }`}
-      href={href}
-      target='_blank'
-    >
-      {children}
-    </a>
+    <li>
+      <a
+        className={`!no-underline md:text-[1.2rem] ${
+          dark ? 'text-white' : 'text-black'
+        }`}
+        href={href}
+        target='_blank'
+      >
+        {children}
+      </a>
+    </li>
   );
 }
