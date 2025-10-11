@@ -14,8 +14,8 @@ export default function Header({ role }: { role: string }) {
     <header role={role}>
       <div
         className={`${
-          dark ? 'text-white bg-gray-800' : 'bg-gray-500 text-gray-900'
-        } flex justify-between p-3 h-[4rem]`}
+          dark ? 'text-white bg-gray-800' : 'bg-gray-400 text-gray-900'
+        } flex justify-between p-3 h-[4rem] md:h-[5rem]`}
       >
         <h1 className={`text-2xl font-bold tracking-widest`}>VAULT33</h1>
         <button
@@ -31,7 +31,7 @@ export default function Header({ role }: { role: string }) {
             />
           }
         </button>
-        <DesktopHeader className='hidden md:flex' />
+        <DesktopHeader className='hidden md:flex md:gap-4 md:pt-2' />
       </div>
       <SideBar toggleSideBar={toggleSideBar} isOpen={isOpen} />
     </header>

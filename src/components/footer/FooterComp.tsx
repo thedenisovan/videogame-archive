@@ -8,8 +8,8 @@ export default function FooterComp() {
   return (
     <Footer
       container
-      className={`p-3 ${
-        !dark ? '!bg-gray-500' : 'bg-gray-700 text-white'
+      className={`p-4 ${
+        !dark ? '!bg-gray-400' : 'bg-gray-700 text-white'
       } rounded-0`}
     >
       <FooterCopyright
@@ -17,7 +17,7 @@ export default function FooterComp() {
         by=' VAULT33™'
         year={2025}
       />
-      <FooterLinkGroup className='flex justify-center align-middle gap-5 pt-2'>
+      <FooterLinkGroup className='flex justify-center align-middle gap-5 pt-2 mb-0'>
         <FooterLink
           children='GitHub'
           href='https://github.com/thedenisovan?tab=overview&from=2025-08-01&to=2025-08-12'
@@ -49,7 +49,9 @@ function FooterLink({
 }) {
   return (
     <a
-      className={`md:text-[1.1rem] ${dark ? 'text-white' : 'text-black'}`}
+      className={`!no-underline md:text-[1.2rem] ${
+        dark ? 'text-white' : 'text-black'
+      }`}
       href={href}
       target='_blank'
     >

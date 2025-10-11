@@ -1,8 +1,9 @@
-import { describe, it, expect } from 'vitest';
+import { vi, describe, it, expect } from 'vitest';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Header from '../../components/header/Header';
 import { MemoryRouter } from 'react-router';
+import { ThemeContext } from '../../components/App';
 
 describe('Header component tests', () => {
   it('Components should be in the document', () => {
@@ -49,5 +50,50 @@ describe('Header component tests', () => {
 
     expect(nav).toHaveAttribute('aria-hidden', 'false');
     expect(nav).toBeVisible();
+  });
+});
+
+describe('Header tests for md < components', () => {
+  it('Desktop comp buttons should be in the document', () => {
+    const { getByTestId } = render(
+      <MemoryRouter>
+        <Header role='header' />
+      </MemoryRouter>
+    );
+
+    expect(getByTestId('theme-button')).toBeInTheDocument();
+    expect(getByTestId('browse-button')).toBeInTheDocument();
+    expect(getByTestId('favorites-button')).toBeInTheDocument();
+    expect(getByTestId('auth-button')).toBeInTheDocument();
+  });
+
+  it('Web page should have light theme initially', async () => {
+    const { getByTestId } = render(
+      <MemoryRouter>
+        <Header role='header' />
+      </MemoryRouter>
+    );
+
+    expect(getByTestId('browse-button')).toHaveClass('text-black');
+    expect(getByTestId('auth-button')).toHaveClass('text-black');
+  });
+
+  it('Theme button should change element text color', async () => {
+    const themeToggle = vi.fn();
+
+    const { getByTestId } = render(
+      <ThemeContext value={{ dark: false, toggleDark: themeToggle }}>
+        <MemoryRouter>
+          <Header role='header' />
+        </MemoryRouter>
+      </ThemeContext>
+    );
+
+    const themeBtn = getByTestId('theme-button');
+
+    await fireEvent.click(themeBtn);
+
+    // check that toggleDark was called
+    expect(themeToggle).toHaveBeenCalled();
   });
 });
