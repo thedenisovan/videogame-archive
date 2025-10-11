@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { ThemeContext } from '../App';
 import svg from '../../utils/svg';
 import SideBar from './SideBar';
-// import DesktopHeader from './DesktopHeader';
+import DesktopHeader from './DesktopHeader';
 
 export default function Header({ role }: { role: string }) {
   const { dark } = useContext(ThemeContext);
@@ -31,9 +31,9 @@ export default function Header({ role }: { role: string }) {
             />
           }
         </button>
+        <DesktopHeader className='hidden md:flex' />
       </div>
       <SideBar toggleSideBar={toggleSideBar} isOpen={isOpen} />
-      {/* <DesktopHeader className='md:flex' /> */}
     </header>
   );
 }

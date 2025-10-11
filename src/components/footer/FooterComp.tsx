@@ -13,33 +13,47 @@ export default function FooterComp() {
       } rounded-0`}
     >
       <FooterCopyright
-        className={`${dark ? 'text-white' : 'text-black'}`}
+        className={`${dark ? 'text-white' : 'text-black'} !text-[1.1rem]`}
         by=' VAULT33™'
         year={2025}
       />
-      <FooterLinkGroup className='flex justify-around '>
-        <a
-          className={` ${dark ? 'text-white' : 'text-black'}`}
+      <FooterLinkGroup className='flex justify-center align-middle gap-5 pt-2'>
+        <FooterLink
+          children='GitHub'
           href='https://github.com/thedenisovan?tab=overview&from=2025-08-01&to=2025-08-12'
-          target='_blank'
-        >
-          GitHub
-        </a>
-        <a
-          className={` ${dark ? 'text-white' : 'text-black'}`}
+          dark={dark}
+        />
+        <FooterLink
+          children='LinkedIn'
           href='https://www.linkedin.com/in/dainis-dilevka-961a332b4/'
-          target='_blank'
-        >
-          LinkedIn
-        </a>
-        <a
-          className={` ${dark ? 'text-white' : 'text-black'}`}
-          href='https://rawg.io/apidocs?utm_source=chatgpt.com#terms'
-          target='_blank'
-        >
-          Licensing
-        </a>
+          dark={dark}
+        />
+        <FooterLink
+          children='Licensing'
+          href='https://rawg.io/apidocs?utm_source=chatgpt.com#terms/'
+          dark={dark}
+        />
       </FooterLinkGroup>
     </Footer>
+  );
+}
+
+function FooterLink({
+  children,
+  href,
+  dark,
+}: {
+  children: string;
+  href: string;
+  dark: boolean;
+}) {
+  return (
+    <a
+      className={`md:text-[1.1rem] ${dark ? 'text-white' : 'text-black'}`}
+      href={href}
+      target='_blank'
+    >
+      {children}
+    </a>
   );
 }
