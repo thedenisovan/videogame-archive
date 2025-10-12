@@ -74,15 +74,24 @@ describe('Header tests for md < components', () => {
       </MemoryRouter>
     );
 
-    expect(getByTestId('browse-button')).toHaveClass('text-black');
-    expect(getByTestId('auth-button')).toHaveClass('text-black');
+    expect(getByTestId('browse-button')).toHaveClass('text-white');
+    expect(getByTestId('auth-button')).toHaveClass('text-white');
   });
 
   it('Theme button should change element text color', async () => {
     const themeToggle = vi.fn();
+    const toggleBg = vi.fn();
+    const toggleText = vi.fn();
 
     const { getByTestId } = render(
-      <ThemeContext value={{ dark: false, toggleDark: themeToggle }}>
+      <ThemeContext
+        value={{
+          dark: false,
+          toggleDark: themeToggle,
+          themeBg: toggleBg,
+          themeText: toggleText,
+        }}
+      >
         <MemoryRouter>
           <Header role='header' />
         </MemoryRouter>

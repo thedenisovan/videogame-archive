@@ -3,6 +3,7 @@ import { ThemeContext } from '../App';
 import svg from '../../utils/svg';
 import SideBar from './SideBar';
 import DesktopHeader from './DesktopHeader';
+import { Link } from 'react-router';
 
 export default function Header({ role }: { role: string }) {
   const { dark } = useContext(ThemeContext);
@@ -11,13 +12,19 @@ export default function Header({ role }: { role: string }) {
   const toggleSideBar = () => setIsOpen(!isOpen);
 
   return (
-    <header role={role}>
+    <header
+      role={role}
+      className={` ${dark ? ' bg-gray-800' : 'bg-gray-200 '}`}
+    >
       <div
-        className={`${
-          dark ? 'text-white bg-gray-800' : 'bg-gray-200 text-black'
-        } flex justify-between p-3 h-[4rem] md:h-[5rem]`}
+        className={`m-auto max-w-[1600px] flex justify-between p-3 h-[4rem] md:h-[5rem]`}
       >
-        <h1 className={`text-2xl font-bold tracking-widest`}>VAULT33</h1>
+        <Link
+          to='/'
+          className={`!no-underline ${dark ? ' !text-white' : '!text-black '}`}
+        >
+          <h1 className={`text-2xl font-bold tracking-widest`}>VAULT33</h1>
+        </Link>
         <button
           role='expand-button'
           className='absolute right-3 md:hidden'
@@ -31,7 +38,7 @@ export default function Header({ role }: { role: string }) {
             />
           }
         </button>
-        <DesktopHeader className='hidden md:flex md:gap-4 md:pt-2' />
+        <DesktopHeader className='hidden md:flex md:gap-4 md:pt-2 lg:gap-12 lg:pr-[3rem]' />
       </div>
       <SideBar toggleSideBar={toggleSideBar} isOpen={isOpen} />
     </header>
