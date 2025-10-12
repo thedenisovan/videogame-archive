@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, createContext, useContext } from 'react';
 import { TfiFacebook } from 'react-icons/tfi';
 import { TfiGithub } from 'react-icons/tfi';
 import { TfiTwitterAlt } from 'react-icons/tfi';
@@ -8,7 +8,6 @@ type InputProps = {
   label: string;
   type?: string;
   value: string;
-  updateInput: (e: string, id: string) => void;
 };
 
 type FormData = {
@@ -17,8 +16,18 @@ type FormData = {
   passConfirm: string;
 };
 
+const FormContext = createContext({
+  formData: {
+    mail: '',
+    pass: '',
+    passConfirm: '',
+  },
+  updateInput: (_e: string, _id: string) => {}, // eslint-disable-line @typescript-eslint/no-unused-vars
+  isSignIn: false,
+});
+
 export default function Authorization() {
-  const [isSignin, setSignIn] = useState<boolean>(true);
+  const [isSignIn, setSignIn] = useState<boolean>(true);
 
   const [formData, setFormData] = useState<FormData>({
     mail: '',
@@ -41,10 +50,10 @@ export default function Authorization() {
 
   // return appropriate text based on current page
   const returnText = (option1: string, option2: string) =>
-    isSignin ? option1 : option2;
+    isSignIn ? option1 : option2;
 
   // is used to switch between sign in and registration components
-  const changeAuthPage = () => setSignIn(!isSignin);
+  const changeAuthPage = () => setSignIn(!isSignIn);
 
   return (
     <main className='flex-1 flex flex-col justify-center'>
@@ -54,12 +63,9 @@ export default function Authorization() {
       <p className='text-center !font-normal italic'>
         {returnText('Lets continue our journey', 'Sign up to get started')}
       </p>
-      <SignInForm
-        formData={formData}
-        updateInput={updateInput}
-        isSignIn={isSignin}
-        returnText={returnText}
-      />
+      <FormContext value={{ formData, updateInput, isSignIn }}>
+        <SignInForm returnText={returnText} />
+      </FormContext>
 
       <div className='flex flex-col'>
         <p className='text-center mt-3 mb-0'>
@@ -81,16 +87,12 @@ export default function Authorization() {
 
 // component for sign up form
 function SignInForm({
-  isSignIn,
   returnText,
-  formData,
-  updateInput,
 }: {
-  isSignIn: boolean;
   returnText: (val1: string, val2: string) => string;
-  formData: FormData;
-  updateInput: (e: string, id: string) => void;
 }) {
+  const { formData, isSignIn } = useContext(FormContext);
+
   return (
     <form
       onSubmit={(e) => {
@@ -98,23 +100,11 @@ function SignInForm({
       }}
       className='flex flex-col !m-[2rem] gap-2'
     >
-      <FormInput
-        updateInput={updateInput}
-        id='mail'
-        value={formData.mail}
-        type='email'
-        label='Email'
-      />
-      <FormInput
-        updateInput={updateInput}
-        id='pass'
-        value={formData.pass}
-        label='Password'
-      />
+      <FormInput id='mail' value={formData.mail} type='email' label='Email' />
+      <FormInput id='pass' value={formData.pass} label='Password' />
       {/* if user is on sign up page add extra input el for password confirmation */}
       {!isSignIn && (
         <FormInput
-          updateInput={updateInput}
           id='passConfirm'
           value={formData.passConfirm}
           label='Password confirmation'
@@ -137,13 +127,9 @@ function SignInForm({
 }
 
 // component for single input and label element
-function FormInput({
-  id,
-  label,
-  type = 'password',
-  value,
-  updateInput,
-}: InputProps) {
+function FormInput({ id, label, type = 'password', value }: InputProps) {
+  const { updateInput } = useContext(FormContext);
+
   return (
     <div className='flex flex-col'>
       <label htmlFor={id}>{label}</label>
