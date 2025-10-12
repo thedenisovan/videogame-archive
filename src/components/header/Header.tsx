@@ -38,7 +38,7 @@ export default function Header({ role }: { role: string }) {
             />
           }
         </button>
-        <DesktopHeader className='hidden md:flex md:gap-4 md:pt-2 lg:gap-12 lg:pr-[3rem]' />
+        <DesktopHeader className='hidden md:flex md:gap-4 md:pt-2 lg:gap-12 lg:pr-[3rem] lg:pt-3' />
       </div>
       <SideBar toggleSideBar={toggleSideBar} isOpen={isOpen} />
     </header>

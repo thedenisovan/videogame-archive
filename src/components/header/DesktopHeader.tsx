@@ -33,7 +33,7 @@ function DesktopHeader({ className }: { className: string }) {
       <li>
         <button data-testid='theme-button' onClick={() => toggleDark()}>
           <img
-            className='w-9 -translate-y-[7px]'
+            className='w-9 -translate-y-[7px] hover:scale-[1.03]'
             src={returnTheme()}
             alt='theme icon'
           />
@@ -64,7 +64,9 @@ function NavButton({
 }) {
   return (
     <Link
-      className={`text-xl ${dark ? 'text-white' : 'text-black'} !no-underline`}
+      className={`text-xl ${
+        dark ? 'text-white' : 'text-black'
+      } !no-underline hover:!underline`}
       to={path}
       data-testid={testid}
     >
