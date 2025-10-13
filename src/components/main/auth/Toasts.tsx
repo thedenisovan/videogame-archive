@@ -1,7 +1,30 @@
 import { Toast, ToastToggle } from 'flowbite-react';
 import { HiCheck, HiExclamation } from 'react-icons/hi';
 
-export function PassTest({ result }: { result: string }) {
+// returns correct toast based on validity state
+export default function RegistrationToast({ result }: { result: string }) {
+  switch (result) {
+    case 'Passwords did not match':
+      return <InvalidValidity result='Passwords did not match' />;
+    case 'Pattern mismatch':
+      return (
+        <InvalidValidity
+          result='Password requirements: minimum 8 characters, including 1 uppercase
+           letter, 1 number, and 1 special character.'
+        />
+      );
+    case 'success':
+      return (
+        <SuccessRegistration result='You have been registered successfully' />
+      );
+    case 'user exists':
+      return (
+        <InvalidValidity result={`User witch given email address exists`} />
+      );
+  }
+}
+
+export function InvalidValidity({ result }: { result: string }) {
   return (
     <div className='flex flex-col gap-4 absolute right-2 top-2'>
       <Toast className='p-1'>

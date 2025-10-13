@@ -4,8 +4,7 @@ import { TfiGithub } from 'react-icons/tfi';
 import { TfiTwitterAlt } from 'react-icons/tfi';
 import { FormContext } from './Authorization';
 import { registerUser } from './context/authorization';
-import { PassTest } from './Toasts';
-import { SuccessRegistration } from './Toasts';
+import RegistrationToast from './Toasts';
 
 type InputProps = {
   id: string;
@@ -15,7 +14,6 @@ type InputProps = {
   validation?: string;
 };
 
-// component for sign up form
 export default function SignInForm({
   returnText,
 }: {
@@ -23,8 +21,9 @@ export default function SignInForm({
 }) {
   const { formData, isSignInPage, changeAuthPage, eraseInput } =
     useContext(FormContext);
-  const [validError, setValidError] = useState<string>('');
-  const validationPattern = '^(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{8,}$';
+
+  // holds state of registration validity result
+  const [validityError, setValidityError] = useState<string>('');
 
   return (
     <form
@@ -38,57 +37,25 @@ export default function SignInForm({
         id='pass'
         value={formData.pass}
         label='Password'
-        validation={validationPattern}
+        validation='^(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{8,}$'
       />
       {/* if user is on sign up page add extra input el for password confirmation */}
       {!isSignInPage && (
         <FormInput
-          validation={validationPattern}
+          validation='^(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{8,}$'
           id='passConfirm'
           value={formData.passConfirm}
           label='Password confirmation'
         />
       )}
-      {validError === 'Passwords did not match' && (
-        <PassTest result='Passwords did not match' />
-      )}
-      {validError === 'Pattern mismatch' && (
-        <PassTest
-          result='Password requirements: minimum 8 characters, including 1 uppercase
-          letter, 1 number, and 1 special character.'
-        />
-      )}
-      {validError === 'success' && (
-        <SuccessRegistration result='You have been registered successfully' />
-      )}
-      {validError === 'user exists' && (
-        <PassTest
-          result={`User witch email address ${formData.mail} all ready exists`}
-        />
-      )}
+
+      {/*returns correct toast based on validity state*/}
+      <RegistrationToast result={validityError} />
 
       <p className='text-center mb-0'>Or</p>
 
-      <div className='flex justify-center gap-4 mb-3'>
-        <button
-          onClick={(e) => e.preventDefault()}
-          aria-label='sign up with facebook'
-        >
-          <TfiFacebook className='custom-btn' />
-        </button>
-        <button
-          onClick={(e) => e.preventDefault()}
-          aria-label='sign up with github'
-        >
-          <TfiGithub className='custom-btn' />
-        </button>
-        <button
-          onClick={(e) => e.preventDefault()}
-          aria-label='sign up with x/twitter'
-        >
-          <TfiTwitterAlt className='custom-btn' />
-        </button>
-      </div>
+      <SignUpSvgButtons />
+
       <button
         onClick={() => {
           // password validity test
@@ -98,7 +65,7 @@ export default function SignInForm({
             isSignInPage,
             formData.passConfirm
           );
-          setValidError(validityResult);
+          setValidityError(validityResult);
           // if valid pass erase input and go to sign in page
           if (validityResult === 'success') {
             changeAuthPage();
@@ -132,12 +99,40 @@ function FormInput({
           updateInput(e.target.value, e.target.id);
         }}
         value={value}
-        className='rounded-[8px] text-black invalid:border-red-600 border-1 valid:border-green-500'
+        className='
+          rounded-[8px] text-black !outline-none
+        focus:invalid:border-red-700 focus:invalid:!border-2
+          border-1 valid:border-green-500'
         type={type}
         id={id}
         pattern={validation}
         required
       />
+    </div>
+  );
+}
+
+function SignUpSvgButtons() {
+  return (
+    <div className='flex justify-center gap-4 mb-3'>
+      <button
+        onClick={(e) => e.preventDefault()}
+        aria-label='sign up with facebook'
+      >
+        <TfiFacebook className='custom-btn' />
+      </button>
+      <button
+        onClick={(e) => e.preventDefault()}
+        aria-label='sign up with github'
+      >
+        <TfiGithub className='custom-btn' />
+      </button>
+      <button
+        onClick={(e) => e.preventDefault()}
+        aria-label='sign up with x/twitter'
+      >
+        <TfiTwitterAlt className='custom-btn' />
+      </button>
     </div>
   );
 }
