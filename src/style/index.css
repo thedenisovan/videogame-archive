@@ -2,6 +2,10 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import 'flowbite/dist/flowbite.css';
 
+.custom-btn {
+  @apply border hover:cursor-pointer rounded-2xl h-8 w-8 p-1;
+}
+
 body,
 html,
 #root {
