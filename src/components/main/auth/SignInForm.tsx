@@ -1,9 +1,11 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { TfiFacebook } from 'react-icons/tfi';
 import { TfiGithub } from 'react-icons/tfi';
 import { TfiTwitterAlt } from 'react-icons/tfi';
 import { FormContext } from './Authorization';
 import { registerUser } from './context/authorization';
+import { PassTest } from './Toasts';
+import { SuccessRegistration } from './Toasts';
 
 type InputProps = {
   id: string;
@@ -19,7 +21,9 @@ export default function SignInForm({
 }: {
   returnText: (val1: string, val2: string) => string;
 }) {
-  const { formData, isSignInPage } = useContext(FormContext);
+  const { formData, isSignInPage, changeAuthPage, eraseInput } =
+    useContext(FormContext);
+  const [validError, setValidError] = useState<string>('');
   const validationPattern = '^(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{8,}$';
 
   return (
@@ -45,6 +49,23 @@ export default function SignInForm({
           label='Password confirmation'
         />
       )}
+      {validError === 'Passwords did not match' && (
+        <PassTest result='Passwords did not match' />
+      )}
+      {validError === 'Pattern mismatch' && (
+        <PassTest
+          result='Password requirements: minimum 8 characters, including 1 uppercase
+          letter, 1 number, and 1 special character.'
+        />
+      )}
+      {validError === 'success' && (
+        <SuccessRegistration result='You have been registered successfully' />
+      )}
+      {validError === 'user exists' && (
+        <PassTest
+          result={`User witch email address ${formData.mail} all ready exists`}
+        />
+      )}
 
       <p className='text-center mb-0'>Or</p>
 
@@ -68,15 +89,21 @@ export default function SignInForm({
           <TfiTwitterAlt className='custom-btn' />
         </button>
       </div>
-
       <button
         onClick={() => {
-          registerUser(
+          // password validity test
+          const validityResult = registerUser(
             formData.mail,
             formData.pass,
             isSignInPage,
             formData.passConfirm
           );
+          setValidError(validityResult);
+          // if valid pass erase input and go to sign in page
+          if (validityResult === 'success') {
+            changeAuthPage();
+            eraseInput();
+          }
         }}
         className='border-1 !rounded-[8px] h-[2.5rem]'
         aria-label={`${isSignInPage ? 'Log in button' : 'Sign up button'}`}

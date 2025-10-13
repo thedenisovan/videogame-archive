@@ -38,14 +38,22 @@ export default function Authorization() {
   const changeAuthPage = () => setSignInPage(!isSignInPage);
 
   return (
-    <main className='flex-1 flex flex-col justify-center'>
+    <main className='flex-1 flex flex-col justify-center relative '>
       <h2 className='mb-0 text-center !font-normal'>
         {returnText('Good to see you!', 'Welcome')}
       </h2>
       <p className='text-center !font-normal italic'>
         {returnText('Lets continue our journey', 'Sign up to get started')}
       </p>
-      <FormContext value={{ formData, updateInput, isSignInPage }}>
+      <FormContext
+        value={{
+          formData,
+          updateInput,
+          isSignInPage,
+          changeAuthPage,
+          eraseInput,
+        }}
+      >
         <SignInForm returnText={returnText} />
       </FormContext>
 

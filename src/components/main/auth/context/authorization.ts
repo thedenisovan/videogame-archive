@@ -1,16 +1,9 @@
-function validateInput(value: string) {
-  if (!value) return 'Input is required';
-  if (value.length < 8) return 'Password must be at least 8 characters length';
-  if (!/[A-Z]/.test(value)) return 'Must contain an uppercase letter';
-  if (!/[a-z]/.test(value)) return 'Must contain a lowercase letter';
-  if (!/[0-9]/.test(value)) return 'Must contain a number';
-  if (!/[!@#$%^&*]/.test(value)) return 'Must contain a special character';
-  return '';
-}
-
-function validatePassMatch(pass1: string, pass2: string) {
+function validateInput(pass1: string, pass2: string) {
+  if (!pass1) return 'Input is required';
+  if (!/^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/.test(pass1))
+    return `Pattern mismatch`;
   if (pass1 !== pass2) return 'Passwords did not match';
-  return '';
+  return 'success';
 }
 
 function registerUser(
@@ -19,11 +12,14 @@ function registerUser(
   isSignInPage: boolean,
   pass2: string
 ) {
-  if (validateInput(pass) !== '') return validateInput(pass);
-  else if (validatePassMatch(pass, pass2) !== '')
-    return validatePassMatch(pass, pass2);
-  else if (localStorage.getItem(mail) === null && !isSignInPage)
+  if (validateInput(pass, pass2) !== 'success')
+    return validateInput(pass, pass2);
+  else if (localStorage.getItem(mail) !== null) return `user exists`;
+  else if (!isSignInPage) {
     localStorage.setItem(mail, pass);
+    return 'success';
+  }
+  return 'success';
 }
 
 export { registerUser };

@@ -8,6 +8,8 @@ const FormContext = createContext({
   },
   updateInput: (_e: string, _id: string) => {}, // eslint-disable-line @typescript-eslint/no-unused-vars
   isSignInPage: true,
+  changeAuthPage: () => {},
+  eraseInput: () => {},
 });
 
 export default FormContext;

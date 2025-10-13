@@ -28,7 +28,7 @@ export default function SideBar({
   return (
     <aside
       aria-hidden={!isOpen} // if sidebar is open remove aria hidden else leave it
-      className={`absolute top-0 h-[100vh] w-[100vw] transition-transform duration-200 ease-in md:hidden flex ${
+      className={`absolute top-0 h-[100vh] w-[100vw] transition-transform duration-200 ease-in md:hidden flex z-1 ${
         !isOpen && '-translate-x-[100%]' // if sidebar is open slide it in view
       }`}
     >
