@@ -3,6 +3,7 @@ import { TfiFacebook } from 'react-icons/tfi';
 import { TfiGithub } from 'react-icons/tfi';
 import { TfiTwitterAlt } from 'react-icons/tfi';
 import { FormContext } from './Authorization';
+import { registerUser } from './context/authorization';
 
 type InputProps = {
   id: string;
@@ -70,7 +71,12 @@ export default function SignInForm({
 
       <button
         onClick={() => {
-          registerUser(!isSignInPage, formData.mail, formData.pass);
+          registerUser(
+            formData.mail,
+            formData.pass,
+            isSignInPage,
+            formData.passConfirm
+          );
         }}
         className='border-1 !rounded-[8px] h-[2.5rem]'
         aria-label={`${isSignInPage ? 'Log in button' : 'Sign up button'}`}
@@ -79,15 +85,6 @@ export default function SignInForm({
       </button>
     </form>
   );
-}
-
-function registerUser(
-  isSignInPage: boolean = false,
-  mail: string,
-  pass: string
-) {
-  if (localStorage.getItem(mail) === null && isSignInPage)
-    localStorage.setItem(mail, pass);
 }
 
 // component for single input and label element
