@@ -24,7 +24,7 @@ function NoUser() {
       or
       <Link className=' !text-blue-600' to='/auth'>
         {' '}
-        register
+        sign in
       </Link>
     </div>
   );

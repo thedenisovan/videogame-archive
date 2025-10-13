@@ -3,7 +3,9 @@ import { TfiFacebook } from 'react-icons/tfi';
 import { TfiGithub } from 'react-icons/tfi';
 import { TfiTwitterAlt } from 'react-icons/tfi';
 import { FormContext } from './Authorization';
+import { AuthorizationContext } from '../../App';
 import { registerUser } from './context/authorization';
+import { signInUser } from './context/authorization';
 import RegistrationToast from './Toasts';
 
 type InputProps = {
@@ -14,13 +16,8 @@ type InputProps = {
   validation?: string;
 };
 
-export default function SignInForm({
-  returnText,
-}: {
-  returnText: (val1: string, val2: string) => string;
-}) {
-  const { formData, isSignInPage, changeAuthPage, eraseInput } =
-    useContext(FormContext);
+export default function SignInForm() {
+  const { formData, isSignInPage } = useContext(FormContext);
 
   // holds state of registration validity result
   const [validityError, setValidityError] = useState<string>('');
@@ -37,12 +34,12 @@ export default function SignInForm({
         id='pass'
         value={formData.pass}
         label='Password'
-        validation='^(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{8,}$'
+        validation={`^(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{8,}$`}
       />
       {/* if user is on sign up page add extra input el for password confirmation */}
       {!isSignInPage && (
         <FormInput
-          validation='^(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{8,}$'
+          validation={`^(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{8,}$`}
           id='passConfirm'
           value={formData.passConfirm}
           label='Password confirmation'
@@ -56,28 +53,71 @@ export default function SignInForm({
 
       <SignUpSvgButtons />
 
-      <button
-        onClick={() => {
-          // password validity test
-          const validityResult = registerUser(
-            formData.mail,
-            formData.pass,
-            isSignInPage,
-            formData.passConfirm
-          );
-          setValidityError(validityResult);
-          // if valid pass erase input and go to sign in page
-          if (validityResult === 'success') {
-            changeAuthPage();
-            eraseInput();
-          }
-        }}
-        className='border-1 !rounded-[8px] h-[2.5rem]'
-        aria-label={`${isSignInPage ? 'Log in button' : 'Sign up button'}`}
-      >
-        {returnText('Log in', 'Sign up')}
-      </button>
+      {!isSignInPage && (
+        <RegistrationButton setValidityError={setValidityError} />
+      )}
+      {isSignInPage && <SignInButton setValidityError={setValidityError} />}
     </form>
+  );
+}
+
+function RegistrationButton({
+  setValidityError,
+}: {
+  setValidityError: (str: string) => void;
+}) {
+  const { formData, isSignInPage, changeAuthPage, eraseInput } =
+    useContext(FormContext);
+  return (
+    <button
+      onClick={() => {
+        // password validity test
+        const validityResult = registerUser(
+          formData.mail,
+          formData.pass,
+          isSignInPage,
+          formData.passConfirm
+        );
+        setValidityError(validityResult);
+        // if valid pass erase input and go to sign in page
+        if (validityResult === 'success') {
+          changeAuthPage();
+          eraseInput();
+        }
+      }}
+      className='border-1 !rounded-[8px] h-[2.5rem]'
+      aria-label={`${isSignInPage ? 'Log in button' : 'Sign up button'}`}
+    >
+      Sign up
+    </button>
+  );
+}
+
+function SignInButton({
+  setValidityError,
+}: {
+  setValidityError: (str: string) => void;
+}) {
+  const { setLoggedIn } = useContext(AuthorizationContext);
+  const { formData, isSignInPage, eraseInput } = useContext(FormContext);
+  return (
+    <button
+      onClick={() => {
+        // password validity test
+        const validityResult = signInUser(formData.mail, formData.pass);
+        setValidityError(validityResult);
+        // if valid pass erase input and go to sign in page
+        if (validityResult === 'sign in') {
+          console.log('you are in');
+          eraseInput();
+          setLoggedIn(true);
+        }
+      }}
+      className='border-1 !rounded-[8px] h-[2.5rem]'
+      aria-label={`${isSignInPage ? 'Log in button' : 'Sign up button'}`}
+    >
+      Sign in
+    </button>
   );
 }
 
@@ -101,7 +141,7 @@ function FormInput({
         value={value}
         className='
           rounded-[8px] text-black !outline-none
-        focus:invalid:border-red-700 focus:invalid:!border-2
+        invalid:border-red-700 
           border-1 valid:border-green-500'
         type={type}
         id={id}

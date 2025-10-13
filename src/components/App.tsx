@@ -13,12 +13,14 @@ const ThemeContext = createContext({
 
 const AuthorizationContext = createContext({
   isLoggedIn: false,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  setLoggedIn: (_bool: boolean) => {},
 });
 
 export default function App() {
   // const { data } = useGameData({ title: 'elder scrolls skyrim' });
   const [dark, setDark] = useState<boolean>(true);
-  const [isLoggedIn /*setLoggedIn*/] = useState<boolean>(false);
+  const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
 
   const themeBg = () => (dark ? 'bg-gray-700' : 'bg-white');
   const themeText = () => (dark ? '!text-white' : '!text-black');
@@ -26,7 +28,7 @@ export default function App() {
 
   return (
     <div className={`${themeText()} ${themeBg()} flex flex-col h-[100%]`}>
-      <AuthorizationContext value={{ isLoggedIn }}>
+      <AuthorizationContext value={{ isLoggedIn, setLoggedIn }}>
         <ThemeContext value={{ dark, toggleDark, themeBg, themeText }}>
           <Header role='header' />
           <Outlet />

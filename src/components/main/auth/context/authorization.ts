@@ -15,11 +15,16 @@ function registerUser(
   if (validateInput(pass, pass2) !== 'success')
     return validateInput(pass, pass2);
   else if (localStorage.getItem(mail) !== null) return `user exists`;
-  else if (!isSignInPage) {
+  else {
     localStorage.setItem(mail, pass);
     return 'success';
   }
-  return 'success';
 }
 
-export { registerUser };
+function signInUser(mail: string, pass: string) {
+  const user = localStorage.getItem(mail);
+  if (user === null || user !== pass) return 'no user';
+  else return 'sign in';
+}
+
+export { registerUser, signInUser };

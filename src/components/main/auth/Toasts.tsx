@@ -21,6 +21,8 @@ export default function RegistrationToast({ result }: { result: string }) {
       return (
         <InvalidValidity result={`User witch given email address exists`} />
       );
+    case 'no user':
+      return <InvalidValidity result={`Email or password are incorrect`} />;
   }
 }
 
