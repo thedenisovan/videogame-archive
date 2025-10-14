@@ -1,3 +1,8 @@
+interface UserData {
+  password: string;
+  savedGames: string[];
+}
+
 function validateInput(pass1: string, pass2: string) {
   if (!pass1) return 'Input is required';
   if (!/^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/.test(pass1))
@@ -6,24 +11,26 @@ function validateInput(pass1: string, pass2: string) {
   return 'success';
 }
 
-function registerUser(
-  mail: string,
-  pass: string,
-  isSignInPage: boolean,
-  pass2: string
-) {
+function registerUser(mail: string, pass: string, pass2: string) {
+  const userData: UserData = {
+    password: pass,
+    savedGames: [],
+  };
+
   if (validateInput(pass, pass2) !== 'success')
     return validateInput(pass, pass2);
   else if (localStorage.getItem(mail) !== null) return `user exists`;
   else {
-    localStorage.setItem(mail, pass);
+    localStorage.setItem(mail, JSON.stringify(userData));
     return 'success';
   }
 }
 
 function signInUser(mail: string, pass: string) {
   const user = localStorage.getItem(mail);
-  if (user === null || user !== pass) return 'no user';
+  if (user === null) return 'no user';
+  const parsed: UserData = JSON.parse(user);
+  if (parsed.password !== pass) return 'no user';
   else return 'sign in';
 }
 

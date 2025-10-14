@@ -54,7 +54,7 @@ export default function Authorization() {
           eraseInput,
         }}
       >
-        <SignInForm returnText={returnText} />
+        <SignInForm />
       </FormContext>
 
       <div className='flex flex-col'>

@@ -18,7 +18,6 @@ type InputProps = {
 
 export default function SignInForm() {
   const { formData, isSignInPage } = useContext(FormContext);
-
   // holds state of registration validity result
   const [validityError, setValidityError] = useState<string>('');
 
@@ -75,7 +74,6 @@ function RegistrationButton({
         const validityResult = registerUser(
           formData.mail,
           formData.pass,
-          isSignInPage,
           formData.passConfirm
         );
         setValidityError(validityResult);
@@ -103,10 +101,10 @@ function SignInButton({
   return (
     <button
       onClick={() => {
-        // password validity test
+        // password and email validity test
         const validityResult = signInUser(formData.mail, formData.pass);
         setValidityError(validityResult);
-        // if valid pass erase input and go to sign in page
+        // if sign in details are correct set logged in flag to true e.g. sign in user.
         if (validityResult === 'sign in') {
           console.log('you are in');
           eraseInput();
