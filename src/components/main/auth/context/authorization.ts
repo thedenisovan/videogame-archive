@@ -31,7 +31,13 @@ function signInUser(mail: string, pass: string) {
   if (user === null) return 'no user';
   const parsed: UserData = JSON.parse(user);
   if (parsed.password !== pass) return 'no user';
-  else return 'sign in';
+  else {
+    localStorage.setItem(
+      'current-user',
+      JSON.stringify({ ...parsed, id: mail })
+    );
+    return 'sign in';
+  }
 }
 
 export { registerUser, signInUser };
