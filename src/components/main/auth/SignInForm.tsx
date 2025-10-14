@@ -1,11 +1,9 @@
 import { useContext, useState } from 'react';
-import { TfiFacebook } from 'react-icons/tfi';
-import { TfiGithub } from 'react-icons/tfi';
-import { TfiTwitterAlt } from 'react-icons/tfi';
+import { useNavigate } from 'react-router';
+import { TfiGithub, TfiFacebook, TfiTwitterAlt } from 'react-icons/tfi';
 import { FormContext } from './Authorization';
 import { AuthorizationContext } from '../../App';
-import { registerUser } from './context/authorization';
-import { signInUser } from './context/authorization';
+import { registerUser, signInUser } from './authValidation';
 import RegistrationToast from './Toasts';
 
 type InputProps = {
@@ -23,7 +21,7 @@ export default function SignInForm() {
 
   return (
     <form
-      className='flex flex-col !m-[2rem] gap-2'
+      className='flex flex-col !my-[2rem] gap-3 md:!gap-7 w-[80%] lg:!max-w-[500px]'
       onSubmit={(e) => {
         e.preventDefault();
       }}
@@ -47,8 +45,6 @@ export default function SignInForm() {
 
       {/*returns correct toast based on validity state*/}
       <RegistrationToast result={validityError} />
-
-      <p className='text-center mb-0'>Or</p>
 
       <SignUpSvgButtons />
 
@@ -96,6 +92,7 @@ function SignInButton({
 }: {
   setValidityError: (str: string) => void;
 }) {
+  const navigate = useNavigate();
   const { setLoggedIn } = useContext(AuthorizationContext);
   const { formData, isSignInPage, eraseInput } = useContext(FormContext);
   return (
@@ -106,7 +103,7 @@ function SignInButton({
         setValidityError(validityResult);
         // if sign in details are correct set logged in flag to true e.g. sign in user.
         if (validityResult === 'sign in') {
-          console.log('you are in');
+          navigate('/');
           eraseInput();
           setLoggedIn(true);
         }
@@ -152,25 +149,28 @@ function FormInput({
 
 function SignUpSvgButtons() {
   return (
-    <div className='flex justify-center gap-4 mb-3'>
-      <button
-        onClick={(e) => e.preventDefault()}
-        aria-label='sign up with facebook'
-      >
-        <TfiFacebook className='custom-btn' />
-      </button>
-      <button
-        onClick={(e) => e.preventDefault()}
-        aria-label='sign up with github'
-      >
-        <TfiGithub className='custom-btn' />
-      </button>
-      <button
-        onClick={(e) => e.preventDefault()}
-        aria-label='sign up with x/twitter'
-      >
-        <TfiTwitterAlt className='custom-btn' />
-      </button>
-    </div>
+    <section className='flex flex-col gap-3'>
+      <p className='text-center mb-0 italic'>Or sign in with</p>
+      <div className='flex justify-center gap-4 mb-3'>
+        <button
+          onClick={(e) => e.preventDefault()}
+          aria-label='sign up with facebook'
+        >
+          <TfiFacebook className='custom-btn' />
+        </button>
+        <button
+          onClick={(e) => e.preventDefault()}
+          aria-label='sign up with github'
+        >
+          <TfiGithub className='custom-btn' />
+        </button>
+        <button
+          onClick={(e) => e.preventDefault()}
+          aria-label='sign up with x/twitter'
+        >
+          <TfiTwitterAlt className='custom-btn' />
+        </button>
+      </div>
+    </section>
   );
 }

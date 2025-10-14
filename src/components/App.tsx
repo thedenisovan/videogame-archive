@@ -1,21 +1,10 @@
-import { useState, createContext } from 'react';
+import { useState } from 'react';
 // import useGameData from '../components/apiHooks/GameData';
 import Header from './header/Header';
 import FooterComp from './footer/FooterComp';
 import { Outlet } from 'react-router';
-
-const ThemeContext = createContext({
-  dark: true,
-  toggleDark: () => {},
-  themeBg: () => {},
-  themeText: () => {},
-});
-
-const AuthorizationContext = createContext({
-  isLoggedIn: false,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setLoggedIn: (_bool: boolean) => {},
-});
+import AuthorizationContext from './context/Authorization';
+import ThemeContext from './context/ThemeContext';
 
 export default function App() {
   // const { data } = useGameData({ title: 'elder scrolls skyrim' });

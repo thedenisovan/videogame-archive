@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ThemeContext } from '../App';
+import { ThemeContext, AuthorizationContext } from '../App';
 import { Link } from 'react-router';
 import svg from '../../utils/svg';
 
@@ -11,9 +11,7 @@ export default function SideBar({
   toggleSideBar: () => void;
 }) {
   const { dark, toggleDark } = useContext(ThemeContext);
-
-  // !todo: temp value which need to be replaced with state which will check is user signed in
-  const value: boolean = true;
+  const { isLoggedIn, setLoggedIn } = useContext(AuthorizationContext);
 
   // removes focus from button and closes side bar after btn is being clicked
   const removeFocus = (
@@ -74,14 +72,25 @@ export default function SideBar({
           )}
         </button>
         <Link to='auth' className='!no-underline'>
-          <button onClick={(e) => removeFocus(e)} className='flex'>
+          <button
+            onClick={(e) => {
+              removeFocus(e);
+              // if user is signed in, set global isLoggedIn flag to false
+              // e.g. sign user out
+              if (isLoggedIn) {
+                setLoggedIn(false);
+                localStorage.removeItem('current-user');
+              }
+            }}
+            className='flex'
+          >
             {dark ? (
               <img width={30} src={svg.lightSignIn} alt='current dark mode' />
             ) : (
               <img width={30} src={svg.darkSignIn} alt='current light mode' />
             )}
             <p className={`!ml-2 mt-3 ${dark ? 'text-white' : 'text-black'}`}>
-              {value ? `Sign in` : 'Sign out'}
+              {!isLoggedIn ? `Sign in` : 'Sign out'}
             </p>
           </button>
         </Link>

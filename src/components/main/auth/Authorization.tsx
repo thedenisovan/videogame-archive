@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import SignInForm from './SignInForm';
-import FormContext from './context/FormContext';
+import FormContext from '../../context/FormContext';
+import { ThemeContext } from '../../App';
 
 type FormData = {
   mail: string;
@@ -9,6 +10,7 @@ type FormData = {
 };
 
 export default function Authorization() {
+  const { dark } = useContext(ThemeContext);
   // Decides which page should be visible, sign in or registration
   const [isSignInPage, setSignInPage] = useState<boolean>(true);
   const [formData, setFormData] = useState<FormData>({
@@ -38,13 +40,22 @@ export default function Authorization() {
   const changeAuthPage = () => setSignInPage(!isSignInPage);
 
   return (
-    <main className='flex-1 flex flex-col justify-center relative '>
-      <h2 className='mb-0 text-center !font-normal'>
-        {returnText('Good to see you!', 'Welcome')}
-      </h2>
-      <p className='text-center !font-normal italic'>
-        {returnText('Lets continue our journey', 'Sign up to get started')}
-      </p>
+    <main
+      className={`
+      flex-1 flex flex-col justify-center items-center relative
+      md:w-[70vw] md:!m-auto md:gap-12 md:text-xl
+      lg:text-2xl lg:w-[600px] lg:max-h-[900px] lg:rounded-2xl
+      ${dark ? 'lg:bg-gray-600' : 'lg:bg-gray-100'}
+      `}
+    >
+      <section>
+        <h2 className='mb-0 text-center !font-normal md:!text-4xl lg:!text-5xl'>
+          {returnText('Good to see you!', 'Welcome')}
+        </h2>
+        <p className='text-center !font-normal italic md:text-xl lg:text-2xl mt-1 lg:!mt-2'>
+          {returnText('Lets continue our journey', 'Sign up to get started')}
+        </p>
+      </section>
       <FormContext
         value={{
           formData,
