@@ -21,7 +21,7 @@ interface Genre {
 }
 
 // gets GameVAlue data based on user input game title
-export default function useGameData({ title }: { title: string }) {
+export default function useGameData({ genre }: { genre: string }) {
   const [data, setData] = useState<GameValue[]>([]);
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
@@ -29,7 +29,7 @@ export default function useGameData({ title }: { title: string }) {
   useEffect(() => {
     setLoading(true);
 
-    const url = `https://api.rawg.io/api/games?search=${title}&key=${
+    const url = `https://api.rawg.io/api/games?genres=${genre}&ordering=-metacritic&page_size=40&key=${
       import.meta.env.VITE_RAWG
     }`;
 
@@ -69,7 +69,7 @@ export default function useGameData({ title }: { title: string }) {
         else setError('Unknown Error');
       })
       .finally(() => setLoading(false));
-  }, [title]);
+  }, [genre]);
 
   return { data, error, loading };
 }

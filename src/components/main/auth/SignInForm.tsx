@@ -21,7 +21,7 @@ export default function SignInForm() {
 
   return (
     <form
-      className='flex flex-col !my-[2rem] gap-3 md:!gap-7 w-[80%] lg:!max-w-[500px]'
+      className='flex flex-col !my-[2rem] gap-3 md:!gap-7 w-[80%] '
       onSubmit={(e) => {
         e.preventDefault();
       }}

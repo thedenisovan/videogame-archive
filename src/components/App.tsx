@@ -1,5 +1,5 @@
 import { useState } from 'react';
-// import useGameData from '../components/apiHooks/GameData';
+import useGameData from '../components/apiHooks/GameData';
 import Header from './header/Header';
 import FooterComp from './footer/FooterComp';
 import { Outlet } from 'react-router';
@@ -7,9 +7,11 @@ import AuthorizationContext from './context/Authorization';
 import ThemeContext from './context/ThemeContext';
 
 export default function App() {
-  // const { data } = useGameData({ title: 'elder scrolls skyrim' });
+  const { data } = useGameData({ genre: 'role-playing-games-rpg' });
   const [dark, setDark] = useState<boolean>(true);
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
+
+  console.log(data);
 
   const themeBg = () => (dark ? 'bg-gray-700' : 'bg-white');
   const themeText = () => (dark ? '!text-white' : '!text-black');
