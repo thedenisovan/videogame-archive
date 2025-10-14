@@ -79,7 +79,7 @@ function RegistrationButton({
           eraseInput();
         }
       }}
-      className='border-1 !rounded-[8px] h-[2.5rem]'
+      className='border-1 !rounded-[8px] h-[2.5rem] shadow-2xl hover:shadow-black transition'
       aria-label={`${isSignInPage ? 'Log in button' : 'Sign up button'}`}
     >
       Sign up
@@ -108,7 +108,7 @@ function SignInButton({
           setLoggedIn(true);
         }
       }}
-      className='border-1 !rounded-[8px] h-[2.5rem]'
+      className='border-1 !rounded-[8px] h-[2.5rem] shadow-2xl hover:shadow-black transition'
       aria-label={`${isSignInPage ? 'Log in button' : 'Sign up button'}`}
     >
       Sign in
