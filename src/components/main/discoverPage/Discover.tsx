@@ -3,8 +3,16 @@ import DiscoverHeader from './DiscoverHeader';
 import { useContext } from 'react';
 import { ThemeContext } from '../../App';
 import svg from '../../../utils/svg';
+import GameCard from './GameCard';
+import useGameData from '../../apiHooks/GameData';
 
 export default function Discover() {
+  const { data, error, loading } = useGameData({
+    genre: 'role-playing-games-rpg',
+  });
+
+  if (error) return console.log(error);
+
   return (
     <main
       aria-labelledby='main-section-title'
@@ -12,6 +20,27 @@ export default function Discover() {
     >
       <DiscoverHeader />
       <SearchBar />
+      {loading ? (
+        <p>loading</p>
+      ) : (
+        <ul>
+          {data.map((d) => (
+            <li key={d.id}>
+              {
+                <GameCard
+                  bgImg={d.bgImg}
+                  platforms={d.platforms}
+                  title={d.title}
+                  rating={d.rating}
+                  releaseDate={d.releaseDate}
+                  genres={d.genres}
+                  id={d.id}
+                />
+              }
+            </li>
+          ))}
+        </ul>
+      )}
     </main>
   );
 }
@@ -21,6 +50,7 @@ function SearchBar() {
   const { dark } = useContext(ThemeContext);
 
   const changeInput = (e: string) => setInput(e);
+  // selects correct svg color based on current color theme
   const themeSvg = () =>
     dark ? (
       <img

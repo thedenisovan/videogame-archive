@@ -21,20 +21,20 @@ import { useEffect, useState } from 'react';
 // Educational → educational
 
 // interface to hold values extracted from api return
-interface GameValue {
+export interface GameValue {
   title: string;
-  id: number;
+  id: number | string;
   bgImg: string;
-  ageRating: string;
+  ageRating?: string;
   genres: string[];
-  rating: number;
+  rating: number | string;
   platforms: string[];
-  screenshots: string[];
+  screenshots?: string[];
   releaseDate: string;
 }
 
 interface Genre {
-  id: number;
+  id: number | string;
   name?: string;
   slug?: string;
   image?: string;
@@ -49,7 +49,7 @@ export default function useGameData({ genre }: { genre: string }) {
   useEffect(() => {
     setLoading(true);
 
-    const url = `https://api.rawg.io/api/games?genres=${genre}&ordering=-metacritic&page_size=40&key=${
+    const url = `https://api.rawg.io/api/games?genres=${genre}&ordering=-metacritic&page_size=20&key=${
       import.meta.env.VITE_RAWG
     }`;
 
@@ -59,30 +59,26 @@ export default function useGameData({ genre }: { genre: string }) {
         return res.json();
       })
       .then((response) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        response.results.forEach((res: any) => {
-          // for each response data create new gameData obj
-          const gameData: GameValue = {
+        const games: GameValue[] = response.results
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          .map((res: any) => ({
             title: res.name,
             id: res.id,
             bgImg: res.background_image ?? 'No bg img',
             ageRating: res.esrb_rating?.name_en ?? 'Not rated',
             genres: res.genres.map((genre: Genre) => genre.name),
             rating: res.metacritic ?? 0,
-            platforms:
-              res.platforms.map(
-                (p: { platform: { name: string } }) => p.platform.name
-              ) ?? 'Unknown platform',
-            screenshots:
-              res.short_screenshots.map((shots: Genre) => shots.image) ??
-              'No screenshots',
+            platforms: res.platforms.map(
+              (p: { platform: { name: string } }) => p.platform.name
+            ) ?? ['unknown platform'],
+            screenshots: res.short_screenshots.map(
+              (shots: Genre) => shots.image
+            ) ?? ['No screenshots'],
             releaseDate: res.released ?? 'No date provided',
-          };
-          // condition for gameData obj not to be empty
-          if (gameData.bgImg !== 'No bg img') {
-            setData((prev) => [...prev, gameData]);
-          }
-        });
+          }))
+          .filter((game: GameValue) => game.bgImg !== 'No bg img');
+
+        setData(games);
       })
       .catch((error: unknown) => {
         if (error instanceof Error) setError(error.message);
