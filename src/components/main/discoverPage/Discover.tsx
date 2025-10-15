@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DiscoverHeader from './DiscoverHeader';
 import { useContext } from 'react';
 import { ThemeContext } from '../../App';
@@ -7,16 +7,24 @@ import GameCard from './GameCard';
 import useGameData from '../../apiHooks/GameData';
 
 export default function Discover() {
+  const { dark } = useContext(ThemeContext);
   const { data, error, loading } = useGameData({
-    genre: 'role-playing-games-rpg',
+    genre: 'action',
   });
+  const [gameData, setGameData] = useState(data);
+
+  useEffect(() => {
+    setGameData(data);
+  }, [data]);
 
   if (error) return console.log(error);
 
   return (
     <main
       aria-labelledby='main-section-title'
-      className={`flex-1 flex items-center flex-col `}
+      className={`flex-1 flex items-center flex-col ${
+        dark ? 'bg-gray-700' : 'bg-white'
+      }`}
     >
       <DiscoverHeader />
       <SearchBar />
@@ -24,7 +32,7 @@ export default function Discover() {
         <p>loading</p>
       ) : (
         <ul>
-          {data.map((d) => (
+          {gameData.map((d) => (
             <li key={d.id}>
               {
                 <GameCard
