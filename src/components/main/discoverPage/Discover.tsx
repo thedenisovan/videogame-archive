@@ -1,21 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import DiscoverHeader from './DiscoverHeader';
 import { useContext } from 'react';
 import { ThemeContext } from '../../App';
 import svg from '../../../utils/svg';
 import GameCard from './GameCard';
 import useGameData from '../../apiHooks/GameData';
+import { useOutletContext } from 'react-router';
+import type { GameValue } from '../../apiHooks/GameData';
 
 export default function Discover() {
+  const { loading, error } = useGameData({ genre: 'indie' });
   const { dark } = useContext(ThemeContext);
-  const { data, error, loading } = useGameData({
-    genre: 'action',
-  });
-  const [gameData, setGameData] = useState(data);
-
-  useEffect(() => {
-    setGameData(data);
-  }, [data]);
+  const { data } = useOutletContext<{
+    data: GameValue[];
+  }>();
 
   if (error) return console.log(error);
 
@@ -31,8 +29,8 @@ export default function Discover() {
       {loading ? (
         <p>loading</p>
       ) : (
-        <ul>
-          {gameData.map((d) => (
+        <ul className='p-2'>
+          {data.map((d: GameValue) => (
             <li key={d.id}>
               {
                 <GameCard
