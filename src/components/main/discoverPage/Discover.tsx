@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import FilterBar from './FilterBar';
 import DiscoverHeader from './DiscoverHeader';
 import { useContext } from 'react';
 import { ThemeContext } from '../../App';
-import svg from '../../../utils/svg';
 import GameCard from './GameCard';
 import useGameData from '../../apiHooks/GameData';
 import { useOutletContext } from 'react-router';
@@ -25,17 +24,16 @@ export default function Discover() {
       }`}
     >
       <DiscoverHeader />
-      <SearchBar />
+      <FilterBar />
       {loading ? (
         <p>loading</p>
       ) : (
-        <ul className='p-2'>
+        <ul className='p-2 flex flex-col gap-4'>
           {data.map((d: GameValue) => (
             <li key={d.id}>
               {
                 <GameCard
                   bgImg={d.bgImg}
-                  platforms={d.platforms}
                   title={d.title}
                   rating={d.rating}
                   releaseDate={d.releaseDate}
@@ -48,42 +46,5 @@ export default function Discover() {
         </ul>
       )}
     </main>
-  );
-}
-
-function SearchBar() {
-  const [input, setInput] = useState<string>('');
-  const { dark } = useContext(ThemeContext);
-
-  const changeInput = (e: string) => setInput(e);
-  // selects correct svg color based on current color theme
-  const themeSvg = () =>
-    dark ? (
-      <img
-        className='bg-gray-800 rounded-r-xl p-1'
-        width={40}
-        src={svg.lightMag}
-      />
-    ) : (
-      <img
-        className='bg-gray-300 rounded-r-xl p-1'
-        width={40}
-        src={svg.darkMag}
-      />
-    );
-
-  return (
-    <div className='w-100 flex justify-center mt-2'>
-      <input
-        className={`rounded-l-[.3rem] w-85 border-0 !border-r-1 ${
-          dark ? 'bg-gray-800' : 'bg-gray-300'
-        }`}
-        value={input}
-        onChange={(e) => changeInput(e.target.value)}
-        type='text'
-        placeholder='Search for game by title'
-      />
-      <button>{themeSvg()}</button>
-    </div>
   );
 }

@@ -28,7 +28,7 @@ export interface GameValue {
   ageRating?: string;
   genres: string[];
   rating: number | string;
-  platforms: string[];
+  platforms?: string[];
   screenshots?: string[];
   releaseDate: string;
 }
@@ -41,7 +41,7 @@ interface Genre {
 }
 
 // gets GameVAlue data based on user input game title
-export default function useGameData({ genre }: { genre: string }) {
+export default function useGameData({ genre }: { genre?: string }) {
   const [data, setData] = useState<GameValue[]>([]);
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);

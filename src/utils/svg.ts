@@ -11,8 +11,10 @@ import lightMag from '../assets/icons/light-mag.svg';
 import darkSignIn from '../assets/icons/dark-signin.svg';
 import lightSignIn from '../assets/icons/light-signin.svg';
 import gamepad from '../assets/icons/gamepad.svg';
+import theater from '../assets/icons/theater.svg';
 
 const svg = {
+  theater,
   gamepad,
   sun,
   moon,

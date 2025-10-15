@@ -1,11 +1,17 @@
 import svg from '../../../utils/svg';
+import { useContext } from 'react';
+import { ThemeContext } from '../../App';
 
 export default function DiscoverHeader() {
+  const { dark } = useContext(ThemeContext);
+
   return (
     <header
       tabIndex={0}
       aria-labelledby='main-section-title'
-      className='flex gap-2 bg-gray-500 m-2 rounded-xl'
+      className={`flex gap-2 m-2 rounded-xl ${
+        dark ? 'bg-gray-800' : 'bg-gray-300'
+      }`}
     >
       <img
         src={svg.gamepad}

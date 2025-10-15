@@ -7,8 +7,7 @@ import AuthorizationContext from './context/Authorization';
 import ThemeContext from './context/ThemeContext';
 
 export default function App() {
-  const gen = 'role-playing-games-rpg';
-  const { data } = useGameData({ genre: gen });
+  const { data } = useGameData({ genre: 'action' });
   const [dark, setDark] = useState<boolean>(true);
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
   const themeBg = () => (dark ? 'bg-gray-700' : 'bg-white');
