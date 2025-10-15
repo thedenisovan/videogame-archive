@@ -15,7 +15,7 @@ export default function Discover() {
     data: GameValue[];
   }>();
 
-  if (error) return console.log(error);
+  if (error) console.log(error);
 
   return (
     <main
