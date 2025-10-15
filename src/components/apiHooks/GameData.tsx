@@ -18,7 +18,7 @@ import { useEffect, useState } from 'react';
 // Family → family
 // Board Games → board-games
 // Card → card
-// Educational → educational
+// Education → educational
 
 // interface to hold values extracted from api return
 export interface GameValue {
