@@ -36,8 +36,9 @@ export default function SideBar({
         }`}
       >
         <h2 className={`text-3xl font-bold tracking-widest`}>VAULT33</h2>
-        <Link to='/' className='!no-underline'>
+        <Link tabIndex={-1} to='/' className='!no-underline'>
           <NavButton
+            isOpen={isOpen}
             removeFocus={removeFocus}
             dark={dark}
             lightSvg={svg.lightMag}
@@ -45,8 +46,9 @@ export default function SideBar({
             children='Discover'
           />
         </Link>
-        <Link to='fav' className='!no-underline'>
+        <Link tabIndex={-1} to='fav' className='!no-underline'>
           <NavButton
+            isOpen={isOpen}
             removeFocus={removeFocus}
             dark={dark}
             lightSvg={svg.lightLib}
@@ -58,7 +60,7 @@ export default function SideBar({
         <hr className='border-b-1 w-[100%]' />
 
         {/*button to toggle dark theme*/}
-        <button onClick={() => toggleDark()}>
+        <button tabIndex={!isOpen ? -1 : 1} onClick={() => toggleDark()}>
           {dark ? (
             <div className='flex'>
               <img width={30} src={svg.moon} alt='current dark mode' />
@@ -71,8 +73,9 @@ export default function SideBar({
             </div>
           )}
         </button>
-        <Link to='auth' className='!no-underline'>
+        <Link tabIndex={-1} to='auth' className='!no-underline'>
           <button
+            tabIndex={!isOpen ? -1 : 1}
             onClick={(e) => {
               removeFocus(e);
               // if user is signed in, set global isLoggedIn flag to false
@@ -99,7 +102,7 @@ export default function SideBar({
         onClick={(e) => removeFocus(e)}
         className={`w-1/5 h-[100vh] bg-gray-400 ${dark && 'bg-gray-700'}`}
       >
-        <button onClick={(e) => removeFocus(e)}>
+        <button tabIndex={!isOpen ? -1 : 1} onClick={(e) => removeFocus(e)}>
           <img
             className='w-9 !ml-3 mt-4'
             src={dark ? svg.lightCross : svg.darkCross}
@@ -118,6 +121,7 @@ function NavButton({
   lightSvg,
   darkSvg,
   children,
+  isOpen,
 }: {
   removeFocus: (
     e:
@@ -128,9 +132,14 @@ function NavButton({
   lightSvg: string;
   darkSvg: string;
   children: string;
+  isOpen: boolean;
 }) {
   return (
-    <button className='flex' onClick={(e) => removeFocus(e)}>
+    <button
+      tabIndex={!isOpen ? -1 : 1}
+      className='flex'
+      onClick={(e) => removeFocus(e)}
+    >
       {dark ? (
         <img width={30} src={lightSvg} />
       ) : (
