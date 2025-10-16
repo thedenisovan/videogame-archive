@@ -48,7 +48,7 @@ export default function GameCard({
             dark ? 'bg-gray-700' : 'bg-gray-300'
           }`}
         >
-          <img src={svg.theater} width={35} />
+          <img alt='theater svg of mask img' src={svg.theater} width={35} />
           <div className='flex flex-col items-end'>
             <p className='font-bold font-mono !text-right'>Rating</p>{' '}
             <p className='-translate-y-5 text-center'>{rating}%</p>

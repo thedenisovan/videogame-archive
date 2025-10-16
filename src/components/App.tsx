@@ -8,7 +8,7 @@ import ThemeContext from './context/ThemeContext';
 
 export default function App() {
   // order games by order by value
-  const [orderBy, setOrderBy] = useState<string>('-metacritic');
+  const [orderBy, setOrderBy] = useState<string>('-ratings');
   // main data of api fetch return
   const { data } = useGameData({ genre: 'action', orderBy: orderBy });
 

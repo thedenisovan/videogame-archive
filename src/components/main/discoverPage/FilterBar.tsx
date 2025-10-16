@@ -31,12 +31,14 @@ function SearchBar({ dark }: { dark: boolean }) {
         className='bg-gray-800 rounded-r-xl p-2'
         width={51}
         src={svg.lightMag}
+        alt='magnify glass svg'
       />
     ) : (
       <img
         className='bg-gray-300 rounded-r-xl p-2'
         width={51}
         src={svg.darkMag}
+        alt='magnify glass svg'
       />
     );
 
@@ -51,7 +53,7 @@ function SearchBar({ dark }: { dark: boolean }) {
         type='text'
         placeholder='Search for game by title'
       />
-      <button>{themeSvg()}</button>
+      <button aria-label='search game by title'>{themeSvg()}</button>
     </div>
   );
 }
