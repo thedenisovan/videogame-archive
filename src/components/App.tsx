@@ -10,7 +10,7 @@ export default function App() {
   // order games by order by value
   const [orderBy, setOrderBy] = useState<string>('-ratings');
   // main data of api fetch return
-  const { data } = useGameData({ genre: 'action', orderBy: orderBy });
+  const { data } = useGameData({ genre: 'indie', orderBy: orderBy });
 
   const [dark, setDark] = useState<boolean>(true);
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);

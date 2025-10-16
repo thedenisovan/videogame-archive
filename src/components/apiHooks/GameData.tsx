@@ -55,7 +55,7 @@ export default function useGameData({
   useEffect(() => {
     setLoading(true);
 
-    const url = `https://api.rawg.io/api/games?genres=${genre}&ordering=${orderBy}&page_size=20&metacritic=1,100&key=${
+    const url = `https://api.rawg.io/api/games?genres=${genre}&ordering=${orderBy}&page_size=20&metacritic=1,100&dates=1956-01-01,2038-12-31&key=${
       import.meta.env.VITE_RAWG
     }`;
 

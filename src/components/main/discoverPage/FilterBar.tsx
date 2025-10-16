@@ -3,7 +3,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { useState } from 'react';
+import { useState, type ReactElement } from 'react';
 import { useContext } from 'react';
 import { ThemeContext } from '../../App';
 import { useOutletContext } from 'react-router';
@@ -11,36 +11,42 @@ import svg from '../../../utils/svg';
 
 export default function FilterBar() {
   const { dark } = useContext(ThemeContext);
-
-  return (
-    <section>
-      <SearchBar dark={dark} />
-      <BasicSelect dark={dark} />
-    </section>
-  );
-}
-
-function SearchBar({ dark }: { dark: boolean }) {
-  const [input, setInput] = useState<string>('');
-
-  const changeInput = (e: string) => setInput(e);
-  // selects correct svg color based on current color theme
-  const themeSvg = () =>
+  const themeSvg = (src1: string, src2: string) =>
     dark ? (
       <img
         className='bg-gray-800 rounded-r-xl p-2'
         width={51}
-        src={svg.lightMag}
+        src={src1}
         alt='magnify glass svg'
       />
     ) : (
       <img
         className='bg-gray-300 rounded-r-xl p-2'
         width={51}
-        src={svg.darkMag}
+        src={src2}
         alt='magnify glass svg'
       />
     );
+
+  return (
+    <section>
+      <SearchBar themeSvg={themeSvg} dark={dark} />
+      <BasicSelect themeSvg={themeSvg} dark={dark} />
+    </section>
+  );
+}
+
+function SearchBar({
+  dark,
+  themeSvg,
+}: {
+  dark: boolean;
+  themeSvg: (src1: string, src2: string) => ReactElement;
+}) {
+  const [input, setInput] = useState<string>('');
+
+  const changeInput = (e: string) => setInput(e);
+  // selects correct svg color based on current color theme
 
   return (
     <div className='w-100 flex justify-center mt-2'>
@@ -53,13 +59,21 @@ function SearchBar({ dark }: { dark: boolean }) {
         type='text'
         placeholder='Search for game by title'
       />
-      <button aria-label='search game by title'>{themeSvg()}</button>
+      <button aria-label='search game by title'>
+        {themeSvg(svg.lightMag, svg.darkMag)}
+      </button>
     </div>
   );
 }
 
 // select component from mui
-function BasicSelect({ dark }: { dark: boolean }) {
+function BasicSelect({
+  dark,
+  themeSvg,
+}: {
+  dark: boolean;
+  themeSvg: (src1: string, src2: string) => ReactElement;
+}) {
   const { setOrderByVal, orderBy } = useOutletContext<{
     setOrderByVal: (e: string) => void;
     orderBy: string;
@@ -67,7 +81,7 @@ function BasicSelect({ dark }: { dark: boolean }) {
 
   return (
     <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
+      <FormControl fullWidth className='mt-2 flex flex-row justify-between'>
         <InputLabel
           className={`mt-2 !text-xl z-1 ${dark ? 'text-white' : 'text-black'}`}
           id='demo-simple-select-label'
@@ -84,26 +98,29 @@ function BasicSelect({ dark }: { dark: boolean }) {
           }}
           className={`${
             dark ? 'bg-gray-800 text-white' : 'bg-gray-300 text-black'
-          } mt-2`}
+          } mt-2 min-w-85 h-13 !rounded-r-0 border-r-1`}
         >
           <MenuItem
             aria-label='sort games by rating from highest to lowest'
             value='-metacritic'
             selected
           >
-            Rating ↓
-          </MenuItem>
-          <MenuItem
-            aria-label='sort games by rating from lowest to highest'
-            value='metacritic'
-          >
-            Rating ↑
+            Critic Rating
           </MenuItem>
 
           <MenuItem aria-label='sort games by user rating' value='-ratings'>
-            User Picks
+            User Rating
+          </MenuItem>
+          <MenuItem aria-label='sort games newest first' value='-released'>
+            Newest first
+          </MenuItem>
+          <MenuItem aria-label='sort games oldest first' value='released'>
+            Oldest first
           </MenuItem>
         </Select>
+        <button className='translate-y-1'>
+          {themeSvg(svg.filterLight, svg.filterDark)}
+        </button>
       </FormControl>
     </Box>
   );

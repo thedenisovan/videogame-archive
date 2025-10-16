@@ -12,8 +12,12 @@ import darkSignIn from '../assets/icons/dark-signin.svg';
 import lightSignIn from '../assets/icons/light-signin.svg';
 import gamepad from '../assets/icons/gamepad.svg';
 import theater from '../assets/icons/theater.svg';
+import filterLight from '../assets/icons/filter-white.svg';
+import filterDark from '../assets/icons/filter-dark.svg';
 
 const svg = {
+  filterDark,
+  filterLight,
   theater,
   gamepad,
   sun,

@@ -30,7 +30,7 @@ export default function GameCard({
       <h2 className='!text-[1.2rem] !leading-5 mt-2 font-sans mb-1`'>
         {title}
       </h2>
-      <ul className='flex gap-1 p-0'>
+      <ul className='flex gap-1 p-0 flex-wrap'>
         {genres.map((gen) => (
           <li
             className={`${
