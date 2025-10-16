@@ -63,7 +63,7 @@ export default function GameCard({
         </div>
       </div>
       <button className='border-1 !rounded-[.3rem] mt-2 border-none !text-black !text-xl bg-green-400 h-8'>
-        Save
+        View
       </button>
     </div>
   );

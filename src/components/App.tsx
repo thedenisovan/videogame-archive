@@ -7,19 +7,25 @@ import AuthorizationContext from './context/Authorization';
 import ThemeContext from './context/ThemeContext';
 
 export default function App() {
-  const { data } = useGameData({ genre: 'action' });
+  // order games by order by value
+  const [orderBy, setOrderBy] = useState<string>('-metacritic');
+  // main data of api fetch return
+  const { data } = useGameData({ genre: 'action', orderBy: orderBy });
+
   const [dark, setDark] = useState<boolean>(true);
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
+
   const themeBg = () => (dark ? 'bg-gray-700' : 'bg-white');
   const themeText = () => (dark ? '!text-white' : '!text-black');
   const toggleDark = () => setDark(!dark);
+  const setOrderByVal = (e: string) => setOrderBy(e);
 
   return (
     <div className={`${themeText()} ${themeBg()} flex flex-col h-[100%] `}>
       <AuthorizationContext value={{ isLoggedIn, setLoggedIn }}>
         <ThemeContext value={{ dark, toggleDark, themeBg, themeText }}>
           <Header role='header' />
-          <Outlet context={{ data }} />
+          <Outlet context={{ data, setOrderByVal, orderBy }} />
           <FooterComp />
         </ThemeContext>
       </AuthorizationContext>

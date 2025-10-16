@@ -8,7 +8,7 @@ import { useOutletContext } from 'react-router';
 import type { GameValue } from '../../apiHooks/GameData';
 
 export default function Discover() {
-  const { loading, error } = useGameData({ genre: 'indie' });
+  const { loading, error } = useGameData({});
   const { dark } = useContext(ThemeContext);
   const { data } = useOutletContext<{
     data: GameValue[];

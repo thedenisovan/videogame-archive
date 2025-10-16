@@ -1,13 +1,12 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import type { SelectChangeEvent } from '@mui/material/Select';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { ThemeContext } from '../../App';
+import { useOutletContext } from 'react-router';
 import svg from '../../../utils/svg';
 
 export default function FilterBar() {
@@ -59,11 +58,10 @@ function SearchBar({ dark }: { dark: boolean }) {
 
 // select component from mui
 function BasicSelect({ dark }: { dark: boolean }) {
-  const [orderBy, setOrderBy] = React.useState('');
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setOrderBy(event.target.value as string);
-  };
+  const { setOrderByVal, orderBy } = useOutletContext<{
+    setOrderByVal: (e: string) => void;
+    orderBy: string;
+  }>();
 
   return (
     <Box sx={{ minWidth: 120 }}>
@@ -79,14 +77,30 @@ function BasicSelect({ dark }: { dark: boolean }) {
           id='demo-simple-select'
           value={orderBy}
           label='order-by'
-          onChange={handleChange}
-          className={`${dark ? 'bg-gray-800' : 'bg-gray-300'} mt-2`}
+          onChange={(e) => {
+            setOrderByVal(e.target.value);
+          }}
+          className={`${
+            dark ? 'bg-gray-800 text-white' : 'bg-gray-300 text-black'
+          } mt-2`}
         >
-          <MenuItem value='rating' selected>
-            Popularity
+          <MenuItem
+            aria-label='sort games by rating from highest to lowest'
+            value='-metacritic'
+            selected
+          >
+            Rating ↓
           </MenuItem>
-          <MenuItem value='release-date'>Release date</MenuItem>
-          <MenuItem value='name'>Alphabetical order</MenuItem>
+          <MenuItem
+            aria-label='sort games by rating from lowest to highest'
+            value='metacritic'
+          >
+            Rating ↑
+          </MenuItem>
+
+          <MenuItem aria-label='sort games by user rating' value='-ratings'>
+            User Picks
+          </MenuItem>
         </Select>
       </FormControl>
     </Box>
