@@ -73,6 +73,8 @@ export default function SideBar({
             </div>
           )}
         </button>
+        {/*link which leads to sign in page or if user is signed it 
+        this button will sign user out*/}
         <Link tabIndex={-1} to='auth' className='!no-underline'>
           <button
             tabIndex={!isOpen ? -1 : 1}
