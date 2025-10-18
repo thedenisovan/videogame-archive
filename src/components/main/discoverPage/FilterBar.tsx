@@ -8,7 +8,10 @@ import { useContext } from 'react';
 import { ThemeContext } from '../../App';
 import { useOutletContext } from 'react-router';
 import svg from '../../../utils/svg';
+import GenreDropdown from './GenreDropdown';
+import { CollapseContext } from './Discover';
 
+// component for search bar select element and genre dropdown
 export default function FilterBar() {
   const { dark } = useContext(ThemeContext);
   const themeSvg = (src1: string, src2: string) =>
@@ -75,14 +78,20 @@ function BasicSelect({
   dark: boolean;
   themeSvg: (src1: string, src2: string) => ReactElement;
 }) {
+  const { isCollapsed, setIsCollapsed } = useContext(CollapseContext);
   const { setOrderByVal, orderBy } = useOutletContext<{
     setOrderByVal: (e: string) => void;
     orderBy: string;
   }>();
 
+  const collapseDropdown = () => setIsCollapsed(!isCollapsed);
+
   return (
     <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth className='mt-2 flex flex-row justify-between'>
+      <FormControl
+        fullWidth
+        className='mt-2 flex flex-row justify-between relative'
+      >
         <InputLabel
           className={`mt-2 !text-xl z-1 ${dark ? 'text-white' : 'text-black'}`}
           id='demo-simple-select-label'
@@ -119,9 +128,15 @@ function BasicSelect({
             Oldest first
           </MenuItem>
         </Select>
-        <button className='translate-y-1'>
+        <button
+          onClick={() => collapseDropdown()}
+          className='translate-y-1'
+          aria-label='drop down collapse for game genre select'
+        >
           {themeSvg(svg.filterLight, svg.filterDark)}
         </button>
+        {/* genre drop down component */}
+        <GenreDropdown isCollapsed={isCollapsed} />{' '}
       </FormControl>
     </Box>
   );

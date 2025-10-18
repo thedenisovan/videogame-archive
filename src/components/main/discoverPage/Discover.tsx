@@ -1,15 +1,21 @@
 import FilterBar from './FilterBar';
 import DiscoverHeader from './DiscoverHeader';
-import { useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { ThemeContext } from '../../App';
 import GameCard from './GameCard';
 import useGameData from '../../apiHooks/GameData';
 import { useOutletContext } from 'react-router';
 import type { GameValue } from '../../apiHooks/GameData';
 import CircularProgress from '@mui/material/CircularProgress';
-import GenreDropdown from './GenreDropdown';
+
+const CollapseContext = createContext({
+  isCollapsed: true,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  setIsCollapsed: (_val: boolean) => {},
+});
 
 export default function Discover() {
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
   const { loading, error } = useGameData({});
   const { dark } = useContext(ThemeContext);
   const { data } = useOutletContext<{
@@ -20,14 +26,16 @@ export default function Discover() {
 
   return (
     <main
+      onClick={() => (!isCollapsed ? setIsCollapsed(true) : '')}
       aria-labelledby='main-section-title'
       className={`flex-1 flex items-center flex-col ${
         dark ? 'bg-gray-700' : 'bg-white'
       } `}
     >
       <DiscoverHeader />
-      <FilterBar />
-      <GenreDropdown />
+      <CollapseContext value={{ isCollapsed, setIsCollapsed }}>
+        <FilterBar />
+      </CollapseContext>
       {loading ? (
         <CircularProgress disableShrink className='!mt-[35vw]' />
       ) : (
@@ -51,3 +59,5 @@ export default function Discover() {
     </main>
   );
 }
+
+export { CollapseContext };

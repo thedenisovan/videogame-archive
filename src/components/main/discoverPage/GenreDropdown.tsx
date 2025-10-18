@@ -1,7 +1,14 @@
 import { useOutletContext } from 'react-router';
 import type { ChangeEvent } from 'react';
+import { useContext } from 'react';
+import { ThemeContext } from '../../App';
 
-export default function GenreDropdown() {
+export default function GenreDropdown({
+  isCollapsed,
+}: {
+  isCollapsed: boolean;
+}) {
+  const { dark } = useContext(ThemeContext);
   const { setGenres, genres } = useOutletContext<{
     setGenres: (genres: string[] | ((prev: string[]) => string[])) => void;
     genres: string[];
@@ -10,8 +17,6 @@ export default function GenreDropdown() {
   // displays games based on they genre
   const setGenresValues = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.checked) {
-      // not allow to un check last genre checkbox
-      if (genres.length === 1) return;
       // if genre unchecked remove it from genre list
       setGenres((prev: string[]) =>
         prev.filter((p: string) => p !== e.target.value)
@@ -22,12 +27,21 @@ export default function GenreDropdown() {
   };
 
   return (
-    <div>
+    <div
+      onClick={(e) => e.stopPropagation()}
+      className={`
+         text-black absolute top-15 right-0 z-1 animate-drop transition origin-top p-2
+        w-35 border-1
+        ${dark ? 'bg-gray-800 text-white' : 'bg-gray-300'}
+        ${isCollapsed ? `scale-y-0` : `scale-y-100`}`}
+    >
       {availableGenres.map((gen) => (
-        <div key={gen.value}>
+        <div key={gen.value} className='flex justify-between'>
           <label htmlFor={gen.value}>{gen.label}</label>
           <input
+            className='border-0'
             checked={genres.includes(gen.value)}
+            tabIndex={!isCollapsed ? 0 : -1}
             type='checkbox'
             id={gen.value}
             value={gen.value}
@@ -51,7 +65,7 @@ const availableGenres = [
   { label: 'Puzzle', value: 'puzzle' },
   { label: 'Arcade', value: 'arcade' },
   { label: 'Platformer', value: 'platformer' },
-  { label: 'Massively Multiplayer', value: 'massively-multiplayer' },
+  { label: 'Multiplayer', value: 'massively-multiplayer' },
   { label: 'Racing', value: 'racing' },
   { label: 'Sports', value: 'sports' },
   { label: 'Fighting', value: 'fighting' },

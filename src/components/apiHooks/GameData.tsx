@@ -34,7 +34,10 @@ export default function useGameData({
 
   useEffect(() => {
     setLoading(true);
-    const url = `https://api.rawg.io/api/games?genres=${genres?.join()}&ordering=${orderBy}&page_size=20&metacritic=1,100&dates=1965-01-01,2030-12-31&key=${
+    const url = `https://api.rawg.io/api/games?${
+      // if genre array is empty return all genres else specific genre games
+      !genres?.length ? `` : `genres=${genres?.join()}`
+    }&ordering=${orderBy}&page_size=20&metacritic=1,100&dates=1965-01-01,2030-12-31&key=${
       import.meta.env.VITE_RAWG
     }`;
 
