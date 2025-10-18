@@ -2,6 +2,7 @@ import { useOutletContext } from 'react-router';
 import type { ChangeEvent } from 'react';
 import { useContext } from 'react';
 import { ThemeContext } from '../../App';
+import availableGenres from '../../../utils/genreObj';
 
 export default function GenreDropdown({
   isCollapsed,
@@ -30,7 +31,7 @@ export default function GenreDropdown({
     <div
       onClick={(e) => e.stopPropagation()}
       className={`
-         text-black absolute top-15 right-0 z-1 animate-drop transition origin-top p-2
+         text-black absolute top-17 right-0 z-1 animate-drop transition origin-top p-2
         w-35 border-1
         ${dark ? 'bg-gray-800 text-white' : 'bg-gray-300'}
         ${isCollapsed ? `scale-y-0` : `scale-y-100`}`}
@@ -52,25 +53,3 @@ export default function GenreDropdown({
     </div>
   );
 }
-
-const availableGenres = [
-  { label: 'Action', value: 'action' },
-  { label: 'Indie', value: 'indie' },
-  { label: 'Adventure', value: 'adventure' },
-  { label: 'RPG', value: 'role-playing-games-rpg' },
-  { label: 'Strategy', value: 'strategy' },
-  { label: 'Shooter', value: 'shooter' },
-  { label: 'Casual', value: 'casual' },
-  { label: 'Simulation', value: 'simulation' },
-  { label: 'Puzzle', value: 'puzzle' },
-  { label: 'Arcade', value: 'arcade' },
-  { label: 'Platformer', value: 'platformer' },
-  { label: 'Multiplayer', value: 'massively-multiplayer' },
-  { label: 'Racing', value: 'racing' },
-  { label: 'Sports', value: 'sports' },
-  { label: 'Fighting', value: 'fighting' },
-  { label: 'Family', value: 'family' },
-  { label: 'Board Games', value: 'board-games' },
-  { label: 'Card', value: 'card' },
-  { label: 'Education', value: 'educational' },
-];

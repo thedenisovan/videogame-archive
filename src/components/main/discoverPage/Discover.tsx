@@ -28,7 +28,7 @@ export default function Discover() {
     <main
       onClick={() => (!isCollapsed ? setIsCollapsed(true) : '')}
       aria-labelledby='main-section-title'
-      className={`flex-1 flex items-center flex-col ${
+      className={`flex-1 flex !items-center flex-col px-2 py-2 ${
         dark ? 'bg-gray-700' : 'bg-white'
       } `}
     >
@@ -39,7 +39,7 @@ export default function Discover() {
       {loading ? (
         <CircularProgress disableShrink className='!mt-[35vw]' />
       ) : (
-        <ul className={`p-2 flex flex-col gap-4`}>
+        <ul className={`flex flex-col gap-4 !pl-0`}>
           {data.map((d: GameValue) => (
             <li key={d.id}>
               {

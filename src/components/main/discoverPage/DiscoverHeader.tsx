@@ -9,7 +9,7 @@ export default function DiscoverHeader() {
     <header
       tabIndex={0}
       aria-labelledby='main-section-title'
-      className={`flex gap-2 m-2 rounded-xl ${
+      className={`flex gap-2 rounded-[7px]  ${
         dark ? 'bg-gray-800' : 'bg-gray-300'
       }`}
     >

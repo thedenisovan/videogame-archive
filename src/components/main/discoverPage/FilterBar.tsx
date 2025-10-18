@@ -17,17 +17,15 @@ export default function FilterBar() {
   const themeSvg = (src1: string, src2: string) =>
     dark ? (
       <img
-        className='bg-gray-800 rounded-r-xl p-2'
-        width={51}
+        className='bg-gray-800 rounded-r-xl p-2 w-13'
         src={src1}
-        alt='magnify glass svg'
+        alt='svg icon'
       />
     ) : (
       <img
-        className='bg-gray-300 rounded-r-xl p-2'
-        width={51}
+        className='bg-gray-300 rounded-r-xl p-2 !w-13'
         src={src2}
-        alt='magnify glass svg'
+        alt='svg icon'
       />
     );
 
@@ -53,7 +51,7 @@ function SearchBar({
   // selects correct svg color based on current color theme
 
   return (
-    <div className='w-100 flex justify-center mt-2'>
+    <div className='w-[100%] m-auto flex justify-center mt-2'>
       <input
         className={`rounded-l-[.3rem] h-13 w-85 border-0 !border-r-1 ${
           dark ? 'bg-gray-800' : 'bg-gray-300'
@@ -87,57 +85,60 @@ function BasicSelect({
   const collapseDropdown = () => setIsCollapsed(!isCollapsed);
 
   return (
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl
-        fullWidth
-        className='mt-2 flex flex-row justify-between relative'
-      >
-        <InputLabel
-          className={`mt-2 !text-xl z-1 ${dark ? 'text-white' : 'text-black'}`}
-          id='demo-simple-select-label'
+    <div className='relative flex'>
+      <Box sx={{ minWidth: 120 }}>
+        <FormControl
+          fullWidth
+          className='my-2 flex flex-row justify-between relative'
         >
-          Order by
-        </InputLabel>
-        <Select
-          labelId='demo-simple-select-label'
-          id='demo-simple-select'
-          value={orderBy}
-          label='order-by'
-          onChange={(e) => {
-            setOrderByVal(e.target.value);
-          }}
-          className={`${
-            dark ? 'bg-gray-800 text-white' : 'bg-gray-300 text-black'
-          } mt-2 min-w-85 h-13 !rounded-r-0 border-r-1`}
-        >
-          <MenuItem
-            aria-label='sort games by rating from highest to lowest'
-            value='-metacritic'
-            selected
+          <InputLabel
+            className={`mt-2 !text-xl z-1 ${
+              dark ? 'text-white' : 'text-black'
+            }`}
+            id='demo-simple-select-label'
           >
-            Critic Rating
-          </MenuItem>
-
-          <MenuItem aria-label='sort games by user rating' value='-ratings'>
-            User Rating
-          </MenuItem>
-          <MenuItem aria-label='sort games newest first' value='-released'>
-            Newest first
-          </MenuItem>
-          <MenuItem aria-label='sort games oldest first' value='released'>
-            Oldest first
-          </MenuItem>
-        </Select>
-        <button
-          onClick={() => collapseDropdown()}
-          className='translate-y-1'
-          aria-label='drop down collapse for game genre select'
-        >
-          {themeSvg(svg.filterLight, svg.filterDark)}
-        </button>
-        {/* genre drop down component */}
-        <GenreDropdown isCollapsed={isCollapsed} />{' '}
-      </FormControl>
-    </Box>
+            Order by
+          </InputLabel>
+          <Select
+            labelId='demo-simple-select-label'
+            id='demo-simple-select'
+            value={orderBy}
+            label='order-by'
+            onChange={(e) => {
+              setOrderByVal(e.target.value);
+            }}
+            className={`${
+              dark ? 'bg-gray-800 text-white' : 'bg-gray-300 text-black'
+            } mt-2 w-85 h-13 !rounded-r-0 border-r-1`}
+          >
+            <MenuItem
+              aria-label='sort games by rating from highest to lowest'
+              value='-metacritic'
+              selected
+            >
+              Critic Rating
+            </MenuItem>
+            <MenuItem aria-label='sort games by user rating' value='-ratings'>
+              User Rating
+            </MenuItem>
+            <MenuItem aria-label='sort games newest first' value='-released'>
+              Newest first
+            </MenuItem>
+            <MenuItem aria-label='sort games oldest first' value='released'>
+              Oldest first
+            </MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+      <button
+        onClick={() => collapseDropdown()}
+        className='translate-y-1'
+        aria-label='drop down collapse for game genre select'
+      >
+        {themeSvg(svg.filterLight, svg.filterDark)}
+      </button>
+      {/* genre drop down component */}
+      <GenreDropdown isCollapsed={isCollapsed} />{' '}
+    </div>
   );
 }
