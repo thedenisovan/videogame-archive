@@ -36,6 +36,7 @@ export default function FilterBar() {
   );
 }
 
+// component for game search bar
 function SearchBar({
   dark,
   themeSvg,

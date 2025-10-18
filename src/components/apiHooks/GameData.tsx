@@ -47,10 +47,11 @@ export default function useGameData({
         const games: GameValue[] = response.results
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           .map((res: any) => ({
+            // creates obj with api call extracted values
             title: res.name,
             id: res.id,
             bgImg: res.background_image ?? 'No bg img',
-            ageRating: res.esrb_rating?.name_en ?? 'Not rated',
+            ageRating: res.esrb_rating?.name_en ?? 0,
             genres: res.genres.map((genre: Genre) => genre.name),
             rating: res.metacritic ?? 0,
             platforms: res.platforms.map(
