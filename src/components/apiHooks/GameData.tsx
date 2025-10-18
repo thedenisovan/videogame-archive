@@ -34,7 +34,7 @@ export default function useGameData({
 
   useEffect(() => {
     setLoading(true);
-    const url = `https://api.rawg.io/api/games?genres=${genres?.join()}&ordering=${orderBy}&page_size=20&metacritic=1,100&dates=1956-01-01,2038-12-31&key=${
+    const url = `https://api.rawg.io/api/games?genres=${genres?.join()}&ordering=${orderBy}&page_size=20&metacritic=1,100&dates=1965-01-01,2030-12-31&key=${
       import.meta.env.VITE_RAWG
     }`;
 
@@ -60,7 +60,7 @@ export default function useGameData({
             screenshots: res.short_screenshots.map(
               (shots: Genre) => shots.image
             ) ?? ['No screenshots'],
-            releaseDate: res.released ?? 'No date provided',
+            releaseDate: res.released ?? '2030-12-31',
           }))
           .filter((game: GameValue) => game.bgImg !== 'No bg img');
 

@@ -7,6 +7,7 @@ import useGameData from '../../apiHooks/GameData';
 import { useOutletContext } from 'react-router';
 import type { GameValue } from '../../apiHooks/GameData';
 import CircularProgress from '@mui/material/CircularProgress';
+import GenreDropdown from './GenreDropdown';
 
 export default function Discover() {
   const { loading, error } = useGameData({});
@@ -26,6 +27,7 @@ export default function Discover() {
     >
       <DiscoverHeader />
       <FilterBar />
+      <GenreDropdown />
       {loading ? (
         <CircularProgress disableShrink className='!mt-[35vw]' />
       ) : (

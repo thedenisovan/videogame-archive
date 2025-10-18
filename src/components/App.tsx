@@ -9,9 +9,8 @@ import ThemeContext from './context/ThemeContext';
 export default function App() {
   // order games by order by value
   const [orderBy, setOrderBy] = useState<string>('-ratings');
-  const [genres, setGenres] = useState<string[]>(['indie']);
+  const [genres, setGenres] = useState<string[]>(['indie', 'action']);
 
-  const editGenres = () => setGenres((prev) => [...prev, 'action']);
   // main data of api fetch return
   const { data } = useGameData({
     orderBy,
@@ -31,7 +30,9 @@ export default function App() {
       <AuthorizationContext value={{ isLoggedIn, setLoggedIn }}>
         <ThemeContext value={{ dark, toggleDark, themeBg, themeText }}>
           <Header role='header' />
-          <Outlet context={{ data, setOrderByVal, orderBy, editGenres }} />
+          <Outlet
+            context={{ data, setOrderByVal, orderBy, setGenres, genres }}
+          />
           <FooterComp />
         </ThemeContext>
       </AuthorizationContext>
