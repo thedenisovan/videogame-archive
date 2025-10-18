@@ -9,21 +9,25 @@ export default function DiscoverHeader() {
     <header
       tabIndex={0}
       aria-labelledby='main-section-title'
-      className={`flex gap-2 rounded-[7px]  ${
-        dark ? 'bg-gray-800' : 'bg-gray-300'
-      }`}
+      className={`
+        flex gap-2 rounded-[7px]
+        md:bg-transparent md:!gap-0 md:w-100
+        ${dark ? 'bg-gray-800' : 'bg-gray-300'}`}
     >
       <img
         src={svg.gamepad}
         alt='controller icon'
         width={70}
-        className='pl-3'
+        className='pl-3 md:!hidden'
       />
       <div>
-        <h2 id='main-section-title' className='mb-0'>
+        <h2
+          id='main-section-title'
+          className='mb-0 md:!text-3xl md:text-center'
+        >
           Browse & Search
         </h2>
-        <p className='text-left '>
+        <p className='text-left md:text-xl md:!text-center md:!mb-0'>
           Discover your next gaming obsession from thousands of titles
         </p>
       </div>

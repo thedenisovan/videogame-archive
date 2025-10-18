@@ -17,20 +17,20 @@ export default function FilterBar() {
   const themeSvg = (src1: string, src2: string) =>
     dark ? (
       <img
-        className='bg-gray-800 rounded-r-xl p-2 w-13'
+        className='bg-gray-800 rounded-r-xl p-2 w-13 md:h-15'
         src={src1}
         alt='svg icon'
       />
     ) : (
       <img
-        className='bg-gray-300 rounded-r-xl p-2 !w-13'
+        className='bg-gray-300 rounded-r-xl p-2 !w-13 md:h-15'
         src={src2}
         alt='svg icon'
       />
     );
 
   return (
-    <section>
+    <section className='md:w-[100%] md:flex flex-col'>
       <SearchBar themeSvg={themeSvg} dark={dark} />
       <BasicSelect themeSvg={themeSvg} dark={dark} />
     </section>
@@ -51,9 +51,9 @@ function SearchBar({
   // selects correct svg color based on current color theme
 
   return (
-    <div className='w-[100%] m-auto flex justify-center mt-2'>
+    <div className='w-[100%] flex  md:justify-start mt-2'>
       <input
-        className={`rounded-l-[.3rem] h-13 w-85 border-0 !border-r-1 ${
+        className={`rounded-l-[.3rem] h-13 w-85 border-0 !border-r-1 md:w-[100%] md:h-15 ${
           dark ? 'bg-gray-800' : 'bg-gray-300'
         }`}
         value={input}
@@ -85,11 +85,11 @@ function BasicSelect({
   const collapseDropdown = () => setIsCollapsed(!isCollapsed);
 
   return (
-    <div className='relative flex'>
+    <div className='relative flex md:!w-[100%]'>
       <Box sx={{ minWidth: 120 }}>
         <FormControl
           fullWidth
-          className='my-2 flex flex-row justify-between relative'
+          className='my-2 flex flex-row justify-between relative md:!justify-center'
         >
           <InputLabel
             className={`mt-2 !text-xl z-1 ${
@@ -109,7 +109,7 @@ function BasicSelect({
             }}
             className={`${
               dark ? 'bg-gray-800 text-white' : 'bg-gray-300 text-black'
-            } mt-2 w-85 h-13 !rounded-r-0 border-r-1`}
+            } mt-2 w-85 h-13 !rounded-r-0 border-r-1 md:w-[70vh] md:h-15`}
           >
             <MenuItem
               aria-label='sort games by rating from highest to lowest'

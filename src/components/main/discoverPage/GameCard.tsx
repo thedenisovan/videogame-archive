@@ -18,14 +18,14 @@ export default function GameCard({
 
   return (
     <div
-      className={`flex flex-col rounded-[5px] max-w-[360px] p-2  ${
+      className={`flex flex-col rounded-[5px] max-w-[360px] h-[400px] p-2  ${
         dark ? 'bg-gray-800' : 'bg-gray-200'
       }`}
     >
       <img
         src={bgImg}
         alt={`${title} thumbnail image`}
-        className='rounded-[5px]'
+        className='rounded-[5px] h-[60%] object-cover'
       />
       <h2 className='!text-[1.2rem] !leading-5 mt-2 font-sans mb-1`'>
         {title}
