@@ -6,6 +6,7 @@ import GameCard from './GameCard';
 import useGameData from '../../apiHooks/GameData';
 import { useOutletContext } from 'react-router';
 import type { GameValue } from '../../apiHooks/GameData';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function Discover() {
   const { loading, error } = useGameData({});
@@ -21,14 +22,14 @@ export default function Discover() {
       aria-labelledby='main-section-title'
       className={`flex-1 flex items-center flex-col ${
         dark ? 'bg-gray-700' : 'bg-white'
-      }`}
+      } `}
     >
       <DiscoverHeader />
       <FilterBar />
       {loading ? (
-        <p>loading</p>
+        <CircularProgress disableShrink className='!mt-[35vw]' />
       ) : (
-        <ul className='p-2 flex flex-col gap-4'>
+        <ul className={`p-2 flex flex-col gap-4`}>
           {data.map((d: GameValue) => (
             <li key={d.id}>
               {

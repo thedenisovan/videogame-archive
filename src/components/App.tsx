@@ -9,8 +9,14 @@ import ThemeContext from './context/ThemeContext';
 export default function App() {
   // order games by order by value
   const [orderBy, setOrderBy] = useState<string>('-ratings');
+  const [genres, setGenres] = useState<string[]>(['indie']);
+
+  const editGenres = () => setGenres((prev) => [...prev, 'action']);
   // main data of api fetch return
-  const { data } = useGameData({ genre: 'indie', orderBy: orderBy });
+  const { data } = useGameData({
+    orderBy,
+    genres,
+  });
 
   const [dark, setDark] = useState<boolean>(true);
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
@@ -25,7 +31,7 @@ export default function App() {
       <AuthorizationContext value={{ isLoggedIn, setLoggedIn }}>
         <ThemeContext value={{ dark, toggleDark, themeBg, themeText }}>
           <Header role='header' />
-          <Outlet context={{ data, setOrderByVal, orderBy }} />
+          <Outlet context={{ data, setOrderByVal, orderBy, editGenres }} />
           <FooterComp />
         </ThemeContext>
       </AuthorizationContext>

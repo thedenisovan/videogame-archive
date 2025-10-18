@@ -1,25 +1,5 @@
 import { useEffect, useState } from 'react';
 
-// Action → action
-// Indie → indie
-// Adventure → adventure
-// RPG → role-playing-games-rpg
-// Strategy → strategy
-// Shooter → shooter
-// Casual → casual
-// Simulation → simulation
-// Puzzle → puzzle
-// Arcade → arcade
-// Platformer → platformer
-// Massively Multiplayer → massively-multiplayer
-// Racing → racing
-// Sports → sports
-// Fighting → fighting
-// Family → family
-// Board Games → board-games
-// Card → card
-// Education → educational
-
 // interface to hold values extracted from api return
 export interface GameValue {
   title: string;
@@ -42,11 +22,11 @@ interface Genre {
 
 // gets GameVAlue data based on user input game title
 export default function useGameData({
-  genre,
   orderBy,
+  genres,
 }: {
-  genre?: string;
   orderBy?: string;
+  genres?: string[];
 }) {
   const [data, setData] = useState<GameValue[]>([]);
   const [error, setError] = useState<string>('');
@@ -54,8 +34,7 @@ export default function useGameData({
 
   useEffect(() => {
     setLoading(true);
-
-    const url = `https://api.rawg.io/api/games?genres=${genre}&ordering=${orderBy}&page_size=20&metacritic=1,100&dates=1956-01-01,2038-12-31&key=${
+    const url = `https://api.rawg.io/api/games?genres=${genres?.join()}&ordering=${orderBy}&page_size=20&metacritic=1,100&dates=1956-01-01,2038-12-31&key=${
       import.meta.env.VITE_RAWG
     }`;
 
@@ -91,7 +70,7 @@ export default function useGameData({
         else setError('Unknown Error');
       })
       .finally(() => setLoading(false));
-  }, [genre, orderBy]);
+  }, [genres, orderBy]);
 
   return { data, error, loading };
 }
