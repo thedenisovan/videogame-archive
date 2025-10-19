@@ -33,7 +33,7 @@ export default function GenreDropdown({
       className={`
          text-black absolute top-17 right-0 z-1 animate-drop transition-transform origin-top p-2
         w-45 border-1
-        lg:!border-0 lg:!w-[100%] lg:animate-none
+        lg:!border-0 lg:!w-[100%] lg:animate-none lg:top-0 lg:!sticky
         ${dark ? 'bg-gray-600 text-white' : 'bg-gray-300'}
         ${isCollapsed ? `scale-y-0` : `scale-y-100`}`}
     >

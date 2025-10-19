@@ -30,7 +30,7 @@ export default function Discover() {
       <DesktopSidebar
         className={`${
           dark ? 'bg-gray-600' : 'bg-gray-300'
-        } relative min-w-[250px] hidden lg:flex`}
+        } relative min-w-[250px] hidden lg:block`}
       />
       <section
         onClick={() => (!isCollapsed ? setIsCollapsed(true) : '')}
