@@ -24,20 +24,24 @@ interface Genre {
 export default function useGameData({
   orderBy,
   genres,
+  page = 1,
 }: {
   orderBy?: string;
   genres?: string[];
+  page?: number;
 }) {
   const [data, setData] = useState<GameValue[]>([]);
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
+  // count of returned game for each call
+  const [count, setCount] = useState<number>(0);
 
   useEffect(() => {
     setLoading(true);
     const url = `https://api.rawg.io/api/games?${
       // if genre array is empty return all genres else specific genre games
       !genres?.length ? `` : `genres=${genres?.join()}`
-    }&ordering=${orderBy}&page_size=30&metacritic=1,100&dates=1965-01-01,2030-12-31&key=${
+    }&ordering=${orderBy}&page_size=30&metacritic=1,100&page=${page}&dates=1965-01-01,2030-12-31&key=${
       import.meta.env.VITE_RAWG
     }`;
 
@@ -47,7 +51,7 @@ export default function useGameData({
         return res.json();
       })
       .then((response) => {
-        console.log(response);
+        setCount(response.count);
         const games: GameValue[] = response.results
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           .map((res: any) => ({
@@ -75,7 +79,7 @@ export default function useGameData({
         else setError('Unknown Error');
       })
       .finally(() => setLoading(false));
-  }, [genres, orderBy]);
+  }, [genres, orderBy, page, count]);
 
-  return { data, error, loading };
+  return { data, error, loading, count };
 }

@@ -10,11 +10,13 @@ export default function App() {
   // order games by order by value
   const [orderBy, setOrderBy] = useState<string>('-ratings');
   const [genres, setGenres] = useState<string[]>([]);
+  const [page, setPage] = useState<number>(1);
 
   // main data of api fetch return
-  const { data } = useGameData({
+  const { data, count } = useGameData({
     orderBy,
     genres,
+    page,
   });
 
   const [dark, setDark] = useState<boolean>(true);
@@ -31,7 +33,15 @@ export default function App() {
         <ThemeContext value={{ dark, toggleDark, themeBg, themeText }}>
           <Header role='header' />
           <Outlet
-            context={{ data, setOrderByVal, orderBy, setGenres, genres }}
+            context={{
+              data,
+              setOrderByVal,
+              orderBy,
+              setGenres,
+              genres,
+              setPage,
+              count,
+            }}
           />
           <FooterComp />
         </ThemeContext>

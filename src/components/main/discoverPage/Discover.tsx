@@ -8,6 +8,7 @@ import { useOutletContext } from 'react-router';
 import type { GameValue } from '../../apiHooks/GameData';
 import CircularProgress from '@mui/material/CircularProgress';
 import DesktopSidebar from './DesktopSidebar';
+import PaginationComp from './Paganation';
 
 const CollapseContext = createContext({
   isCollapsed: true,
@@ -19,8 +20,9 @@ export default function Discover() {
   const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
   const { loading, error } = useGameData({});
   const { dark } = useContext(ThemeContext);
-  const { data } = useOutletContext<{
+  const { data, setPage } = useOutletContext<{
     data: GameValue[];
+    setPage: (num: number) => void;
   }>();
 
   if (error) console.log(error);
@@ -61,6 +63,7 @@ export default function Discover() {
             ))}
           </ul>
         )}
+        <PaginationComp setPage={setPage} />
       </section>
     </main>
   );
