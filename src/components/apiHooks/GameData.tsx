@@ -5,7 +5,6 @@ import noScreenshot from '../../assets/no-img.jpg';
 export interface GameValue {
   title: string;
   id: number | string;
-  bgImg: string;
   ageRating?: string;
   genres: string[];
   rating: number | string;
@@ -59,7 +58,6 @@ export default function useGameData({
             // creates obj with api call extracted values
             title: res.name,
             id: res.id,
-            bgImg: res.background_image ?? 'No bg img',
             ageRating: res.esrb_rating?.name_en ?? 0,
             genres: res.genres.map((genre: Genre) => genre.name),
             rating: res.metacritic ?? 0,
@@ -70,8 +68,7 @@ export default function useGameData({
               (shots: Genre) => shots.image
             ) ?? [noScreenshot],
             releaseDate: res.released ?? '2030-12-31',
-          }))
-          .filter((game: GameValue) => game.bgImg !== noScreenshot);
+          }));
 
         setData(games);
       })

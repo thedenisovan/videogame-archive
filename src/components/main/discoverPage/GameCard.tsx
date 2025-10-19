@@ -1,12 +1,11 @@
 import type { GameValue } from '../../apiHooks/GameData';
 import { v4 as uuidv4 } from 'uuid';
 import { ThemeContext } from '../../App';
-import { useContext, useState } from 'react';
+import { useContext /*useState*/ } from 'react';
 import svg from '../../../utils/svg';
 import Carousel from 'react-bootstrap/Carousel';
 
 export default function GameCard({
-  bgImg,
   title,
   rating,
   releaseDate,
@@ -17,12 +16,12 @@ export default function GameCard({
   const { dark } = useContext(ThemeContext);
   const randomKey = (prefix: string, key: string | number) =>
     `${prefix}-${key}-${Math.floor(Math.random() * Number(key))}-${uuidv4()}`;
-  const [hovered, setHovered] = useState<boolean>(false);
+  // const [hovered, setHovered] = useState<boolean>(false);
 
   return (
     <div
-      onMouseOver={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      // onMouseOver={() => setHovered(true)}
+      // onMouseLeave={() => setHovered(false)}
       className={`flex flex-col rounded-[5px] max-w-[360px] h-[400px] p-2   ${
         dark ? 'bg-gray-800' : 'bg-gray-200'
       }`}

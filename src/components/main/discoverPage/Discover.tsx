@@ -52,7 +52,6 @@ export default function Discover() {
                 <li key={d.id}>
                   {
                     <GameCard
-                      bgImg={d.bgImg}
                       title={d.title}
                       rating={d.rating}
                       releaseDate={d.releaseDate}
