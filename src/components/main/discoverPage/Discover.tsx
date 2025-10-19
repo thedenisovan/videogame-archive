@@ -30,14 +30,14 @@ export default function Discover() {
       <DesktopSidebar
         className={`${
           dark ? 'bg-gray-600' : 'bg-gray-300'
-        } relative min-w-[250px] hidden lg:block`}
+        } relative min-w-[250px] hidden lg:block !flex-1`}
       />
       <section
         onClick={() => (!isCollapsed ? setIsCollapsed(true) : '')}
         aria-labelledby='main-section-title'
         className={`
           flex-1 flex !items-center flex-col px-2 py-2
-          ${dark ? 'bg-gray-700' : 'bg-white'} `}
+          ${dark ? 'bg-gray-700' : 'bg-white'} lg:!flex-7`}
       >
         <DiscoverHeader />
         <CollapseContext value={{ isCollapsed, setIsCollapsed }}>
@@ -47,7 +47,7 @@ export default function Discover() {
           <CircularProgress disableShrink className='!mt-[35vw]' />
         ) : (
           <ul
-            className={`flex flex-col gap-4 !pl-0 md:grid md:grid-cols-2 lg:grid-cols-3`}
+            className={`flex flex-col gap-4 !pl-0 md:grid md:grid-cols-2 lg:grid-cols-3 xl:!grid-cols-4`}
           >
             {data.map((d: GameValue) => (
               <li key={d.id}>

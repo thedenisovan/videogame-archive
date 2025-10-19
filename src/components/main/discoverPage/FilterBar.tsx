@@ -30,7 +30,7 @@ export default function FilterBar() {
     );
 
   return (
-    <section className='!md:w-[100%] md:max-w-[745px] md:flex md:flex-col lg:flex-row lg:items-center lg:max-w-none'>
+    <section className='!md:w-[100%] md:max-w-[745px] md:flex md:flex-col lg:flex-row lg:items-center lg:max-w-none lg:w-[1130px] xl:w-[1510px]'>
       <SearchBar themeSvg={themeSvg} dark={dark} />
       <BasicSelect themeSvg={themeSvg} dark={dark} />
     </section>
