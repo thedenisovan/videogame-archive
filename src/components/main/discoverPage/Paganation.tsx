@@ -8,16 +8,21 @@ export default function PaginationComp({
 }: {
   setPage: (num: number) => void;
 }) {
-  const { count } = useOutletContext<{ count: number }>();
+  const { count, page } = useOutletContext<{
+    count: number;
+    page: number;
+  }>();
   const handleChange = (_event: ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
+  const pages = Math.floor(count / 30);
 
   return (
     <Stack spacing={2}>
       <Pagination
+        page={page}
         color='primary'
-        count={count < 30 ? count : 30}
+        count={pages}
         onChange={handleChange}
       />
     </Stack>

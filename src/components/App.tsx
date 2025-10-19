@@ -41,6 +41,7 @@ export default function App() {
               genres,
               setPage,
               count,
+              page,
             }}
           />
           <FooterComp />

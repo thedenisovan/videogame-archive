@@ -10,13 +10,15 @@ export default function GenreDropdown({
   isCollapsed: boolean;
 }) {
   const { dark } = useContext(ThemeContext);
-  const { setGenres, genres } = useOutletContext<{
+  const { setGenres, genres, setPage } = useOutletContext<{
     setGenres: (genres: string[] | ((prev: string[]) => string[])) => void;
     genres: string[];
+    setPage: (val: number) => void;
   }>();
 
   // displays games based on they genre
   const setGenresValues = (e: ChangeEvent<HTMLInputElement>) => {
+    setPage(1);
     if (!e.target.checked) {
       // if genre unchecked remove it from genre list
       setGenres((prev: string[]) =>
