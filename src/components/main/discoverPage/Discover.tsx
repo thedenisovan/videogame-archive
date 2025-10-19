@@ -42,28 +42,30 @@ export default function Discover() {
           <FilterBar />
         </CollapseContext>
         {loading ? (
-          <CircularProgress disableShrink className='!mt-[35vw]' />
+          <CircularProgress disableShrink className='!mt-[15vw]' />
         ) : (
-          <ul
-            className={`flex flex-col gap-4 !pl-0 md:grid md:grid-cols-2 lg:grid-cols-3 xl:!grid-cols-4`}
-          >
-            {data.map((d: GameValue) => (
-              <li key={d.id}>
-                {
-                  <GameCard
-                    bgImg={d.bgImg}
-                    title={d.title}
-                    rating={d.rating}
-                    releaseDate={d.releaseDate}
-                    genres={d.genres}
-                    id={d.id}
-                  />
-                }
-              </li>
-            ))}
-          </ul>
+          <div>
+            <ul
+              className={`flex flex-col gap-4 !pl-0 md:grid md:grid-cols-2 lg:grid-cols-3 xl:!grid-cols-4`}
+            >
+              {data.map((d: GameValue) => (
+                <li key={d.id}>
+                  {
+                    <GameCard
+                      bgImg={d.bgImg}
+                      title={d.title}
+                      rating={d.rating}
+                      releaseDate={d.releaseDate}
+                      genres={d.genres}
+                      id={d.id}
+                    />
+                  }
+                </li>
+              ))}
+            </ul>
+            <PaginationComp setPage={setPage} />
+          </div>
         )}
-        <PaginationComp setPage={setPage} />
       </section>
     </main>
   );

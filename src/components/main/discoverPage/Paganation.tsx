@@ -14,12 +14,14 @@ export default function PaginationComp({
   }>();
   const handleChange = (_event: ChangeEvent<unknown>, value: number) => {
     setPage(value);
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // scrolls to top smoothly
   };
   const pages = Math.floor(count / 500);
 
   return (
     <Stack spacing={2}>
       <Pagination
+        className='m-auto'
         page={page}
         color='primary'
         count={pages}
