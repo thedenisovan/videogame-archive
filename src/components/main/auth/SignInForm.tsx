@@ -151,7 +151,7 @@ function SignUpSvgButtons() {
   return (
     <section className='flex flex-col gap-3 lg:!gap-0'>
       <p className='text-center italic mb-1 mt-2 lg:!my-5'>Or sign in with</p>
-      <div className='flex justify-center gap-4 mb-3 lg:!mb-0'>
+      <div className='flex justify-center gap-4 mb-3 lg:!mb-4'>
         <button
           onClick={(e) => e.preventDefault()}
           aria-label='sign up with facebook'

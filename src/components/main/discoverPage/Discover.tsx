@@ -27,11 +27,7 @@ export default function Discover() {
 
   return (
     <main className='flex'>
-      <DesktopSidebar
-        className={`${
-          dark ? 'bg-gray-600' : 'bg-gray-300'
-        } relative min-w-[250px] hidden lg:block !flex-1`}
-      />
+      <DesktopSidebar dark={dark} />
       <section
         onClick={() => (!isCollapsed ? setIsCollapsed(true) : '')}
         aria-labelledby='main-section-title'

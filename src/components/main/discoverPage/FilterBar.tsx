@@ -30,7 +30,7 @@ export default function FilterBar() {
     );
 
   return (
-    <section className='!md:w-[100%] md:max-w-[745px] md:flex md:flex-col lg:flex-row lg:items-center lg:max-w-none lg:w-[1130px] xl:w-[1510px]'>
+    <section className='!md:w-[100%] md:max-w-[745px] md:flex md:flex-col lg:flex-row lg:items-center lg:max-w-none lg:gap-3 lg:w-[1130px] xl:w-[1510px]'>
       <SearchBar themeSvg={themeSvg} dark={dark} />
       <BasicSelect themeSvg={themeSvg} dark={dark} />
     </section>
@@ -51,10 +51,10 @@ function SearchBar({
   // selects correct svg color based on current color theme
 
   return (
-    <div className='w-[100%] flex  md:justify-start mt-2'>
+    <div className='w-[100%] flex mt-2 lg:!w-[1000%]'>
       <input
         className={`rounded-l-[.3rem] h-13 w-85 border-0 !border-r-1 md:w-[100%] md:h-15 ${
-          dark ? 'bg-gray-800' : 'bg-gray-300 lg:!w-[75%]'
+          dark ? 'bg-gray-800' : 'bg-gray-300'
         }`}
         value={input}
         onChange={(e) => changeInput(e.target.value)}
@@ -109,7 +109,7 @@ function BasicSelect({
             }}
             className={`${
               dark ? 'bg-gray-800 text-white' : 'bg-gray-300 text-black'
-            } mt-2 w-85 h-13 !rounded-r-0 border-r-1 md:w-[70vh] md:h-15 lg:border-0`}
+            } mt-2 w-85 h-13 !rounded-r-0 border-r-1 md:w-[70vh] md:h-15 lg:border-0 lg:!w-[300px] `}
           >
             <MenuItem
               aria-label='sort games by rating from highest to lowest'
