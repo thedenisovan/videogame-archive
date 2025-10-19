@@ -44,12 +44,12 @@ export default function Authorization() {
       className={`
       flex-1 flex flex-col justify-center items-center relative
       md:w-[70vw] md:!m-auto md:gap-12 md:text-xl
-      lg:text-2xl lg:w-[600px] lg:max-h-[900px] lg:rounded-2xl lg:shadow-2xl
+      lg:!text-[15px] lg:w-[400px] lg:max-h-[700px] lg:rounded-2xl lg:shadow-2xl
       ${dark ? 'lg:bg-gray-600' : 'lg:bg-gray-100'}
       `}
     >
       <section>
-        <h2 className='mb-0 text-center !font-normal md:!text-4xl lg:!text-5xl'>
+        <h2 className='mb-0 text-center !font-normal md:!text-2xl lg:!text-3xl'>
           {returnText('Good to see you!', 'Welcome')}
         </h2>
         <p className='text-center !font-normal italic md:text-xl lg:text-2xl mt-1 lg:!mt-2'>

@@ -30,7 +30,7 @@ export default function FilterBar() {
     );
 
   return (
-    <section className='md:w-[100%] md:flex flex-col'>
+    <section className='!md:w-[100%] md:max-w-[745px] md:flex md:flex-col lg:flex-row lg:items-center lg:max-w-none'>
       <SearchBar themeSvg={themeSvg} dark={dark} />
       <BasicSelect themeSvg={themeSvg} dark={dark} />
     </section>
@@ -54,7 +54,7 @@ function SearchBar({
     <div className='w-[100%] flex  md:justify-start mt-2'>
       <input
         className={`rounded-l-[.3rem] h-13 w-85 border-0 !border-r-1 md:w-[100%] md:h-15 ${
-          dark ? 'bg-gray-800' : 'bg-gray-300'
+          dark ? 'bg-gray-800' : 'bg-gray-300 lg:!w-[75%]'
         }`}
         value={input}
         onChange={(e) => changeInput(e.target.value)}
@@ -109,7 +109,7 @@ function BasicSelect({
             }}
             className={`${
               dark ? 'bg-gray-800 text-white' : 'bg-gray-300 text-black'
-            } mt-2 w-85 h-13 !rounded-r-0 border-r-1 md:w-[70vh] md:h-15`}
+            } mt-2 w-85 h-13 !rounded-r-0 border-r-1 md:w-[70vh] md:h-15 lg:border-0`}
           >
             <MenuItem
               aria-label='sort games by rating from highest to lowest'
@@ -130,15 +130,16 @@ function BasicSelect({
           </Select>
         </FormControl>
       </Box>
-      <button
-        onClick={() => collapseDropdown()}
-        className='translate-y-1'
-        aria-label='drop down collapse for game genre select'
-      >
-        {themeSvg(svg.filterLight, svg.filterDark)}
-      </button>
-      {/* genre drop down component */}
-      <GenreDropdown isCollapsed={isCollapsed} />{' '}
+      <div className='translate-y-4 lg:hidden'>
+        <button
+          onClick={() => collapseDropdown()}
+          aria-label='drop down collapse for game genre select'
+        >
+          {themeSvg(svg.filterLight, svg.filterDark)}
+        </button>
+        {/* genre drop down component */}
+        <GenreDropdown isCollapsed={isCollapsed} />{' '}
+      </div>
     </div>
   );
 }

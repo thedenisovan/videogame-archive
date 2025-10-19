@@ -31,11 +31,13 @@ export default function GenreDropdown({
     <div
       onClick={(e) => e.stopPropagation()}
       className={`
-         text-black absolute top-17 right-0 z-1 animate-drop transition origin-top p-2
-        w-35 border-1
-        ${dark ? 'bg-gray-800 text-white' : 'bg-gray-300'}
+         text-black absolute top-17 right-0 z-1 animate-drop transition-transform origin-top p-2
+        w-45 border-1
+        lg:!border-0 lg:!w-[100%] lg:animate-none
+        ${dark ? 'bg-gray-600 text-white' : 'bg-gray-300'}
         ${isCollapsed ? `scale-y-0` : `scale-y-100`}`}
     >
+      <h3 className='text-center !font-normal'>Select genres</h3>
       {availableGenres.map((gen) => (
         <div key={gen.value} className='flex justify-between'>
           <label htmlFor={gen.value}>{gen.label}</label>

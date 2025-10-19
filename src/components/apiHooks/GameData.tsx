@@ -37,7 +37,7 @@ export default function useGameData({
     const url = `https://api.rawg.io/api/games?${
       // if genre array is empty return all genres else specific genre games
       !genres?.length ? `` : `genres=${genres?.join()}`
-    }&ordering=${orderBy}&page_size=20&metacritic=1,100&dates=1965-01-01,2030-12-31&key=${
+    }&ordering=${orderBy}&page_size=30&metacritic=1,100&dates=1965-01-01,2030-12-31&key=${
       import.meta.env.VITE_RAWG
     }`;
 
@@ -47,6 +47,7 @@ export default function useGameData({
         return res.json();
       })
       .then((response) => {
+        console.log(response);
         const games: GameValue[] = response.results
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           .map((res: any) => ({

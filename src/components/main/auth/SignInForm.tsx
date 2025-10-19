@@ -21,7 +21,7 @@ export default function SignInForm() {
 
   return (
     <form
-      className='flex flex-col !my-[2rem] gap-3 md:!gap-7 w-[80%] '
+      className='flex flex-col !my-[2rem] gap-3 md:!gap-1 w-[80%] '
       onSubmit={(e) => {
         e.preventDefault();
       }}
@@ -149,9 +149,9 @@ function FormInput({
 
 function SignUpSvgButtons() {
   return (
-    <section className='flex flex-col gap-3'>
-      <p className='text-center mb-0 italic'>Or sign in with</p>
-      <div className='flex justify-center gap-4 mb-3'>
+    <section className='flex flex-col gap-3 lg:!gap-0'>
+      <p className='text-center italic mb-1 mt-2 lg:!my-5'>Or sign in with</p>
+      <div className='flex justify-center gap-4 mb-3 lg:!mb-0'>
         <button
           onClick={(e) => e.preventDefault()}
           aria-label='sign up with facebook'
