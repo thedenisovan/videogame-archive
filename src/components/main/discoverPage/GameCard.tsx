@@ -1,9 +1,8 @@
 import type { GameValue } from '../../apiHooks/GameData';
 import { v4 as uuidv4 } from 'uuid';
 import { ThemeContext } from '../../App';
-import { useContext /*useState*/ } from 'react';
+import { useContext /*useState*/, useState } from 'react';
 import svg from '../../../utils/svg';
-import Carousel from 'react-bootstrap/Carousel';
 
 export default function GameCard({
   title,
@@ -26,7 +25,7 @@ export default function GameCard({
         dark ? 'bg-gray-800' : 'bg-gray-200'
       }`}
     >
-      <ScreenshotCarousel urls={screenshots} />
+      <CarouselComp screenshots={screenshots} />
       <h2 className='!text-[1.2rem] !leading-5 mt-2 font-sans mb-1`'>
         {title}
       </h2>
@@ -69,19 +68,36 @@ export default function GameCard({
   );
 }
 
-function ScreenshotCarousel({ urls }: { urls: string[] }) {
+function CarouselComp({ screenshots }: { screenshots: string[] }) {
+  const [idx, setIdx] = useState<number>(0);
+  const maxIdx = screenshots.length - 1;
+
+  const goForward = () => {
+    if (idx !== maxIdx) setIdx(idx + 1);
+    else if (idx === maxIdx) setIdx(0);
+    else return `Error maxIdx: ${maxIdx} currIdx: ${idx}`;
+  };
+  const goBack = () => {
+    if (idx !== 0) setIdx(idx - 1);
+    else if (idx === 0) setIdx(maxIdx);
+    else return `Error maxIdx: ${maxIdx} currIdx: ${idx}`;
+  };
+
   return (
-    <Carousel interval={null}>
-      {urls.map((url) => (
-        <Carousel.Item className='relative -z-0' key={url}>
-          <img
-            className='!rounded-[5px] !h-[220px] !object-cover'
-            src={url}
-            alt='game screenshot'
-          />
-          <Carousel.Caption></Carousel.Caption>
-        </Carousel.Item>
-      ))}
-    </Carousel>
+    <div>
+      <img
+        className='!rounded-[5px] !h-[220px] !object-cover'
+        src={screenshots[idx]}
+        alt='game screenshot'
+      />
+      <div className='flex justify-between'>
+        <button className='!font-bold text-red-500' onClick={() => goBack()}>
+          previous
+        </button>
+        <button className='!font-bold text-red-500' onClick={() => goForward()}>
+          next
+        </button>
+      </div>
+    </div>
   );
 }

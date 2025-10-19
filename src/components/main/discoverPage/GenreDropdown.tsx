@@ -33,7 +33,7 @@ export default function GenreDropdown({
       onClick={(e) => e.stopPropagation()}
       className={`
          text-black absolute top-17 right-0 animate-drop transition-transform origin-top p-2
-        w-45 border-1 
+        w-45 border-1 !z-10
         lg:!border-0 lg:!w-[100%] lg:animate-none lg:top-0 lg:!sticky lg:!pl-5
         ${dark ? 'bg-gray-600 text-white' : 'bg-gray-300'}
         ${isCollapsed ? `scale-y-0` : `scale-y-100`}`}
