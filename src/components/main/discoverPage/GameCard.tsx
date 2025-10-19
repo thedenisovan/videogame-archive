@@ -73,7 +73,7 @@ function ScreenshotCarousel({ urls }: { urls: string[] }) {
   return (
     <Carousel interval={null}>
       {urls.map((url) => (
-        <Carousel.Item key={url}>
+        <Carousel.Item className='relative -z-0' key={url}>
           <img
             className='!rounded-[5px] !h-[220px] !object-cover'
             src={url}

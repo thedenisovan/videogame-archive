@@ -67,7 +67,7 @@ export default function useGameData({
             screenshots: res.short_screenshots.map(
               (shots: Genre) => shots.image
             ) ?? [noScreenshot],
-            releaseDate: res.released ?? '2030-12-31',
+            releaseDate: res.released ?? 'Unknown',
           }));
 
         setData(games);
