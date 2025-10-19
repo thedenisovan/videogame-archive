@@ -15,7 +15,7 @@ export default function PaginationComp({
   const handleChange = (_event: ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
-  const pages = Math.floor(count / 30);
+  const pages = Math.floor(count / 500);
 
   return (
     <Stack spacing={2}>

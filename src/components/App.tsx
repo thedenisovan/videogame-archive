@@ -19,7 +19,7 @@ export default function App() {
     page,
   });
 
-  const [dark, setDark] = useState<boolean>(true);
+  const [dark, setDark] = useState<boolean>(false);
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
 
   const themeBg = () => (dark ? 'bg-gray-700' : 'bg-white');
