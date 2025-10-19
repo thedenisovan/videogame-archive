@@ -1,8 +1,9 @@
 import type { GameValue } from '../../apiHooks/GameData';
 import { v4 as uuidv4 } from 'uuid';
 import { ThemeContext } from '../../App';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import svg from '../../../utils/svg';
+import Carousel from 'react-bootstrap/Carousel';
 
 export default function GameCard({
   bgImg,
@@ -11,22 +12,22 @@ export default function GameCard({
   releaseDate,
   genres,
   id,
+  screenshots,
 }: GameValue) {
   const { dark } = useContext(ThemeContext);
   const randomKey = (prefix: string, key: string | number) =>
     `${prefix}-${key}-${Math.floor(Math.random() * Number(key))}-${uuidv4()}`;
+  const [hovered, setHovered] = useState<boolean>(false);
 
   return (
     <div
-      className={`flex flex-col rounded-[5px] max-w-[360px] h-[400px] p-2  ${
+      onMouseOver={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className={`flex flex-col rounded-[5px] max-w-[360px] h-[400px] p-2   ${
         dark ? 'bg-gray-800' : 'bg-gray-200'
       }`}
     >
-      <img
-        src={bgImg}
-        alt={`${title} thumbnail image`}
-        className='rounded-[5px] h-[60%] object-cover'
-      />
+      <ScreenshotCarousel urls={screenshots} />
       <h2 className='!text-[1.2rem] !leading-5 mt-2 font-sans mb-1`'>
         {title}
       </h2>
@@ -63,8 +64,25 @@ export default function GameCard({
         </div>
       </div>
       <button className='border-1 !rounded-[.3rem] mt-2 border-none !text-black !text-xl bg-green-400 h-8'>
-        View
+        Save
       </button>
     </div>
+  );
+}
+
+function ScreenshotCarousel({ urls }: { urls: string[] }) {
+  return (
+    <Carousel interval={null}>
+      {urls.map((url) => (
+        <Carousel.Item key={url}>
+          <img
+            className='!rounded-[5px] !h-[220px] !object-cover'
+            src={url}
+            alt='game screenshot'
+          />
+          <Carousel.Caption></Carousel.Caption>
+        </Carousel.Item>
+      ))}
+    </Carousel>
   );
 }

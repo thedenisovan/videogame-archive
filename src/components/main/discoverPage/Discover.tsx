@@ -58,6 +58,7 @@ export default function Discover() {
                       releaseDate={d.releaseDate}
                       genres={d.genres}
                       id={d.id}
+                      screenshots={d.screenshots}
                     />
                   }
                 </li>

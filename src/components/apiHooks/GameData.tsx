@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import noScreenshot from '../../assets/no-img.jpg';
 
 // interface to hold values extracted from api return
 export interface GameValue {
@@ -9,7 +10,7 @@ export interface GameValue {
   genres: string[];
   rating: number | string;
   platforms?: string[];
-  screenshots?: string[];
+  screenshots: string[];
   releaseDate: string;
 }
 
@@ -67,10 +68,10 @@ export default function useGameData({
             ) ?? ['unknown platform'],
             screenshots: res.short_screenshots.map(
               (shots: Genre) => shots.image
-            ) ?? ['No screenshots'],
+            ) ?? [noScreenshot],
             releaseDate: res.released ?? '2030-12-31',
           }))
-          .filter((game: GameValue) => game.bgImg !== 'No bg img');
+          .filter((game: GameValue) => game.bgImg !== noScreenshot);
 
         setData(games);
       })
