@@ -121,12 +121,6 @@ function BasicSelect({
             <MenuItem aria-label='sort games by user rating' value='-ratings'>
               User Rating
             </MenuItem>
-            <MenuItem aria-label='sort games newest first' value='-released'>
-              Newest first
-            </MenuItem>
-            <MenuItem aria-label='sort games oldest first' value='released'>
-              Oldest first
-            </MenuItem>
           </Select>
         </FormControl>
       </Box>

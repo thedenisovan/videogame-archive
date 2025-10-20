@@ -14,8 +14,12 @@ import gamepad from '../assets/icons/gamepad.svg';
 import theater from '../assets/icons/theater.svg';
 import filterLight from '../assets/icons/filter-white.svg';
 import filterDark from '../assets/icons/filter-dark.svg';
+import next from '../assets/icons/next.svg';
+import previous from '../assets/icons/previous.svg';
 
 const svg = {
+  next,
+  previous,
   filterDark,
   filterLight,
   theater,
@@ -35,23 +39,3 @@ const svg = {
 };
 
 export default svg;
-
-// Action → action
-// Indie → indie
-// Adventure → adventure
-// RPG → role-playing-games-rpg
-// Strategy → strategy
-// Shooter → shooter
-// Casual → casual
-// Simulation → simulation
-// Puzzle → puzzle
-// Arcade → arcade
-// Platformer → platformer
-// Massively Multiplayer → massively-multiplayer
-// Racing → racing
-// Sports → sports
-// Fighting → fighting
-// Family → family
-// Board Games → board-games
-// Card → card
-// Education → educational

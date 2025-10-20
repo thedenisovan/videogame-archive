@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ThemeContext } from '../../App';
 import { useContext /*useState*/, useState } from 'react';
 import svg from '../../../utils/svg';
+import defaultImg from '../../../assets/no-img.jpg';
 
 export default function GameCard({
   title,
@@ -26,10 +27,8 @@ export default function GameCard({
       }`}
     >
       <CarouselComp screenshots={screenshots} />
-      <h2 className='!text-[1.2rem] !leading-5 mt-2 font-sans mb-1`'>
-        {title}
-      </h2>
-      <ul className='flex gap-1 p-0 flex-wrap'>
+      <h2 className='!text-[1.2rem] !leading-5 font-sans `'>{title}</h2>
+      <ul className='flex gap-1 mb-1 p-0 flex-wrap'>
         {genres.map((gen) => (
           <li
             className={`${
@@ -43,7 +42,7 @@ export default function GameCard({
       </ul>
       <div className='flex justify-between'>
         <div
-          className={`mb-1 mt-1 h-11 rounded-2xl p-1 w-[7rem] flex ${
+          className={`mb-1 h-11 rounded-2xl p-1 w-[7rem] flex ${
             dark ? 'bg-gray-700' : 'bg-gray-300'
           }`}
         >
@@ -54,16 +53,13 @@ export default function GameCard({
           </div>
         </div>
         <div
-          className={`mb-1 mt-1 h-10 rounded-2xl p-1 flex items-center ${
+          className={` h-10 rounded-2xl p-1 flex items-center ${
             dark ? 'bg-gray-700' : 'bg-gray-300'
           }`}
         >
           <p className='mb-0'>Release: {releaseDate}</p>
         </div>
       </div>
-      <button className='border-1 !rounded-[.3rem] mt-2 border-none !text-black !text-xl bg-green-400 h-8'>
-        Save
-      </button>
     </div>
   );
 }
@@ -82,22 +78,67 @@ function CarouselComp({ screenshots }: { screenshots: string[] }) {
     else if (idx === 0) setIdx(maxIdx);
     else return `Error maxIdx: ${maxIdx} currIdx: ${idx}`;
   };
+  const jumpToPage = (i: number) => setIdx(i);
 
   return (
-    <div>
+    <div className='m-auto'>
       <img
-        className='!rounded-[5px] !h-[220px] !object-cover'
-        src={screenshots[idx]}
+        onTouchStartCapture={() => goForward()}
+        className='!rounded-[5px] !h-[220px] !object-cover !w-100'
+        src={screenshots[idx] ? screenshots[idx] : defaultImg}
         alt='game screenshot'
       />
-      <div className='flex justify-between'>
-        <button className='!font-bold text-red-500' onClick={() => goBack()}>
-          previous
+      <PageIndicator
+        jumpToPage={jumpToPage}
+        screenshot={screenshots}
+        idx={idx}
+      />
+      <div className='relative'>
+        <button
+          className='!font-bold text-red-500 cursor-pointer'
+          onClick={() => goBack()}
+        >
+          <img
+            className='w-14 absolute bottom-25 left-0'
+            src={svg.previous}
+            alt='previous slide'
+          />
         </button>
-        <button className='!font-bold text-red-500' onClick={() => goForward()}>
-          next
+        <button
+          className='!font-bold text-red-500 cursor-pointer'
+          onClick={() => goForward()}
+        >
+          <img
+            className='w-14 absolute bottom-25 right-0 z-0'
+            src={svg.next}
+            alt='next slide'
+          />
         </button>
       </div>
     </div>
+  );
+}
+
+function PageIndicator({
+  screenshot,
+  idx,
+  jumpToPage,
+}: {
+  screenshot: string[];
+  idx: number;
+  jumpToPage: (i: number) => void;
+}) {
+  return (
+    <ul className='flex justify-between pt-2 px-6'>
+      {screenshot.map((url: string, index: number) => (
+        <li
+          onClick={() => jumpToPage(index)}
+          className={`rounded-3xl w-4 h-4 border-1 ${
+            idx === index ? 'bg-gray-500' : ''
+          }`}
+          key={url}
+        ></li>
+      ))}
+    </ul>
   );
 }
