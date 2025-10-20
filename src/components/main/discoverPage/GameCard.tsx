@@ -36,7 +36,7 @@ export default function GameCard({
           </li>
         ))}
       </ul>
-      <div className='flex justify-between !mb-10'>
+      <div className='flex justify-between !mb-3'>
         <div
           className={`mb-1 h-11 rounded-2xl p-1 w-[7rem] flex ${
             dark ? 'bg-gray-700' : 'bg-gray-300'
@@ -56,6 +56,7 @@ export default function GameCard({
           <p className='mb-0'>Release: {releaseDate}</p>
         </div>
       </div>
+      <button className='bg-green-500 !rounded-[5px]'>Save</button>
     </div>
   );
 }
