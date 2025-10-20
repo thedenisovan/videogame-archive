@@ -10,37 +10,33 @@ export default function GameCard({
   rating,
   releaseDate,
   genres,
-  id,
   screenshots,
 }: GameValue) {
   const { dark } = useContext(ThemeContext);
-  const randomKey = (prefix: string, key: string | number) =>
-    `${prefix}-${key}-${Math.floor(Math.random() * Number(key))}-${uuidv4()}`;
-  // const [hovered, setHovered] = useState<boolean>(false);
 
   return (
     <div
       // onMouseOver={() => setHovered(true)}
       // onMouseLeave={() => setHovered(false)}
-      className={`flex flex-col rounded-[5px] max-w-[360px] h-[400px] p-2   ${
+      className={`flex flex-col rounded-[5px] max-w-[360px] h-[460px] p-2   ${
         dark ? 'bg-gray-800' : 'bg-gray-200'
       }`}
     >
       <CarouselComp screenshots={screenshots} />
-      <h2 className='!text-[1.2rem] !leading-5 font-sans `'>{title}</h2>
+      <h2 className='!text-[1.2rem] !leading-5 font-sans`'>{title}</h2>
       <ul className='flex gap-1 mb-1 p-0 flex-wrap'>
         {genres.map((gen) => (
           <li
             className={`${
               dark ? 'bg-gray-700' : 'bg-gray-300'
             } rounded-2xl p-1`}
-            key={randomKey(title, id)}
+            key={uuidv4()}
           >
             {gen}
           </li>
         ))}
       </ul>
-      <div className='flex justify-between'>
+      <div className='flex justify-between !mb-10'>
         <div
           className={`mb-1 h-11 rounded-2xl p-1 w-[7rem] flex ${
             dark ? 'bg-gray-700' : 'bg-gray-300'
@@ -83,7 +79,6 @@ function CarouselComp({ screenshots }: { screenshots: string[] }) {
   return (
     <div className='m-auto'>
       <img
-        onTouchStartCapture={() => goForward()}
         className='!rounded-[5px] !h-[220px] !object-cover !w-100'
         src={screenshots[idx] ? screenshots[idx] : defaultImg}
         alt='game screenshot'
@@ -99,7 +94,7 @@ function CarouselComp({ screenshots }: { screenshots: string[] }) {
           onClick={() => goBack()}
         >
           <img
-            className='w-14 absolute bottom-25 left-0'
+            className='w-14 absolute bottom-25 left-0 hover:scale-[1.1] transition'
             src={svg.previous}
             alt='previous slide'
           />
@@ -109,7 +104,7 @@ function CarouselComp({ screenshots }: { screenshots: string[] }) {
           onClick={() => goForward()}
         >
           <img
-            className='w-14 absolute bottom-25 right-0 z-0'
+            className='w-14 absolute bottom-25 right-0 z-0 hover:scale-[1.1] transition'
             src={svg.next}
             alt='next slide'
           />
@@ -129,14 +124,14 @@ function PageIndicator({
   jumpToPage: (i: number) => void;
 }) {
   return (
-    <ul className='flex justify-between pt-2 px-6'>
+    <ul className=' flex justify-between pt-2 px-6'>
       {screenshot.map((url: string, index: number) => (
         <li
           onClick={() => jumpToPage(index)}
-          className={`rounded-3xl w-4 h-4 border-1 ${
+          className={`cursor-pointer rounded-3xl w-4 h-4 border-1 ${
             idx === index ? 'bg-gray-500' : ''
           }`}
-          key={url}
+          key={url + index}
         ></li>
       ))}
     </ul>

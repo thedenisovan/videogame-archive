@@ -46,6 +46,7 @@ function SearchBar({
   themeSvg: (src1: string, src2: string) => ReactElement;
 }) {
   const [input, setInput] = useState<string>('');
+  const { setTitle } = useOutletContext<{ setTitle: (s: string) => void }>();
 
   const changeInput = (e: string) => setInput(e);
   // selects correct svg color based on current color theme
@@ -61,7 +62,7 @@ function SearchBar({
         type='text'
         placeholder='Search for game by title'
       />
-      <button aria-label='search game by title'>
+      <button onClick={() => setTitle(input)} aria-label='search game by title'>
         {themeSvg(svg.lightMag, svg.darkMag)}
       </button>
     </div>

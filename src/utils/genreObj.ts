@@ -17,7 +17,6 @@ const availableGenres = [
   { label: 'Family', value: 'family' },
   { label: 'Board Games', value: 'board-games' },
   { label: 'Card', value: 'card' },
-  { label: 'Education', value: 'educational' },
 ];
 
 export default availableGenres;

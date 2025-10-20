@@ -34,17 +34,17 @@ export default function GenreDropdown({
       className={`
          text-black absolute top-17 right-0 animate-drop transition-transform origin-top p-2
         w-45 border-1 !z-10
-        lg:!border-0 lg:!w-[100%] lg:animate-none lg:top-0 lg:!sticky lg:!pl-5
+        lg:!border-0 lg:!w-[100%] lg:animate-none lg:top-0 lg:!sticky lg:!pl-5 lg:grid lg:grid-cols-2
         ${dark ? 'bg-gray-600 text-white' : 'bg-gray-300'}
         ${isCollapsed ? `scale-y-0` : `scale-y-100`}`}
     >
-      <h3 className='text-center !font-normal lg:!text-left lg:!font-bold'>
+      <h3 className='text-center !font-normal lg:!text-left lg:!font-bold lg:col-span-2'>
         Browse genres
       </h3>
       {availableGenres.map((gen) => (
         <div
           key={gen.value}
-          className={`flex justify-between items-center lg:!mt-2 lg:py-1 lg:px-2 lg:rounded-[5px] ${
+          className={`flex justify-between items-center lg:!mt-2 lg:py-1 lg:px-2 lg:rounded-[5px] lg:w-[150px] ${
             dark
               ? ' lg:bg-gray-500 lg:hover:bg-gray-700'
               : 'lg:bg-gray-200 lg:hover:bg-gray-100'

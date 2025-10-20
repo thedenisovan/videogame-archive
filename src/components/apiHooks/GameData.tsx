@@ -25,10 +25,12 @@ export default function useGameData({
   orderBy,
   genres,
   page = 1,
+  title,
 }: {
   orderBy?: string;
   genres?: string[];
   page?: number;
+  title?: string;
 }) {
   const [data, setData] = useState<GameValue[]>([]);
   const [error, setError] = useState<string>('');
@@ -43,7 +45,7 @@ export default function useGameData({
       !genres?.length ? `` : `genres=${genres?.join()}`
     }&ordering=${orderBy}&page_size=30&page=${page}&key=${
       import.meta.env.VITE_RAWG
-    }`;
+    }${title ? `&search=${title}` : ''}`;
 
     fetch(url)
       .then((res) => {
@@ -77,7 +79,7 @@ export default function useGameData({
         else setError('Unknown Error');
       })
       .finally(() => setLoading(false));
-  }, [genres, orderBy, page, count]);
+  }, [genres, orderBy, page, count, title]);
 
   return { data, error, loading, count };
 }

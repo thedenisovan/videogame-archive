@@ -19,14 +19,16 @@ export default function PaginationComp({
   const pages = Math.floor(count / 500);
 
   return (
-    <Stack spacing={2}>
-      <Pagination
-        className='m-auto'
-        page={page}
-        color='primary'
-        count={pages}
-        onChange={handleChange}
-      />
-    </Stack>
+    <div className={`${pages < 2 ? 'hidden' : ''}`}>
+      <Stack spacing={2}>
+        <Pagination
+          className='m-auto'
+          page={page}
+          color='primary'
+          count={pages}
+          onChange={handleChange}
+        />
+      </Stack>
+    </div>
   );
 }

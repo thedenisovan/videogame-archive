@@ -11,12 +11,14 @@ export default function App() {
   const [orderBy, setOrderBy] = useState<string>('-ratings');
   const [genres, setGenres] = useState<string[]>([]);
   const [page, setPage] = useState<number>(1);
+  const [title, setTitle] = useState<string>('');
 
   // main data of api fetch return
   const { data, count } = useGameData({
     orderBy,
     genres,
     page,
+    title,
   });
 
   const [dark, setDark] = useState<boolean>(false);
@@ -42,6 +44,7 @@ export default function App() {
               setPage,
               count,
               page,
+              setTitle,
             }}
           />
           <FooterComp />
