@@ -5,7 +5,7 @@ import App from '../components/App';
 import { MemoryRouter } from 'react-router';
 
 describe('App component', () => {
-  it('header component should be in the document', () => {
+  it('header component should be in the doc', () => {
     render(
       <MemoryRouter>
         <App />
