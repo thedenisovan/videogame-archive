@@ -45,6 +45,7 @@ export default function App() {
               count,
               page,
               setTitle,
+              isLoggedIn,
             }}
           />
           <FooterComp />

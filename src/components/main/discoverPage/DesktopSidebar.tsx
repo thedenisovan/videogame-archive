@@ -5,7 +5,7 @@ export default function DesktopSidebar({ dark }: { dark: boolean }) {
     <aside
       className={`${
         dark ? 'bg-gray-600' : 'bg-gray-300'
-      } relative min-w-[350px] hidden lg:block !flex-1`}
+      } relative min-w-[250px] hidden lg:block !flex-1`}
     >
       <GenreDropdown isCollapsed={false} />
     </aside>

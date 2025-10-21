@@ -46,7 +46,7 @@ export default function Discover() {
         ) : (
           <div>
             <ul
-              className={`flex flex-col gap-4 !pl-0 md:grid md:grid-cols-2 xmd:grid-cols-2 lg:grid-cols-3 xl:!grid-cols-4`}
+              className={`flex flex-col gap-4 !pl-0 md:grid  md:grid-cols-2 lg:grid-cols-3 xl:!grid-cols-4`}
             >
               {data.map((d: GameValue) => (
                 <li key={d.id}>

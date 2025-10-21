@@ -4,6 +4,7 @@ import { ThemeContext } from '../../App';
 import { useContext /*useState*/, useState } from 'react';
 import svg from '../../../utils/svg';
 import defaultImg from '../../../assets/no-img.jpg';
+// import { useOutletContext } from 'react-router';
 
 export default function GameCard({
   title,
@@ -13,11 +14,10 @@ export default function GameCard({
   screenshots,
 }: GameValue) {
   const { dark } = useContext(ThemeContext);
+  // const { isLoggedIn } = useOutletContext<{ isLoggedIn: false }>();
 
   return (
     <div
-      // onMouseOver={() => setHovered(true)}
-      // onMouseLeave={() => setHovered(false)}
       className={`flex flex-col rounded-[5px] max-w-[360px] h-[460px] p-2   ${
         dark ? 'bg-gray-800' : 'bg-gray-200'
       }`}
@@ -56,7 +56,6 @@ export default function GameCard({
           <p className='mb-0'>Release: {releaseDate}</p>
         </div>
       </div>
-      <button className='bg-green-500 !rounded-[5px]'>Save</button>
     </div>
   );
 }
@@ -90,20 +89,14 @@ function CarouselComp({ screenshots }: { screenshots: string[] }) {
         idx={idx}
       />
       <div className='relative'>
-        <button
-          className='!font-bold text-red-500 cursor-pointer'
-          onClick={() => goBack()}
-        >
+        <button className='cursor-pointer' onClick={() => goBack()}>
           <img
             className='w-14 absolute bottom-25 left-0 hover:scale-[1.1] transition'
             src={svg.previous}
             alt='previous slide'
           />
         </button>
-        <button
-          className='!font-bold text-red-500 cursor-pointer'
-          onClick={() => goForward()}
-        >
+        <button className='cursor-pointer' onClick={() => goForward()}>
           <img
             className='w-14 absolute bottom-25 right-0 z-0 hover:scale-[1.1] transition'
             src={svg.next}
@@ -125,7 +118,7 @@ function PageIndicator({
   jumpToPage: (i: number) => void;
 }) {
   return (
-    <ul className=' flex justify-between pt-2 px-6'>
+    <ul className='flex justify-between mt-4 px-6'>
       {screenshot.map((url: string, index: number) => (
         <li
           onClick={() => jumpToPage(index)}

@@ -15,7 +15,6 @@ const availableGenres = [
   { label: 'Sports', value: 'sports' },
   { label: 'Fighting', value: 'fighting' },
   { label: 'Family', value: 'family' },
-  { label: 'Board Games', value: 'board-games' },
   { label: 'Card', value: 'card' },
 ];
 

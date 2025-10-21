@@ -94,8 +94,7 @@ h6 {
 }
 
 @theme {
-  --breakpoint-xl: 140rem;
-  --breakpoint-xmd: 55rem;
+  --breakpoint-xl: 110rem;
 }
 
 /* @theme {

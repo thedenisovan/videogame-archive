@@ -43,7 +43,7 @@ export default function useGameData({
     const url = `https://api.rawg.io/api/games?${
       // if genre array is empty return all genres else specific genre games
       !genres?.length ? `` : `genres=${genres?.join()}`
-    }&ordering=${orderBy}&page_size=30&page=${page}&key=${
+    }${orderBy ? `&ordering=${orderBy}` : ''}&page_size=30&page=${page}&key=${
       import.meta.env.VITE_RAWG
     }${title ? `&search=${title}` : ''}`;
 
