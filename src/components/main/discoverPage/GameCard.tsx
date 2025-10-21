@@ -4,7 +4,7 @@ import { ThemeContext } from '../../App';
 import { useContext /*useState*/, useState } from 'react';
 import svg from '../../../utils/svg';
 import defaultImg from '../../../assets/no-img.jpg';
-// import { useOutletContext } from 'react-router';
+import { useOutletContext } from 'react-router';
 
 export default function GameCard({
   title,
@@ -14,7 +14,6 @@ export default function GameCard({
   screenshots,
 }: GameValue) {
   const { dark } = useContext(ThemeContext);
-  // const { isLoggedIn } = useOutletContext<{ isLoggedIn: false }>();
 
   return (
     <div
@@ -63,6 +62,7 @@ export default function GameCard({
 function CarouselComp({ screenshots }: { screenshots: string[] }) {
   const [idx, setIdx] = useState<number>(0);
   const maxIdx = screenshots.length - 1;
+  const { isLoggedIn } = useOutletContext<{ isLoggedIn: false }>();
 
   const goForward = () => {
     if (idx !== maxIdx) setIdx(idx + 1);
@@ -89,6 +89,12 @@ function CarouselComp({ screenshots }: { screenshots: string[] }) {
         idx={idx}
       />
       <div className='relative'>
+        <button>
+          <img
+            className='w-10 absolute bottom-[14.5rem] left-2'
+            src={!isLoggedIn ? svg.disliked : svg.liked}
+          />
+        </button>
         <button className='cursor-pointer' onClick={() => goBack()}>
           <img
             className='w-14 absolute bottom-25 left-0 hover:scale-[1.1] transition'

@@ -16,8 +16,12 @@ import filterLight from '../assets/icons/filter-white.svg';
 import filterDark from '../assets/icons/filter-dark.svg';
 import next from '../assets/icons/next.svg';
 import previous from '../assets/icons/previous.svg';
+import liked from '../assets/icons/liked.svg';
+import disliked from '../assets/icons/unliked.svg';
 
 const svg = {
+  liked,
+  disliked,
   next,
   previous,
   filterDark,
