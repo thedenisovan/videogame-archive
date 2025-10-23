@@ -5,6 +5,7 @@ import { useContext /*useState*/, useState } from 'react';
 import svg from '../../../utils/svg';
 import defaultImg from '../../../assets/no-img.jpg';
 import { useOutletContext } from 'react-router';
+import { displayHeartIcon } from './favoriteGame';
 
 export default function GameCard({
   title,
@@ -12,6 +13,7 @@ export default function GameCard({
   releaseDate,
   genres,
   screenshots,
+  id,
 }: GameValue) {
   const { dark } = useContext(ThemeContext);
 
@@ -21,7 +23,7 @@ export default function GameCard({
         dark ? 'bg-gray-800' : 'bg-gray-200'
       }`}
     >
-      <CarouselComp screenshots={screenshots} />
+      <CarouselComp gameId={id} screenshots={screenshots} />
       <h2 className='!text-[1.2rem] !leading-5 font-sans`'>{title}</h2>
       <ul className='flex gap-1 mb-1 p-0 flex-wrap'>
         {genres.map((gen) => (
@@ -59,16 +61,24 @@ export default function GameCard({
   );
 }
 
-function CarouselComp({ screenshots }: { screenshots: string[] }) {
+function CarouselComp({
+  screenshots,
+  gameId,
+}: {
+  screenshots: string[];
+  gameId: string | number;
+}) {
   const [idx, setIdx] = useState<number>(0);
   const maxIdx = screenshots.length - 1;
   const { isLoggedIn } = useOutletContext<{ isLoggedIn: false }>();
 
+  // next slide
   const goForward = () => {
     if (idx !== maxIdx) setIdx(idx + 1);
     else if (idx === maxIdx) setIdx(0);
     else return `Error maxIdx: ${maxIdx} currIdx: ${idx}`;
   };
+  // prev slide
   const goBack = () => {
     if (idx !== 0) setIdx(idx - 1);
     else if (idx === 0) setIdx(maxIdx);
@@ -89,12 +99,14 @@ function CarouselComp({ screenshots }: { screenshots: string[] }) {
         idx={idx}
       />
       <div className='relative'>
-        <button>
-          <img
-            className='w-10 absolute bottom-[14.5rem] left-2'
-            src={!isLoggedIn ? svg.disliked : svg.liked}
-          />
-        </button>
+        {isLoggedIn && (
+          <button className={`cursor-pointer`}>
+            <img
+              className='w-10 absolute bottom-[14.5rem] left-2'
+              src={displayHeartIcon(gameId, svg.liked, svg.disliked)}
+            />
+          </button>
+        )}
         <button className='cursor-pointer' onClick={() => goBack()}>
           <img
             className='w-14 absolute bottom-25 left-0 hover:scale-[1.1] transition'
