@@ -1,3 +1,4 @@
+// adds/removes game to favorites when user clicks heart icon
 function addGameToFavorites(gameId: string | number): void {
   const result = localStorage.getItem('current-user');
   if (!result) return;
