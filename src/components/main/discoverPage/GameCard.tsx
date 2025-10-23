@@ -5,7 +5,7 @@ import { useContext /*useState*/, useState } from 'react';
 import svg from '../../../utils/svg';
 import defaultImg from '../../../assets/no-img.jpg';
 import { useOutletContext } from 'react-router';
-import { displayHeartIcon } from './favoriteGame';
+import { displayHeartIcon, addGameToFavorites } from './favoriteGame';
 
 export default function GameCard({
   title,
@@ -100,7 +100,10 @@ function CarouselComp({
       />
       <div className='relative'>
         {isLoggedIn && (
-          <button className={`cursor-pointer`}>
+          <button
+            onClick={() => addGameToFavorites(gameId)}
+            className={`cursor-pointer`}
+          >
             <img
               className='w-10 absolute bottom-[14.5rem] left-2'
               src={displayHeartIcon(gameId, svg.liked, svg.disliked)}

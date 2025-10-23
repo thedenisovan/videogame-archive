@@ -1,6 +1,6 @@
 interface UserData {
   password: string;
-  savedGames: Set<string>;
+  savedGames: string[];
 }
 
 function validateInput(pass1: string, pass2: string) {
@@ -14,7 +14,7 @@ function validateInput(pass1: string, pass2: string) {
 function registerUser(mail: string, pass: string, pass2: string) {
   const userData: UserData = {
     password: pass,
-    savedGames: new Set<string>([]),
+    savedGames: [],
   };
 
   if (validateInput(pass, pass2) !== 'success')

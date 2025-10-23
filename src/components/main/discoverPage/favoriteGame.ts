@@ -1,6 +1,20 @@
-// saves game to favorite tab if user is logged in and presses heart icon
-function addGameToFavorites(gameId: string | number) {
-  const result = localStorage.getItem();
+function addGameToFavorites(gameId: string | number): void {
+  const result = localStorage.getItem('current-user');
+  if (!result) return;
+  const parsed = JSON.parse(result);
+  const parsedSet = new Set<string>(parsed.savedGames);
+  if (parsedSet.has(String(gameId))) parsedSet.delete(String(gameId));
+  if (!parsedSet.has(String(gameId))) parsedSet.add(String(gameId));
+
+  // add updated savedGames back to localStorage
+  localStorage.setItem(
+    parsed.id,
+    JSON.stringify({ ...parsed, savedGames: Array.from(parsedSet) })
+  );
+  localStorage.setItem(
+    'current-user',
+    JSON.stringify({ ...parsed, savedGames: Array.from(parsedSet) })
+  );
 }
 
 // if game is favorite all ready for curr user display red heart icon else empty heart icon
@@ -10,9 +24,9 @@ function displayHeartIcon(
   notLiked: string
 ): string {
   const result = localStorage.getItem('current-user');
-  if (!result) return `No signed in user`;
+  if (!result) return ``;
   const parsed = JSON.parse(result);
-  const parsedSet = new Set<string>([parsed.savedGames]);
+  const parsedSet = new Set<string>(parsed.savedGames);
   if (parsedSet.has(String(gameId))) return liked;
   else return notLiked;
 }
