@@ -133,7 +133,7 @@ function CarouselComp({
             className={`cursor-pointer`}
           >
             <img
-              className='w-10 absolute bottom-[14.5rem] left-2'
+              className='w-10 absolute bottom-[14.5rem] left-2 hover:!rotate-9 transition'
               src={displayHeartIcon(gameId, svg.liked, svg.disliked)}
             />
           </button>

@@ -8,7 +8,7 @@ import ThemeContext from './context/ThemeContext';
 
 interface Games {
   screenshots: string[];
-  gameId?: string | number;
+  gameId: string | number;
   title: string;
   releaseDate: string;
   rating: string | number;

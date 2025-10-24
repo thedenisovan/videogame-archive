@@ -23,6 +23,7 @@ function addGameToFavorites(
       releaseDate,
       rating,
       genres,
+      gameId,
     });
 
   // updates state of saved games after click event
@@ -48,7 +49,7 @@ function displayHeartIcon(
   if (!result) return ``;
   const parsed = JSON.parse(result);
   const parsedSet = new Map(parsed.savedGames);
-  if (parsedSet.has(String(gameId))) return liked;
+  if (parsedSet.has(gameId)) return liked;
   else return notLiked;
 }
 
