@@ -19,7 +19,7 @@ export default function GameCard({
 
   return (
     <div
-      className={`flex flex-col rounded-[5px] max-w-[360px] h-[460px] p-2   ${
+      className={`flex flex-col rounded-[5px] max-w-[360px] !max-h-[460px] p-2   ${
         dark ? 'bg-gray-800' : 'bg-gray-200'
       }`}
     >

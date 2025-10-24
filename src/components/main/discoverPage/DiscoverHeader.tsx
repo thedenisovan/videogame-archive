@@ -11,7 +11,7 @@ export default function DiscoverHeader() {
       aria-labelledby='main-section-title'
       className={`
         flex gap-2 rounded-[7px]
-        md:bg-transparent md:!gap-0 md:w-100
+        md:bg-transparent md:!gap-0 md:w-[100%] md:justify-center
         ${dark ? 'bg-gray-800' : 'bg-gray-300'}`}
     >
       <img

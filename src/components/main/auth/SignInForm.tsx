@@ -21,7 +21,7 @@ export default function SignInForm() {
 
   return (
     <form
-      className='flex flex-col !my-[2rem] gap-3 md:!gap-1 w-[80%] '
+      className='flex flex-col !mt-[2rem] !mb-[1rem] gap-3 md:!gap-1 w-[80%] '
       onSubmit={(e) => {
         e.preventDefault();
       }}
@@ -52,6 +52,9 @@ export default function SignInForm() {
         <RegistrationButton setValidityError={setValidityError} />
       )}
       {isSignInPage && <SignInButton setValidityError={setValidityError} />}
+      <p className='mb-0 md:!mt-2 italic text-[0.8rem] text-green-600 text-center'>
+        *Details are saved in local storage
+      </p>
     </form>
   );
 }
@@ -127,8 +130,10 @@ function FormInput({
   const { updateInput } = useContext(FormContext);
 
   return (
-    <div className='flex flex-col'>
-      <label htmlFor={id}>{label}</label>
+    <div className='relative flex flex-col'>
+      <label className='absolute -top-5 md:-top-6 lg:!-top-5' htmlFor={id}>
+        {label}
+      </label>
       <input
         onChange={(e) => {
           updateInput(e.target.value, e.target.id);
@@ -136,8 +141,7 @@ function FormInput({
         value={value}
         className='
           rounded-[8px] text-black !outline-none
-        invalid:border-red-700 
-          border-1 valid:border-green-500'
+          border-1 mb-2 md:!mb-6'
         type={type}
         id={id}
         pattern={validation}

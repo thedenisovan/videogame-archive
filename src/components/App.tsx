@@ -30,7 +30,9 @@ export default function App() {
   const setOrderByVal = (e: string) => setOrderBy(e);
 
   return (
-    <div className={`${themeText()} ${themeBg()} flex flex-col h-[100%] `}>
+    <div
+      className={`${themeText()} ${themeBg()} flex flex-col h-[100%] !w-[100%]`}
+    >
       <AuthorizationContext value={{ isLoggedIn, setLoggedIn }}>
         <ThemeContext value={{ dark, toggleDark, themeBg, themeText }}>
           <Header role='header' />

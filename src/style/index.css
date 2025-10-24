@@ -10,6 +10,7 @@ body,
 html,
 #root {
   height: 100%;
+  width: 100% !important;
 }
 
 #root {
@@ -94,7 +95,9 @@ h6 {
 }
 
 @theme {
-  --breakpoint-xl: 110rem;
+  --breakpoint-xl: 1240px;
+  --breakpoint-2xl: 1750px;
+  --breakpoint-3xl: 2350px;
 }
 
 /* @theme {
