@@ -68,29 +68,31 @@ function DropDownComponent({
   const parsedUser = JSON.parse(currUser);
 
   return (
-    <Dropdown
-      className={`${
-        dark ? 'text-black' : 'text-white -translate-y-2'
-      } !text-xl !p-0 active:border-0`}
-      label='User'
-      dismissOnClick={true}
-    >
-      <div className='p-2 !pr-4 !pl-0'>
-        <DropdownItem className='!text-gray-500 p-0 hover:!bg-white'>
-          {parsedUser.id}
-        </DropdownItem>
-        <hr className='m-1 text-black -translate-x-10 w-[130%] ' />
-        <DropdownItem
-          onClick={() => {
-            setLoggedIn(false);
-            localStorage.removeItem('current-user');
-          }}
-          className='text-black p-0 hover:!bg-white'
-        >
-          Sign out
-        </DropdownItem>
-      </div>
-    </Dropdown>
+    <div className='-translate-y-2'>
+      <Dropdown
+        className={`${
+          dark ? 'text-black' : 'text-white'
+        } !text-xl !p-0 active:border-0`}
+        label='User'
+        dismissOnClick={true}
+      >
+        <div className='p-2 !pr-4 !pl-0'>
+          <DropdownItem className='!text-gray-500 p-0 hover:!bg-white'>
+            {parsedUser.id}
+          </DropdownItem>
+          <hr className='m-1 text-black -translate-x-10 w-[130%] ' />
+          <DropdownItem
+            onClick={() => {
+              setLoggedIn(false);
+              localStorage.removeItem('current-user');
+            }}
+            className='text-black p-0 hover:!bg-white'
+          >
+            Sign out
+          </DropdownItem>
+        </div>
+      </Dropdown>
+    </div>
   );
 }
 

@@ -1,13 +1,22 @@
 import { useContext } from 'react';
 import { AuthorizationContext } from '../../App';
-import { Link } from 'react-router';
+import { Link, useOutletContext } from 'react-router';
 
 export default function Favorites() {
   const { isLoggedIn } = useContext(AuthorizationContext);
+  const { savedGames } = useOutletContext<{ savedGames: string[] }>();
 
   return (
     <main className={`flex-1 flex justify-center items-center`}>
-      {isLoggedIn ? <h2>Favorites page</h2> : <NoUser />}
+      {isLoggedIn ? (
+        <ul>
+          {savedGames.map((game) => (
+            <li key={game}>{game}</li>
+          ))}
+        </ul>
+      ) : (
+        <NoUser />
+      )}
     </main>
   );
 }
