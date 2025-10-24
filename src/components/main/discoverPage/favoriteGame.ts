@@ -1,6 +1,8 @@
+import type { Games } from '../../App';
+
 // adds/removes game to favorites when user clicks favorite button
 function addGameToFavorites(
-  updateSavedGames: (games: Map<unknown, unknown>) => void,
+  updateSavedGames: (games: Map<number | string, Games>) => void,
   screenshots: string[],
   gameId: string | number,
   title: string,
@@ -11,11 +13,11 @@ function addGameToFavorites(
   const result = localStorage.getItem('current-user');
   if (!result) return;
   const parsed = JSON.parse(result);
-  const parsedSet = new Map(parsed.savedGames);
-  if (parsedSet.has(String(gameId))) parsedSet.delete(String(gameId));
+  const parsedSet = new Map<number | string, Games>(parsed.savedGames);
+  if (parsedSet.has(gameId)) parsedSet.delete(gameId);
   // cache game's data to local storage inside new Set
-  else if (!parsedSet.has(String(gameId)))
-    parsedSet.set(String(gameId), {
+  else if (!parsedSet.has(gameId))
+    parsedSet.set(gameId, {
       screenshots,
       title,
       releaseDate,

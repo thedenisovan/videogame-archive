@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useGameData from '../components/apiHooks/GameData';
 import Header from './header/Header';
 import FooterComp from './footer/FooterComp';
@@ -8,7 +8,7 @@ import ThemeContext from './context/ThemeContext';
 
 interface Games {
   screenshots: string[];
-  gameId: string | number;
+  gameId?: string | number;
   title: string;
   releaseDate: string;
   rating: string | number;
@@ -24,6 +24,15 @@ export default function App() {
   const [dark, setDark] = useState<boolean>(false);
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
   const [savedGames, setSavedGames] = useState<Map<number, Games>>(new Map());
+
+  // renders saved games when user signs in
+  useEffect(() => {
+    const data = localStorage.getItem('current-user');
+    if (!data) return;
+    const parsed = JSON.parse(data);
+    const mappedData = new Map<number, Games>(parsed.savedGames);
+    setSavedGames(mappedData);
+  }, [isLoggedIn]);
 
   // main data of api fetch return
   const { data, count } = useGameData({
