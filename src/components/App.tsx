@@ -32,6 +32,7 @@ export default function App() {
   // is used to update state after game is added/removed to/from favorites
   const updateSavedGames = (games: string[]) => {
     games.forEach((game) => setSavedGames((prev) => [...prev, game]));
+    if (!games.length) setSavedGames([]);
   };
 
   return (
