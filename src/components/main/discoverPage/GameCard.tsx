@@ -70,7 +70,10 @@ function CarouselComp({
 }) {
   const [idx, setIdx] = useState<number>(0);
   const maxIdx = screenshots.length - 1;
-  const { isLoggedIn } = useOutletContext<{ isLoggedIn: false }>();
+  const { isLoggedIn, updateSavedGames } = useOutletContext<{
+    isLoggedIn: false;
+    updateSavedGames: () => void;
+  }>();
 
   // next slide
   const goForward = () => {
@@ -101,7 +104,7 @@ function CarouselComp({
       <div className='relative'>
         {isLoggedIn && (
           <button
-            onClick={() => addGameToFavorites(gameId)}
+            onClick={() => addGameToFavorites(gameId, updateSavedGames)}
             className={`cursor-pointer`}
           >
             <img

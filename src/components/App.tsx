@@ -12,6 +12,9 @@ export default function App() {
   const [genres, setGenres] = useState<string[]>([]);
   const [page, setPage] = useState<number>(1);
   const [title, setTitle] = useState<string>('');
+  const [dark, setDark] = useState<boolean>(false);
+  const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
+  const [savedGames, setSavedGames] = useState<string[]>([]);
 
   // main data of api fetch return
   const { data, count } = useGameData({
@@ -21,13 +24,15 @@ export default function App() {
     title,
   });
 
-  const [dark, setDark] = useState<boolean>(false);
-  const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
-
   const themeBg = () => (dark ? 'bg-gray-700' : 'bg-white');
   const themeText = () => (dark ? '!text-white' : '!text-black');
   const toggleDark = () => setDark(!dark);
   const setOrderByVal = (e: string) => setOrderBy(e);
+
+  // is used to update state after game is added/removed to/from favorites
+  const updateSavedGames = (games: string[]) => {
+    games.forEach((game) => setSavedGames((prev) => [...prev, game]));
+  };
 
   return (
     <div
@@ -48,6 +53,8 @@ export default function App() {
               page,
               setTitle,
               isLoggedIn,
+              savedGames,
+              updateSavedGames,
             }}
           />
           <FooterComp />
