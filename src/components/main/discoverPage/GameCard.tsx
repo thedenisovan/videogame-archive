@@ -23,7 +23,14 @@ export default function GameCard({
         dark ? 'bg-gray-800' : 'bg-gray-200'
       }`}
     >
-      <CarouselComp gameId={id} screenshots={screenshots} />
+      <CarouselComp
+        gameId={id}
+        title={title}
+        releaseDate={releaseDate}
+        genres={genres}
+        rating={rating}
+        screenshots={screenshots}
+      />
       <h2 className='!text-[1.2rem] !leading-5 font-sans`'>{title}</h2>
       <ul className='flex gap-1 mb-1 p-0 flex-wrap'>
         {genres.map((gen) => (
@@ -64,9 +71,17 @@ export default function GameCard({
 function CarouselComp({
   screenshots,
   gameId,
+  title,
+  releaseDate,
+  rating,
+  genres,
 }: {
   screenshots: string[];
   gameId: string | number;
+  title: string;
+  releaseDate: string;
+  rating: number | string;
+  genres: string[];
 }) {
   const [idx, setIdx] = useState<number>(0);
   const maxIdx = screenshots.length - 1;
@@ -104,7 +119,17 @@ function CarouselComp({
       <div className='relative'>
         {isLoggedIn && (
           <button
-            onClick={() => addGameToFavorites(gameId, updateSavedGames)}
+            onClick={() =>
+              addGameToFavorites(
+                updateSavedGames,
+                screenshots,
+                gameId,
+                title,
+                releaseDate,
+                rating,
+                genres
+              )
+            }
             className={`cursor-pointer`}
           >
             <img

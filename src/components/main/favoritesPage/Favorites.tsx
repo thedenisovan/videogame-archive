@@ -1,17 +1,32 @@
 import { useContext } from 'react';
 import { AuthorizationContext } from '../../App';
 import { Link, useOutletContext } from 'react-router';
+import type { Games } from '../../App';
+import GameCard from '../discoverPage/GameCard';
 
 export default function Favorites() {
   const { isLoggedIn } = useContext(AuthorizationContext);
-  const { savedGames } = useOutletContext<{ savedGames: string[] }>();
+  const { savedGames } = useOutletContext<{
+    savedGames: Map<number, Games>;
+  }>();
 
   return (
     <main className={`flex-1 flex justify-center items-center`}>
       {isLoggedIn ? (
         <ul>
-          {savedGames.map((game) => (
-            <li key={game}>{game}</li>
+          {[...savedGames].map(([key, value]) => (
+            <li key={key}>
+              {
+                <GameCard
+                  releaseDate={value.releaseDate}
+                  screenshots={value.screenshots}
+                  rating={value.rating}
+                  title={value.title}
+                  id={key}
+                  genres={value.genres}
+                />
+              }
+            </li>
           ))}
         </ul>
       ) : (

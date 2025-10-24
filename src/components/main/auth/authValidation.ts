@@ -1,6 +1,8 @@
+import type { Games } from '../../App';
+
 interface UserData {
   password: string;
-  savedGames: string[];
+  savedGames: Map<number, Games>[];
 }
 
 function validateInput(pass1: string, pass2: string) {

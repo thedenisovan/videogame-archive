@@ -6,6 +6,15 @@ import { Outlet } from 'react-router';
 import AuthorizationContext from './context/Authorization';
 import ThemeContext from './context/ThemeContext';
 
+interface Games {
+  screenshots: string[];
+  gameId: string | number;
+  title: string;
+  releaseDate: string;
+  rating: string | number;
+  genres: string[];
+}
+
 export default function App() {
   // order games by order by value
   const [orderBy, setOrderBy] = useState<string>('-ratings');
@@ -14,7 +23,7 @@ export default function App() {
   const [title, setTitle] = useState<string>('');
   const [dark, setDark] = useState<boolean>(false);
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
-  const [savedGames, setSavedGames] = useState<string[]>([]);
+  const [savedGames, setSavedGames] = useState<Map<number, Games>>(new Map());
 
   // main data of api fetch return
   const { data, count } = useGameData({
@@ -30,9 +39,8 @@ export default function App() {
   const setOrderByVal = (e: string) => setOrderBy(e);
 
   // is used to update state after game is added/removed to/from favorites
-  const updateSavedGames = (games: string[]) => {
+  const updateSavedGames = (games: Map<number, Games>) => {
     setSavedGames(games);
-    if (!games.length) setSavedGames([]);
   };
 
   return (
@@ -66,3 +74,4 @@ export default function App() {
 }
 
 export { ThemeContext, AuthorizationContext };
+export type { Games };

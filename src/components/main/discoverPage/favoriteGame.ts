@@ -1,17 +1,30 @@
 // adds/removes game to favorites when user clicks favorite button
 function addGameToFavorites(
+  updateSavedGames: (games: Map<unknown, unknown>) => void,
+  screenshots: string[],
   gameId: string | number,
-  updateSavedGames: (games: string[]) => void
+  title: string,
+  releaseDate: string,
+  rating: number | string,
+  genres: string[]
 ): void {
   const result = localStorage.getItem('current-user');
   if (!result) return;
   const parsed = JSON.parse(result);
-  const parsedSet = new Set<string>(parsed.savedGames);
+  const parsedSet = new Map(parsed.savedGames);
   if (parsedSet.has(String(gameId))) parsedSet.delete(String(gameId));
-  else if (!parsedSet.has(String(gameId))) parsedSet.add(String(gameId));
+  // cache game's data to local storage inside new Set
+  else if (!parsedSet.has(String(gameId)))
+    parsedSet.set(String(gameId), {
+      screenshots,
+      title,
+      releaseDate,
+      rating,
+      genres,
+    });
 
   // updates state of saved games after click event
-  updateSavedGames(Array.from(parsedSet));
+  updateSavedGames(parsedSet);
   // add updated savedGames back to localStorage
   localStorage.setItem(
     parsed.id,
@@ -32,7 +45,7 @@ function displayHeartIcon(
   const result = localStorage.getItem('current-user');
   if (!result) return ``;
   const parsed = JSON.parse(result);
-  const parsedSet = new Set<string>(parsed.savedGames);
+  const parsedSet = new Map(parsed.savedGames);
   if (parsedSet.has(String(gameId))) return liked;
   else return notLiked;
 }
