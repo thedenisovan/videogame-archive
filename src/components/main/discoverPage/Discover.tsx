@@ -37,7 +37,10 @@ export default function Discover() {
           flex-1 flex !items-center flex-col px-2 py-2
           ${dark ? 'bg-gray-700' : 'bg-white'} lg:!flex-7`}
       >
-        <DiscoverHeader />
+        <DiscoverHeader
+          headerText='Browse & Search'
+          pText='Discover your next gaming obsession from thousands of titles'
+        />
         <CollapseContext value={{ isCollapsed, setIsCollapsed }}>
           <FilterBar />
         </CollapseContext>

@@ -2,33 +2,37 @@ import { useContext } from 'react';
 import { AuthorizationContext } from '../../App';
 import { Link, useOutletContext } from 'react-router';
 import type { Games } from '../../App';
-import GameCard from '../discoverPage/GameCard';
+import SavedGames from './SavedGames';
+import DiscoverHeader from '../discoverPage/DiscoverHeader';
+import { ThemeContext } from '../../App';
 
 export default function Favorites() {
   const { isLoggedIn } = useContext(AuthorizationContext);
+  const { dark } = useContext(ThemeContext);
   const { savedGames } = useOutletContext<{
     savedGames: Map<number, Games>;
   }>();
 
   return (
-    <main className={`flex-1 flex justify-center items-center`}>
+    <main
+      className={`${
+        dark ? 'bg-gray-700' : 'bg-gray-300'
+      } flex-1 flex justify-center items-center`}
+    >
       {isLoggedIn ? (
-        <ul>
-          {[...savedGames].map(([key, value]) => (
-            <li key={key}>
-              {
-                <GameCard
-                  releaseDate={value.releaseDate}
-                  screenshots={value.screenshots}
-                  rating={value.rating}
-                  title={value.title}
-                  id={key}
-                  genres={value.genres}
-                />
-              }
-            </li>
-          ))}
-        </ul>
+        ![...savedGames].length ? (
+          <NoGamesInLibrary />
+        ) : (
+          <section
+            className={`${dark ? 'bg-gray-600' : 'bg-white'} h-100 px-4`}
+          >
+            <DiscoverHeader
+              headerText='Your game library'
+              pText='Browse your saved games'
+            />
+            <SavedGames />
+          </section>
+        )
       ) : (
         <NoUser />
       )}
@@ -50,6 +54,19 @@ function NoUser() {
         {' '}
         sign in
       </Link>
+    </div>
+  );
+}
+
+function NoGamesInLibrary() {
+  return (
+    <div className='text-center'>
+      <h2 className='text-center'>No games in your library</h2>
+      Go{' '}
+      <Link className=' !text-blue-500' to='/'>
+        {' '}
+        browse games
+      </Link>{' '}
     </div>
   );
 }

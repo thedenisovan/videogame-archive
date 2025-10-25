@@ -2,7 +2,13 @@ import svg from '../../../utils/svg';
 import { useContext } from 'react';
 import { ThemeContext } from '../../App';
 
-export default function DiscoverHeader() {
+export default function DiscoverHeader({
+  headerText,
+  pText,
+}: {
+  headerText: string;
+  pText: string;
+}) {
   const { dark } = useContext(ThemeContext);
 
   return (
@@ -25,11 +31,9 @@ export default function DiscoverHeader() {
           id='main-section-title'
           className='mb-0 md:!text-3xl md:text-center'
         >
-          Browse & Search
+          {headerText}
         </h2>
-        <p className='text-left md:text-xl md:!text-center md:!mb-0'>
-          Discover your next gaming obsession from thousands of titles
-        </p>
+        <p className='text-left md:text-xl md:!text-center md:!mb-0'>{pText}</p>
       </div>
     </header>
   );
