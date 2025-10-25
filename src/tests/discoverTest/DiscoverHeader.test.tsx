@@ -4,7 +4,9 @@ import { render } from '@testing-library/react';
 
 describe('discover header should be in doc', () => {
   it('all comps should be visible', () => {
-    const { getByRole } = render(<DiscoverHeader />);
+    const { getByRole } = render(
+      <DiscoverHeader headerText='Browse & Search' pText='' />
+    );
 
     expect(getByRole('heading')).toBeInTheDocument();
     expect(getByRole('img')).toBeInTheDocument();
