@@ -105,9 +105,9 @@ function CarouselComp({
   const jumpToPage = (i: number) => setIdx(i);
 
   return (
-    <div className='m-auto'>
+    <div className='m-auto '>
       <img
-        className='!rounded-[5px] !h-[220px] !object-cover !w-100'
+        className='!rounded-[5px] !h-[220px] !object-cover !w-100 '
         src={screenshots[idx] ? screenshots[idx] : defaultImg}
         alt='game screenshot'
       />
