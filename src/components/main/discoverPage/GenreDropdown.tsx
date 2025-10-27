@@ -38,9 +38,9 @@ export default function GenreDropdown({
         ${dark ? 'bg-gray-600 text-white' : 'bg-gray-300'}
         ${isCollapsed ? `scale-y-0` : `scale-y-100`}`}
     >
-      <h3 className='text-center !font-normal lg:!text-left lg:!font-bold lg:col-span-2 lg:!ml-2'>
+      <h2 className='text-center !font-normal lg:!text-left lg:!font-bold lg:col-span-2 lg:!ml-2'>
         Browse genres
-      </h3>
+      </h2>
       {availableGenres.map((gen) => (
         <div
           key={gen.value}

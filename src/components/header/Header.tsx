@@ -5,17 +5,14 @@ import SideBar from './SideBar';
 import DesktopHeader from './DesktopHeader';
 import { Link } from 'react-router';
 
-export default function Header({ role }: { role: string }) {
+export default function Header() {
   const { dark } = useContext(ThemeContext);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleSideBar = () => setIsOpen(!isOpen);
 
   return (
-    <header
-      role={role}
-      className={` ${dark ? ' bg-gray-800' : 'bg-gray-200 '}`}
-    >
+    <header className={` ${dark ? ' bg-gray-800' : 'bg-gray-200 '}`}>
       <div
         className={`m-auto max-w-[1600px] lg:max-w-[2300px] flex justify-between p-3 h-[4rem] md:h-[5rem]`}
       >

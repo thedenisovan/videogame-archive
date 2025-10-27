@@ -58,7 +58,7 @@ export default function App() {
     >
       <AuthorizationContext value={{ isLoggedIn, setLoggedIn }}>
         <ThemeContext value={{ dark, toggleDark, themeBg, themeText }}>
-          <Header role='header' />
+          <Header />
           <Outlet
             context={{
               data,
