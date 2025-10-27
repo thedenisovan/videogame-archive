@@ -140,14 +140,14 @@ function CarouselComp({
         )}
         <button className='cursor-pointer' onClick={() => goBack()}>
           <img
-            className='w-14 absolute bottom-25 left-0 hover:scale-[1.1] transition'
+            className='w-14 absolute bottom-35 left-0 hover:scale-[1.1] transition'
             src={svg.previous}
             alt='previous slide'
           />
         </button>
         <button className='cursor-pointer' onClick={() => goForward()}>
           <img
-            className='w-14 absolute bottom-25 right-0 z-0 hover:scale-[1.1] transition'
+            className='w-14 absolute bottom-35 right-0 z-0 hover:scale-[1.1] transition'
             src={svg.next}
             alt='next slide'
           />

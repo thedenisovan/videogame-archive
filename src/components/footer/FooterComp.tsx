@@ -11,7 +11,7 @@ export default function FooterComp() {
         container
         className={`p-4 ${
           !dark ? '!bg-gray-200' : '!bg-gray-800 text-white'
-        } rounded-0 max-w-[1600px] m-auto shadow-none`}
+        } rounded-0 max-w-[1600px] lg:max-w-[2300px] m-auto shadow-none`}
       >
         <FooterCopyright
           className={`${
