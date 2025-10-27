@@ -11,6 +11,6 @@ describe('App component', () => {
         <App />
       </MemoryRouter>
     );
-    expect(screen.getByRole('header')).toBeInTheDocument();
+    expect(screen.getByRole('heading')).toBeInTheDocument();
   });
 });

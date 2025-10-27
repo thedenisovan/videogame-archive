@@ -9,11 +9,11 @@ describe('Header component tests', () => {
   it('Components should be in the document', () => {
     const { getByRole } = render(
       <MemoryRouter>
-        <Header role='header' />
+        <Header />
       </MemoryRouter>
     );
 
-    const header = getByRole('header');
+    const header = getByRole('heading');
     const h1 = getByRole('heading', { level: 1 });
 
     expect(header).toBeInTheDocument();
@@ -23,7 +23,7 @@ describe('Header component tests', () => {
   it('Side bar component and it`s elements should be hidden initially', () => {
     const { queryByRole, getByRole } = render(
       <MemoryRouter>
-        <Header role='header' />
+        <Header />
       </MemoryRouter>
     );
 
@@ -39,7 +39,7 @@ describe('Header component tests', () => {
   it('After hamburger button is clicked side bar should expand', async () => {
     const { getByRole } = render(
       <MemoryRouter>
-        <Header role='header' />
+        <Header />
       </MemoryRouter>
     );
 
@@ -57,7 +57,7 @@ describe('Header tests for md < components', () => {
   it('Desktop comp buttons should be in the document', () => {
     const { getByTestId } = render(
       <MemoryRouter>
-        <Header role='header' />
+        <Header />
       </MemoryRouter>
     );
 
@@ -70,7 +70,7 @@ describe('Header tests for md < components', () => {
   it('Web page should have light theme initially', async () => {
     const { getByTestId } = render(
       <MemoryRouter>
-        <Header role='header' />
+        <Header />
       </MemoryRouter>
     );
 
@@ -93,7 +93,7 @@ describe('Header tests for md < components', () => {
         }}
       >
         <MemoryRouter>
-          <Header role='header' />
+          <Header />
         </MemoryRouter>
       </ThemeContext>
     );
