@@ -178,3 +178,6 @@ function SignUpSvgButtons() {
     </section>
   );
 }
+
+registerUser('guest@email.com', 'RandomPass@123', 'RandomPass@123');
+signInUser('guest@email.com', 'RandomPass@123');

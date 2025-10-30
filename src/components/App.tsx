@@ -22,7 +22,7 @@ export default function App() {
   const [page, setPage] = useState<number>(1);
   const [title, setTitle] = useState<string>('');
   const [dark, setDark] = useState<boolean>(false);
-  const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
+  const [isLoggedIn, setLoggedIn] = useState<boolean>(true);
   const [savedGames, setSavedGames] = useState<Map<number, Games>>(new Map());
 
   // renders saved games when user signs in
