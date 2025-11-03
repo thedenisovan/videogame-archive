@@ -32,6 +32,7 @@ with data persisted in local storage for a personalized experience.
 
 ---
 
-## 🔗 Preview
+## 🔗 Preview below
 Explore the project live: [Video Game Library](https://videogame-archive.pages.dev/)
+
 
